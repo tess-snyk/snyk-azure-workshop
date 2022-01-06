@@ -17,8 +17,10 @@ In this **hands-on** workshop we will achieve the follow:
 * public GitHub account - http://github.com
 * git CLI - https://git-scm.com/downloads
 * Microsoft Azure Subscription - https://azure.microsoft.com/en-au/free/
+* Azure CLI - https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 * snyk CLI - https://support.snyk.io/hc/en-us/articles/360003812538-Install-the-Snyk-CLI
 * Registered account on Snyk App - http://app.snyk.io
+* Docker Hub Account - http://hub.docker.com
 
 # Workshop Steps
 
@@ -118,6 +120,33 @@ az repos import create --git-source-url https://github.com/papicella/dotNET-goof
 
 ## Step 2 Import a DockerHub repository container image to ACR
 
+In order to import a container image from DockerHub we will need a container registry on Azure. Using the following link create a container registry called "**snykazureregistry**". If you already have a container registry you can simply use that and skip this but please make sure you use your registry name in the commands that follow.
+
+https://docs.microsoft.com/en-au/azure/container-registry/container-registry-get-started-portal
+
+![alt tag](https://i.ibb.co/FWhqznF/snyk-azure-workshop-2.png)
+
+* Login to the container registry as shown below
+
+```shell
+❯ az acr login --name snykazureregistry
+Login Succeeded
+```
+
+* Import the image as shown below. You will need to supply your docker username/password to access the public image ""
+
+* Import the following container into your ACR as follows, please be sure to use the correct name of your container registry if you did not use "**snykazureregistry**". You will also need to supply your Dockerhub username and password
+
+1. DOCKERHUB_USER
+2. DOCKERHUB_PASSWORD
+
+```shell
+❯ az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
+```
+
+* If all went well the previous command should how the image in your container registry as shown below
+
+![alt tag](https://i.ibb.co/tYRvcSQ/snyk-azure-workshop-3.png)
 
 ## Step 3 Setup Azure Repos Integration
 
