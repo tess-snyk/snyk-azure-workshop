@@ -26,6 +26,10 @@ In this **hands-on** workshop we will achieve the follow:
 
 _Note: It is assumed you have already logged into Azure using the Azure CLI as shown below_
 
+If you don't have the Azure CLI installed, install it now as follows
+
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+
 ```shell
 ❯ az login
 The default web browser has been opened at https://login.microsoftonline.com/organizations/oauth2/v2.0/authorize. Please continue the login in the web browser. If no web browser is available or if the web browser fails to open, use device code flow with `az login --use-device-code`.
@@ -51,7 +55,7 @@ The default web browser has been opened at https://login.microsoftonline.com/org
 
 In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as per above
 
-1. git-source-url
+1. git-source-url = https://github.com/papicella/dotNET-goof-v2
 2. project = name of an empty azure repos project you might have to create that before importing
 3. org = Azure DevOps organization URL
 4. repository = Use the same name as project above
