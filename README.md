@@ -21,6 +21,7 @@ In this **hands-on** workshop we will achieve the follow:
 * snyk CLI - https://support.snyk.io/hc/en-us/articles/360003812538-Install-the-Snyk-CLI
 * Registered account on Snyk App - http://app.snyk.io
 * Docker Hub Account - http://hub.docker.com
+* Docker Desktop running locally - https://docker.com/products/docker-desktop
 
 # Workshop Steps
 
@@ -63,6 +64,12 @@ In order for us to import a public GitHub repository into Azure repos we will ne
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
 
 * Import as follows
+
+Note: You may encounter this error so if you do please select "Y" and continue for the command to complete
+
+```shell
+The command requires the extension azure-devops. Do you want to install it now? The command will continue to run after the extension is installed. (Y/n): y
+```
 
 ```shell
 > az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/pasapicella0207 --repository snyk-azure-project
@@ -134,6 +141,9 @@ In order to import a container image from DockerHub we will need a container reg
 https://docs.microsoft.com/en-au/azure/container-registry/container-registry-get-started-portal
 
 ![alt tag](https://i.ibb.co/FWhqznF/snyk-azure-workshop-2.png)
+
+_Note: You must have docker desktop running locally before you start these steps
+Docker Desktop running locally - https://docker.com/products/docker-desktop_
 
 * Login to the container registry as shown below
 
