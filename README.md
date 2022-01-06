@@ -121,6 +121,9 @@ az repos import create --git-source-url https://github.com/papicella/dotNET-goof
 
 ![alt tag](https://i.ibb.co/sy4KyYr/snyk-azure-workshop-1.png)
 
+If you have any trouble this guide explains how this command works
+
+https://docs.microsoft.com/en-us/cli/azure/repos/import?view=azure-cli-latest
 
 ## Step 2 Import a DockerHub repository container image to ACR
 
@@ -148,9 +151,13 @@ Login Succeeded
 ❯ az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
 ```
 
-* If all went well the previous command should how the image in your container registry as shown below
+* If all went well the previous command should show the image in your container registry as shown below
 
 ![alt tag](https://i.ibb.co/tYRvcSQ/snyk-azure-workshop-3.png)
+
+If you have any trouble this guide explains how this command works
+
+https://docs.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli
 
 ## Step 3 Setup Azure Repos Integration
 
