@@ -24,7 +24,7 @@ In this **hands-on** workshop we will achieve the follow:
 
 # Workshop Steps
 
-_Note: It is assumed you have already logged into Azure using the Azure CLI as shown below
+_Note: It is assumed you have already logged into Azure using the Azure CLI as shown below_
 
 ```shell
 ❯ az login
@@ -150,6 +150,52 @@ Login Succeeded
 
 ## Step 3 Setup Azure Repos Integration
 
+Snyk integrates with Microsoft Azure Repos to enable you to import your projects and monitor the source code for your repositories. Snyk tests the projects you’ve imported for any known security vulnerabilities found in the application’s dependencies, testing at a frequency you control.
+
+* Login to http://app.snyk.io Sign up if you haven't already.
+* Navigating to Integrations -> Source Control -> Azure Repos
+* Enter in your Azure DevOps organization name as shown below and click Next
+
+![alt tag](https://i.ibb.co/PFD4NWT/snyk-azure-workshop-4.png)
+
+* Create a PAT in Azure DevOps the instructions shown to the right are all that is required here, once done click Save
+
+![alt tag](https://i.ibb.co/zZ7t4mh/snyk-azure-workshop-5.png)
+
+* If all went well then it should show a green button to import our first repo
+
+![alt tag](https://i.ibb.co/1Gn91RC/snyk-azure-workshop-6.png)
+
+More information of how to setup and use this integration can be found here
+
+https://docs.snyk.io/features/integrations/git-repository-scm-integrations/azure-repos-integration
+
+* Go ahead and click on "**Add your Azure Repos repositories to Snyk**"
+* Search for "**dotNET goof v2**" and click on "Add selected repositories" top right hand corner of the page
+
+_Note: This may take a few minutes to scan but once done you should some something as follows, ignore the warnings_
+
+![alt tag](https://i.ibb.co/2jRz2FR/snyk-azure-workshop-7.png)
+
+* Click on the link for "**dotNETGoofV2.Website.csproj**" so we can view the open source dependencies vulnerabilities that exist here
+
+![alt tag](https://i.ibb.co/6Drf31b/snyk-azure-workshop-8.png)
+
+For each Vulnerability, Snyk displays the following ordered by our [Proprietary Priority Score](https://snyk.io/blog/snyk-priority-score/) :
+1. The module that introduced it and, in the case of transitive dependencies, its direct dependency,
+2. Details on the path and proposed Remediation, as well as the specific vulnerable functions
+3. Overview
+4. Exploit maturity
+5. Links to CWE, CVE and CVSS Score
+6. Plus more ...
+
+Not only is Snyk able to clearly identify the vulnerable library but if it can be fixed we will provide the ability to create a Pull Request to actually fix the issue.
+
+* Go ahead and click onm "**Fix this vulnerable**" to see how Snyk creates a PR directly on the Azure Repo repository we imported
+
+Here is what a PR on Azure Repos would look like if you upgraded "**Halibut from 4.4.4 to 4.4.7**"
+
+![alt tag](https://i.ibb.co/yg06NBL/snyk-azure-workshop-9.png)
 
 ## Step 4 Setup ACR Integration
 
