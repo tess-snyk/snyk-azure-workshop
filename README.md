@@ -199,14 +199,19 @@ Here is what a PR on Azure Repos would look like if you upgraded "**Halibut from
 
 ## Step 4 Setup ACR Integration
 
+TODO://
 
 ## Step 5 Using VS Code to Secure your code as you develop
 
+TODO://
 
 ## Step 6 Using Snyk IaC to test ARM templates
 
+TODO://
 
 ## Step 7 Using Snyk Kubernetes Integration on AKS
+
+TODO://
 
 Thanks for attending and completing this workshop
 
