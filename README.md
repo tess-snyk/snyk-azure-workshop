@@ -256,7 +256,18 @@ https://docs.snyk.io/products/snyk-container/image-scanning-library/acr-image-sc
 
 ## Step 5 Using VS Code to Secure your code as you develop
 
-TODO://
+IDE integrations use Snyk Code’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check the code in. So you can find possible security flaws in your code as you write it, on a line-by-line basis.
+
+Snyk Code supports a VS Code plugin to support issue finding and fixing, directly from the IDE
+
+* Clone or download a ZIP of your Azure Repo repository and open vscode from the directory "**dotNETGoofV2.Website**"
+* Install the VS Code Snyk plugin using the link below
+
+https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extension-for-snyk-code
+
+* Using the Snyk Icon on the left hand sidebar, it should auto run the test for you if not use the play buttons
+
+![alt tag](https://i.ibb.co/S7KgFsy/snyk-azure-workshop-16.png)
 
 ## Step 6 Using Snyk IaC to test ARM templates
 
