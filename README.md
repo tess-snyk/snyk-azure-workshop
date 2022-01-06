@@ -65,7 +65,7 @@ In order for us to import a public GitHub repository into Azure repos we will ne
 * Import as follows
 
 ```shell
-az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/pasapicella0207 --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/pasapicella0207 --repository snyk-azure-project
 {
   "detailedStatus": {
     "allSteps": [
