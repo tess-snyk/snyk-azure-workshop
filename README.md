@@ -222,7 +222,37 @@ Here is what a PR on Azure Repos would look like if you upgraded "**Halibut from
 
 ## Step 4 Setup ACR Integration
 
-TODO://
+Snyk integrates with Microsoft Azure Container Registry (ACR) to enable you to import your projects and monitor your containers for vulnerabilities, as is fully described in our Container vulnerability management documentation. Snyk tests the projects you’ve imported for any known security vulnerabilities found, testing at a frequency you control.
+
+* Login to http://app.snyk.io Sign up if you haven't already.
+* Navigating to Integrations -> Container Registries -> ACR
+* Enter in your ACR connection details as shown below
+
+![alt tag](https://i.ibb.co/TcCf2Y8/snyk-azure-workshop-12.png)
+
+By enabling an admin user you can easily connect to the registry using a username/password. For alternative ways of connecting see the following link
+https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-service-principal
+
+![alt tag](https://i.ibb.co/qDNPsMd/snyk-azure-workshop-11.png)
+
+More Information
+
+https://docs.snyk.io/products/snyk-container/image-scanning-library/acr-image-scanning/configure-integration-for-acr
+
+* If successful you should see the following
+
+![alt tag](https://i.ibb.co/4TPGkhh/snyk-azure-workshop-13.png)
+
+* Click on "**Add your ACR images to Snyk**"
+* Import "**springbootemployee**" image using the only tag available
+* Once complete you should see the following. This may take a few minutes and ignore any warnings you may see
+
+![alt tag](https://i.ibb.co/LzktTsM/snyk-azure-workshop-14.png)
+
+* Click on "**multi-stage-add-layers**" to view the base image vulnerabilities
+* Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below 
+
+![alt tag](https://i.ibb.co/C89xqrk/snyk-azure-workshop-15.png)
 
 ## Step 5 Using VS Code to Secure your code as you develop
 
