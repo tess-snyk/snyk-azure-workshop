@@ -444,6 +444,7 @@ https://snyk.io/security-rules/tags/ARM
 
 ![alt tag](https://i.ibb.co/FBJCSbc/snyk-azure-workshop-17.png)
 
+_Note: At the time of this workshop creation ARM template scanning in Snyk App was not available, but it will be at some point in the future_
 
 Thanks for attending and completing this workshop
 
