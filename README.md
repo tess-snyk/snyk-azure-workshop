@@ -452,6 +452,22 @@ https://snyk.io/security-rules/tags/ARM
 
 _Note: At the time of this workshop creation ARM template scanning in Snyk App was not available, but it will be at some point in the future_
 
+## Conclusion
+
+For this workshop we covered the following Azure integrations
+
+1. Azure Repos
+2. Azure Container Registry (ACR)
+3. Snyk IDE plugin for VS Code
+
+Having said that Snyk can do even more on Azure including the following which we did not cover, feel free to check out how we can use those integrations using the links below
+
+1. Azure Pipelines Integration - https://docs.snyk.io/features/integrations/ci-cd-integrations/azure-pipelines-integration
+2. Azure Kubernetes Integration - https://docs.snyk.io/products/snyk-container/image-scanning-library/kubernetes-workload-and-image-scanning/kubernetes-integration-overview 
+3. Azure Functions - https://docs.snyk.io/features/integrations/serverless-integrations/azure-functions-overview
+
+![alt tag](https://i.ibb.co/pwyfvVJ/snyk-azure-workshop-18.png)
+
 Thanks for attending and completing this workshop
 
 ![alt tag](https://i.ibb.co/7tnp1B6/snyk-logo.png)
