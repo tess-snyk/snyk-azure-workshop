@@ -10,15 +10,13 @@ In this **hands-on** workshop we will achieve the follow:
 * Step 4 Setup ACR Integration
 * Step 5 Using VS Code to Secure your code as you develop
 * Step 6 Using Snyk IaC to test ARM templates
-* Step 7 Using Snyk Kubernetes Integration on AKS
 
 ## Prerequisites
 
-* public GitHub account - http://github.com
-* git CLI - https://git-scm.com/downloads
 * Microsoft Azure Subscription - https://azure.microsoft.com/en-au/free/
 * Azure CLI - https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 * snyk CLI - https://support.snyk.io/hc/en-us/articles/360003812538-Install-the-Snyk-CLI
+* git CLI - https://git-scm.com/downloads
 * Registered account on Snyk App - http://app.snyk.io
 * Docker Hub Account - http://hub.docker.com
 * Docker Desktop running locally - https://docker.com/products/docker-desktop
@@ -271,11 +269,181 @@ https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extensio
 
 ## Step 6 Using Snyk IaC to test ARM templates
 
-TODO://
+Snyk Infrastructure as Code for Azure Resource Manager (ARM) supports scanning json format.
 
-## Step 7 Using Snyk Kubernetes Integration on AKS
+* Before we get started please make sure you have setup the Snyk CLI. There are various install options as per the links below. Using the prebuilt binaries means you don't have to install NPM to install the Snyk CLI.
 
-TODO://
+1. Install Page - https://support.snyk.io/hc/en-us/articles/360003812538-Install-the-Snyk-CLI
+1. Prebuilt Binaries - https://github.com/snyk/snyk/releases
+
+_Note: Make sure you have the following version installed or later_
+
+```bash
+❯ snyk --version
+1.801.0
+```
+
+* Authorize the snyk CLI with your account as follows
+
+```bash
+$ snyk auth
+
+Now redirecting you to our auth page, go ahead and log in,
+and once the auth is complete, return to this prompt and you'll
+be ready to start using snyk.
+
+If you can't wait use this url:
+https://snyk.io/login?token=ff75a099-4a9f-4b3d-b75c-bf9847672e9c&utm_medium=cli&utm_source=cli&utm_campaign=cli&os=darwin&docker=false
+
+Your account has been authenticated. Snyk is now ready to be used.
+```
+
+_Note: If you are having trouble authenticating via a browser with the Snyk App you can setup authentication using the API token as shown below
+[Authenticate using your API token](https://support.snyk.io/hc/en-us/articles/360004008258-Authenticate-the-CLI-with-your-account#UUID-4f46843c-174d-f448-cadf-893cfd7dd858_section-idm4557419555668831541902780562)_
+
+* Clone this repository as shown below. This repo has some arm templates we will scan shortly
+
+```shell
+❯ git clone https://github.com/papicella/snyk-azure-workshop
+Cloning into 'snyk-azure-workshop'...
+remote: Enumerating objects: 48, done.
+remote: Counting objects: 100% (48/48), done.
+remote: Compressing objects: 100% (22/22), done.
+remote: Total 48 (delta 13), reused 46 (delta 11), pack-reused 0
+Receiving objects: 100% (48/48), 15.60 KiB | 939.00 KiB/s, done.
+Resolving deltas: 100% (13/13), done.
+```
+
+* Switch to the directory as follows "**snyk-azure-workshop/arm-templates**"
+
+```shell
+❯ cd snyk-azure-workshop/arm-templates
+```
+
+* Test all ARM templates at the same time using a command as follows
+
+```shell
+❯ snyk iac test *.json
+
+Testing lamp-app.json...
+
+
+Infrastructure as code issues:
+  ✗ Hardcoded admin password in VM configuration [High Severity] [SNYK-CC-TF-263] in Compute
+    introduced by resources[5] > properties > osProfile > adminPassword
+
+  ✗ Azure Network Security Rule allows public access [Medium Severity] [SNYK-CC-TF-35] in Network
+    introduced by resources[2] > properties > securityRules[1] > properties > sourceAddressPrefix
+
+  ✗ Linux VM scale set encryption at host disabled [Medium Severity] [SNYK-CC-AZURE-475] in Compute
+    introduced by resources[5] > properties > securityProfile > encryptionAtHost
+
+  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
+    introduced by resources[2] > properties > securityRules[1] > properties > sourceAddressPrefix
+
+  ✗ Azure Network Security Rule allows public access [Medium Severity] [SNYK-CC-TF-35] in Network
+    introduced by resources[2] > properties > securityRules[0] > properties > sourceAddressPrefix
+
+  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
+    introduced by resources[2] > properties > securityRules[0] > properties > sourceAddressPrefix
+
+  ✗ SAS token can be used over insecure HTTP [Medium Severity] [SNYK-CC-TF-244] in Storage
+    introduced by resources[0] > properties > supportsHttpsTrafficOnly
+
+  ✗ Virtual Network DDoS protection plan disabled [Low Severity] [SNYK-CC-AZURE-516] in Network
+    introduced by resources[3] > properties > enableDdosProtection
+
+
+Organization:      pas.apicella-41p
+Type:              ARM
+Target file:       lamp-app.json
+Project name:      arm-templates
+Open source:       no
+Project path:      lamp-app.json
+
+Tested lamp-app.json for known issues, found 8 issues
+
+-------------------------------------------------------
+
+Testing multi-tier-service-networking.json...
+
+
+Infrastructure as code issues:
+  ✗ Hardcoded admin password in VM configuration [High Severity] [SNYK-CC-TF-263] in Compute
+    introduced by resources[12] > properties > osProfile > adminPassword
+
+  ✗ Hardcoded admin password in VM configuration [High Severity] [SNYK-CC-TF-263] in Compute
+    introduced by resources[14] > properties > osProfile > adminPassword
+
+  ✗ WAF prevention mode not enabled [Medium Severity] [SNYK-CC-AZURE-611] in Network
+    introduced by resources[7] > properties > webApplicationFirewallConfiguration > firewallMode
+
+  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
+    introduced by resources[5] > properties > securityRules[1] > properties > sourceAddressPrefix
+
+  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
+    introduced by resources[4] > properties > securityRules[1] > properties > sourceAddressPrefix
+
+  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
+    introduced by resources[4] > properties > securityRules[0] > properties > sourceAddressPrefix
+
+  ✗ WAF not enabled on application gateway [Medium Severity] [SNYK-CC-AZURE-474] in Network
+    introduced by resources[7] > properties > webApplicationFirewallConfiguration > enabled
+
+  ✗ SAS token can be used over insecure HTTP [Medium Severity] [SNYK-CC-TF-244] in Storage
+    introduced by resources[0] > properties > supportsHttpsTrafficOnly
+
+  ✗ Virtual Network DDoS protection plan disabled [Low Severity] [SNYK-CC-AZURE-516] in Network
+    introduced by resources[3] > properties > enableDdosProtection
+
+
+Organization:      pas.apicella-41p
+Type:              ARM
+Target file:       multi-tier-service-networking.json
+Project name:      arm-templates
+Open source:       no
+Project path:      multi-tier-service-networking.json
+
+Tested multi-tier-service-networking.json for known issues, found 9 issues
+
+-------------------------------------------------------
+
+Testing vm-32-data-disks-high-iops.json...
+
+
+Infrastructure as code issues:
+  ✗ Hardcoded admin password in VM configuration [High Severity] [SNYK-CC-TF-263] in Compute
+    introduced by resources[4] > properties > osProfile > adminPassword
+
+  ✗ Azure Network Security Rule allows public access [Medium Severity] [SNYK-CC-TF-35] in Network
+    introduced by resources[1] > properties > securityRules[0] > properties > sourceAddressPrefix
+
+  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
+    introduced by resources[1] > properties > securityRules[0] > properties > sourceAddressPrefix
+
+  ✗ Virtual Network DDoS protection plan disabled [Low Severity] [SNYK-CC-AZURE-516] in Network
+    introduced by resources[2] > properties > enableDdosProtection
+
+
+Organization:      pas.apicella-41p
+Type:              ARM
+Target file:       vm-32-data-disks-high-iops.json
+Project name:      arm-templates
+Open source:       no
+Project path:      vm-32-data-disks-high-iops.json
+
+Tested vm-32-data-disks-high-iops.json for known issues, found 4 issues
+
+
+Tested 3 projects, 3 contained issues.
+```
+
+To view all the ARM security rules use the following link
+
+https://snyk.io/security-rules/tags/ARM
+
+![alt tag](https://i.ibb.co/FBJCSbc/snyk-azure-workshop-17.png)
+
 
 Thanks for attending and completing this workshop
 
