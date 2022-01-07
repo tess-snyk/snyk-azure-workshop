@@ -59,11 +59,17 @@ In order for us to import a public GitHub repository into Azure repos we will ne
 3. org = Azure DevOps organization URL
 4. repository = Use the same name as project above
 
+Note: You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. For this workshop we are starting with a new empty project so it's best to create a new project then use an existing one 
+
+```shell
+az devops project create --name snyk-azure-project --org https://dev.azure.com/myOrganizationName --source-control git --visibility private
+```
+
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
 
 * Import as follows
 
-Note: You may encounter this error so if you do please select "Y" and continue for the command to complete
+Note: You may encounter this error so if you do please select "**Y**" and continue for the command to complete
 
 ```shell
 The command requires the extension azure-devops. Do you want to install it now? The command will continue to run after the extension is installed. (Y/n): y
