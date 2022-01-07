@@ -4,12 +4,12 @@ Available in the Azure Marketplace, Snyk helps developers build their Azure work
 
 In this **hands-on** workshop we will achieve the follow:
 
-* Step 1 Import a GitHub repository to Azure repos
-* Step 2 Import a DockerHub repository container image to ACR
-* Step 3 Setup Azure Repos Integration
-* Step 4 Setup ACR Integration
-* Step 5 Using VS Code to Secure your code as you develop
-* Step 6 Using Snyk IaC to test ARM templates
+* [Step 1 Import a GitHub repository to Azure repos](step-1-import-a-github-repository-to-azure-repos)
+* [Step 2 Import a DockerHub repository container image to ACR](step-2-import-a-dockerhub-repository-container-image-to-acr)
+* [Step 3 Setup Azure Repos Integration](step-3-setup-azure-repos-integration)
+* [Step 4 Setup ACR Integration](step-4-setup-acr-integration)
+* [Step 5 Using VS Code to Secure your code as you develop](step-5-using-vs-code-to-secure-your-code-as-you-develop)
+* [Step 6 Using Snyk IaC to test ARM templates](step-6-using-snyk-iac-to-test-arm-templates)
 
 ## Prerequisites
 
