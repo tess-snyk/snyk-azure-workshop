@@ -148,7 +148,7 @@ https://docs.microsoft.com/en-us/cli/azure/repos/import?view=azure-cli-latest
 
 ## Step 2 Import a DockerHub repository container image to ACR
 
-In order to import a container image from DockerHub we will need a container registry on Azure. Using the following link create a container registry called "**snykazureregistry**". If you already have a container registry you can simply use that and skip this but please make sure you use your registry name in the commands that follow.
+In order to import a container image from DockerHub we will need a container registry on Azure. Using the following link create a container registry with a unique name I used "**snykazureregistry**" but you will need to use a different name here. If you already have a container registry you can simply use that and skip this but please make sure you use your registry name in the commands that follow.
 
 https://docs.microsoft.com/en-au/azure/container-registry/container-registry-get-started-portal
 
