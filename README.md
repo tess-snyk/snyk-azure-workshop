@@ -175,6 +175,10 @@ Login Succeeded
 1. DOCKERHUB_USER
 2. DOCKERHUB_PASSWORD
 
+**Command**
+
+> az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
+
 ```shell
 ❯ az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
 ```
