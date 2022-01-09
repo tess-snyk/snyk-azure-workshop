@@ -29,6 +29,10 @@ If you don't have the Azure CLI installed, install it now as follows
 
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 
+**Command** 
+
+> az login
+
 ```shell
 ❯ az login
 The default web browser has been opened at https://login.microsoftonline.com/organizations/oauth2/v2.0/authorize. Please continue the login in the web browser. If no web browser is available or if the web browser fails to open, use device code flow with `az login --use-device-code`.
@@ -62,7 +66,7 @@ In order for us to import a public GitHub repository into Azure repos we will ne
 Note: You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. For this workshop we are starting with a new empty project so it's best to create a new project then use an existing one 
 
 ```shell
-az devops project create --name snyk-azure-project --org https://dev.azure.com/myOrganizationName --source-control git --visibility private
+> az devops project create --name snyk-azure-project --org https://dev.azure.com/myOrganizationName --source-control git --visibility private
 ```
 
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
@@ -74,6 +78,10 @@ Note: You may encounter this error so if you do please select "**Y**" and contin
 ```shell
 The command requires the extension azure-devops. Do you want to install it now? The command will continue to run after the extension is installed. (Y/n): y
 ```
+
+**Command**
+
+> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/pasapicella0207 --repository snyk-azure-project
 
 ```shell
 > az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/pasapicella0207 --repository snyk-azure-project
@@ -151,6 +159,10 @@ Docker Desktop running locally - https://docker.com/products/docker-desktop_
 
 * Login to the container registry as shown below
 
+**Command**
+
+> az acr login --name snykazureregistry
+
 ```shell
 ❯ az acr login --name snykazureregistry
 Login Succeeded
@@ -198,7 +210,7 @@ More information of how to setup and use this integration can be found here
 https://docs.snyk.io/features/integrations/git-repository-scm-integrations/azure-repos-integration
 
 * Go ahead and click on "**Add your Azure Repos repositories to Snyk**"
-* Search for "**dotNET goof v2**" and click on "Add selected repositories" top right hand corner of the page
+* Search for "**snyk-azure-project**" and click on "Add selected repositories" top right hand corner of the page
 
 _Note: This may take a few minutes to scan but once done you should some something as follows, ignore the warnings_
 
@@ -284,6 +296,10 @@ Snyk Infrastructure as Code for Azure Resource Manager (ARM) supports scanning j
 
 _Note: Make sure you have the following version installed or later_
 
+**Command**
+
+> snyk --version
+
 ```bash
 ❯ snyk --version
 1.801.0
@@ -291,6 +307,10 @@ _Note: Make sure you have the following version installed or later_
 
 * Authorize the snyk CLI with your account as follows
 
+**Command**
+
+> snyk auth
+ 
 ```bash
 $ snyk auth
 
@@ -308,6 +328,10 @@ _Note: If you are having trouble authenticating via a browser with the Snyk App 
 [Authenticate using your API token](https://support.snyk.io/hc/en-us/articles/360004008258-Authenticate-the-CLI-with-your-account#UUID-4f46843c-174d-f448-cadf-893cfd7dd858_section-idm4557419555668831541902780562)_
 
 * Clone this repository as shown below. This repo has some arm templates we will scan shortly
+
+**Command**
+
+> git clone https://github.com/papicella/snyk-azure-workshop
 
 ```shell
 ❯ git clone https://github.com/papicella/snyk-azure-workshop
@@ -327,6 +351,10 @@ Resolving deltas: 100% (13/13), done.
 ```
 
 * Test all ARM templates at the same time using a command as follows
+
+**Command**
+
+> snyk iac test *.json
 
 ```shell
 ❯ snyk iac test *.json
