@@ -350,6 +350,10 @@ Resolving deltas: 100% (13/13), done.
 
 * Switch to the directory as follows "**snyk-azure-workshop/arm-templates**"
 
+**Command**
+
+> cd snyk-azure-workshop/arm-templates
+
 ```shell
 ❯ cd snyk-azure-workshop/arm-templates
 ```
@@ -491,6 +495,7 @@ For this workshop we covered the following Azure integrations
 1. Azure Repos
 2. Azure Container Registry (ACR)
 3. Snyk IDE plugin for VS Code
+4. Snyk CLI scan for ARM misconfiguration
 
 Having said that Snyk can do even more on Azure including the following which we did not cover, feel free to check out how we can use those integrations using the links below
 
