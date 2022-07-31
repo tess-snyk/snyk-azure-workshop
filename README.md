@@ -6,7 +6,7 @@ In this **hands-on** workshop we will achieve the follow:
 
 ## Part 1: From Code...
 
-* [Lab 1 Scanning from Source Control](#Lab-1-Scanning-from-Source-Control)
+* [Lab 1: Scanning from Source Control](#Lab-1-Scanning-from-Source-Control)
 * [Step 2 Import a DockerHub repository container image to ACR](#step-2-import-a-dockerhub-repository-container-image-to-acr)
 * [Step 3 Setup Azure Repos Integration](#step-3-setup-azure-repos-integration)
 * [Step 4 Setup ACR Integration](#step-4-setup-acr-integration)
