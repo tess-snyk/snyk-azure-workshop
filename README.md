@@ -9,11 +9,21 @@ In this **hands-on** workshop we will achieve the follow:
 * [Lab 1: Scanning from Source Control](#Lab-1-Scanning-from-Source-Control)
 * [Lab 2: Secure as you Code - IDE](#Lab-2-Secure-as-you-Code---IDE)
 * [Lab 3: Secure as you Code - CLI](#Lab-3-Secure-as-you-Code---CLI)
-* [Step 2 Import a DockerHub repository container image to ACR](#step-2-import-a-dockerhub-repository-container-image-to-acr)
-* [Step 3 Setup Azure Repos Integration](#step-3-setup-azure-repos-integration)
-* [Step 4 Setup ACR Integration](#step-4-setup-acr-integration)
-* [Step 5 Using VS Code to Secure your code as you develop](#step-5-using-vs-code-to-secure-your-code-as-you-develop)
-* [Step 6 Using Snyk IaC to test ARM templates](#step-6-using-snyk-iac-to-test-arm-templates)
+
+## Part 2: ...to Cloud...
+
+* [Lab 4: Secure Containers](#Lab-4-Secure-Containers)
+* [Lab 5: Secure IAC](#Lab-5-Secure-IAC)
+* [Lab 6: Securing your Pipeline](#Lab-6-Securing-your-Pipeline)
+
+## Part 3: ...and Back to Code.
+
+* [Lab 7: Detecting Issues in Production](Lab-7-Detecting-Issues-in-Production)
+
+## Bonus Labs
+
+* [Lab 8: Scan Your ACR Registry](Lab-8-Scan-Your-ACR-Registry)
+* [Lab 9: Monitor Kubernetes with Snyk](Lab-9-Monitor-Kubernetes-With-Snyk)
 
 ## Prerequisites
 
