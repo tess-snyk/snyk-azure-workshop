@@ -1,4 +1,4 @@
-# Code to Cloud and Back to Code - Securing Azure Workshop
+# Code to Cloud and Back to Code - Securing Azure
 
 Available in the Azure Marketplace, Snyk helps developers build their Azure workloads securely
 
