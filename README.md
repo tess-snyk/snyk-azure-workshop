@@ -7,6 +7,8 @@ In this **hands-on** workshop we will achieve the follow:
 ## Part 1: From Code...
 
 * [Lab 1: Scanning from Source Control](#Lab-1-Scanning-from-Source-Control)
+* [Lab 2: Secure as you Code - IDE](#Lab-2-Secure-as-you-Code---IDE)
+* [Lab 3: Secure as you Code - CLI](#Lab-3-Secure-as-you-Code---CLI)
 * [Step 2 Import a DockerHub repository container image to ACR](#step-2-import-a-dockerhub-repository-container-image-to-acr)
 * [Step 3 Setup Azure Repos Integration](#step-3-setup-azure-repos-integration)
 * [Step 4 Setup ACR Integration](#step-4-setup-acr-integration)
@@ -60,7 +62,7 @@ The default web browser has been opened at https://login.microsoftonline.com/org
 
 ## Lab 1 Scanning from Source Control
 
-*Step 1 - Import a GitHub repository to Azure repos*
+**Step 1 - Import a GitHub repository to Azure repos**
 
 In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as per above
 
@@ -152,52 +154,7 @@ If you have any trouble this guide explains how this command works
 
 https://docs.microsoft.com/en-us/cli/azure/repos/import?view=azure-cli-latest
 
-## Step 2 Import a DockerHub repository container image to ACR
-
-In order to import a container image from DockerHub we will need a container registry on Azure. Using the following link create a container registry with a unique name I used "**snykazureregistry**" but you will need to use a different name here. If you already have a container registry you can simply use that and skip this but please make sure you use your registry name in the commands that follow.
-
-https://docs.microsoft.com/en-au/azure/container-registry/container-registry-get-started-portal
-
-![alt tag](https://i.ibb.co/FWhqznF/snyk-azure-workshop-2.png)
-
-_Note: You must have docker desktop running locally before you start these steps
-Docker Desktop running locally - https://docker.com/products/docker-desktop_
-
-* Login to the container registry as shown below
-
-**Command**
-
-> az acr login --name snykazureregistry
-
-```shell
-❯ az acr login --name snykazureregistry
-Login Succeeded
-```
-
-* Import the image as shown below. You will need to supply your docker username/password to access the public image ""
-
-* Import the following container into your ACR as follows, please be sure to use the correct name of your container registry if you did not use "**snykazureregistry**". You will also need to supply your Dockerhub username and password
-
-1. DOCKERHUB_USER
-2. DOCKERHUB_PASSWORD
-
-**Command**
-
-> az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
-
-```shell
-❯ az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
-```
-
-* If all went well the previous command should show the image in your container registry as shown below
-
-![alt tag](https://i.ibb.co/tYRvcSQ/snyk-azure-workshop-3.png)
-
-If you have any trouble this guide explains how this command works
-
-https://docs.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli
-
-## Step 3 Setup Azure Repos Integration
+**Step 2 Setup Azure Repos Integration**
 
 Snyk integrates with Microsoft Azure Repos to enable you to import your projects and monitor the source code for your repositories. Snyk tests the projects you’ve imported for any known security vulnerabilities found in the application’s dependencies, testing at a frequency you control.
 
@@ -246,41 +203,10 @@ Here is what a PR on Azure Repos would look like if you upgraded "**Halibut from
 
 ![alt tag](https://i.ibb.co/yg06NBL/snyk-azure-workshop-9.png)
 
-## Step 4 Setup ACR Integration
 
-Snyk integrates with Microsoft Azure Container Registry (ACR) to enable you to import your projects and monitor your containers for vulnerabilities, as is fully described in our Container vulnerability management documentation. Snyk tests the projects you’ve imported for any known security vulnerabilities found, testing at a frequency you control.
+## Lab 2: Secure as you Code - IDE
 
-* Login to http://app.snyk.io Sign up if you haven't already.
-* Navigating to Integrations -> Container Registries -> ACR
-* Enter in your ACR connection details as shown below
-
-![alt tag](https://i.ibb.co/TcCf2Y8/snyk-azure-workshop-12.png)
-
-By enabling an admin user you can easily connect to the registry using a username/password. For alternative ways of connecting see the following link
-https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-service-principal
-
-![alt tag](https://i.ibb.co/qDNPsMd/snyk-azure-workshop-11.png)
-
-More Information
-
-https://docs.snyk.io/products/snyk-container/image-scanning-library/acr-image-scanning/configure-integration-for-acr
-
-* If successful you should see the following
-
-![alt tag](https://i.ibb.co/4TPGkhh/snyk-azure-workshop-13.png)
-
-* Click on "**Add your ACR images to Snyk**"
-* Import "**springbootemployee**" image using the only tag available
-* Once complete you should see the following. This may take a few minutes and ignore any warnings you may see
-
-![alt tag](https://i.ibb.co/LzktTsM/snyk-azure-workshop-14.png)
-
-* Click on "**multi-stage-add-layers**" to view the base image vulnerabilities
-* Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below 
-
-![alt tag](https://i.ibb.co/C89xqrk/snyk-azure-workshop-15.png)
-
-## Step 5 Using VS Code to Secure your code as you develop
+**Step 1 Using VS Code to Secure your code as you develop**
 
 IDE integrations use Snyk Code’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check the code in. So you can find possible security flaws in your code as you write it, on a line-by-line basis.
 
@@ -295,7 +221,25 @@ https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extensio
 
 ![alt tag](https://i.ibb.co/S7KgFsy/snyk-azure-workshop-16.png)
 
-## Step 6 Using Snyk IaC to test ARM templates
+## Lab 3: Secure as you Code - CLI
+
+**Step 1 Scanning for Open Source Dependencies in the CLI**
+
+xxxx
+
+## Part 2 ...to Cloud
+
+## Lab 4: Secure Containers
+
+xxx
+
+## Lab 5: Secure IAC
+
+**Step 1 CLI Set Up**
+
+xxxx
+
+**Step 3 Scan an ARM template**
 
 Snyk Infrastructure as Code for Azure Resource Manager (ARM) supports scanning json format.
 
@@ -494,6 +438,116 @@ https://snyk.io/security-rules/tags/ARM
 
 _Note: At the time of this workshop creation ARM template scanning in Snyk App was not available, but it will be at some point in the future_
 
+**Step 4 Convert a Bicep file and Scan the ARM template**
+
+xx
+
+**Step 5 Scan a Terraform File**
+
+xxx
+
+**Step 6 Scan a Terraform Plan File**
+
+xx
+
+**Step 7 Detect Drift**
+
+xx
+
+**Step 8 Review ARM and Terraform Rules for Azure**
+
+xx
+
+## Lab 6 Securing your Pipeline
+
+xx
+
+## Lab 7 Detecting Issues in Production
+
+DEMO - Kubernetes Monitoring
+
+## Lab 8 Bonus Lab - ACR and Kubernetes
+
+**Step 1 Import a DockerHub repository container image to ACR**
+
+In order to import a container image from DockerHub we will need a container registry on Azure. Using the following link create a container registry with a unique name I used "**snykazureregistry**" but you will need to use a different name here. If you already have a container registry you can simply use that and skip this but please make sure you use your registry name in the commands that follow.
+
+https://docs.microsoft.com/en-au/azure/container-registry/container-registry-get-started-portal
+
+![alt tag](https://i.ibb.co/FWhqznF/snyk-azure-workshop-2.png)
+
+_Note: You must have docker desktop running locally before you start these steps
+Docker Desktop running locally - https://docker.com/products/docker-desktop_
+
+* Login to the container registry as shown below
+
+**Command**
+
+> az acr login --name snykazureregistry
+
+```shell
+❯ az acr login --name snykazureregistry
+Login Succeeded
+```
+
+* Import the image as shown below. You will need to supply your docker username/password to access the public image ""
+
+* Import the following container into your ACR as follows, please be sure to use the correct name of your container registry if you did not use "**snykazureregistry**". You will also need to supply your Dockerhub username and password
+
+1. DOCKERHUB_USER
+2. DOCKERHUB_PASSWORD
+
+**Command**
+
+> az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
+
+```shell
+❯ az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
+```
+
+* If all went well the previous command should show the image in your container registry as shown below
+
+![alt tag](https://i.ibb.co/tYRvcSQ/snyk-azure-workshop-3.png)
+
+If you have any trouble this guide explains how this command works
+
+https://docs.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli
+
+## Step 2 Setup ACR Integration
+
+Snyk integrates with Microsoft Azure Container Registry (ACR) to enable you to import your projects and monitor your containers for vulnerabilities, as is fully described in our Container vulnerability management documentation. Snyk tests the projects you’ve imported for any known security vulnerabilities found, testing at a frequency you control.
+
+* Login to http://app.snyk.io Sign up if you haven't already.
+* Navigating to Integrations -> Container Registries -> ACR
+* Enter in your ACR connection details as shown below
+
+![alt tag](https://i.ibb.co/TcCf2Y8/snyk-azure-workshop-12.png)
+
+By enabling an admin user you can easily connect to the registry using a username/password. For alternative ways of connecting see the following link
+https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-service-principal
+
+![alt tag](https://i.ibb.co/qDNPsMd/snyk-azure-workshop-11.png)
+
+More Information
+
+https://docs.snyk.io/products/snyk-container/image-scanning-library/acr-image-scanning/configure-integration-for-acr
+
+* If successful you should see the following
+
+![alt tag](https://i.ibb.co/4TPGkhh/snyk-azure-workshop-13.png)
+
+* Click on "**Add your ACR images to Snyk**"
+* Import "**springbootemployee**" image using the only tag available
+* Once complete you should see the following. This may take a few minutes and ignore any warnings you may see
+
+![alt tag](https://i.ibb.co/LzktTsM/snyk-azure-workshop-14.png)
+
+* Click on "**multi-stage-add-layers**" to view the base image vulnerabilities
+* Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below 
+
+![alt tag](https://i.ibb.co/C89xqrk/snyk-azure-workshop-15.png)
+
+
 ## Conclusion
 
 For this workshop we covered the following Azure integrations
@@ -516,4 +570,4 @@ Thanks for attending and completing this workshop
 ![alt tag](https://i.ibb.co/7tnp1B6/snyk-logo.png)
 
 <hr />
-Pas Apicella [pas at snyk.io] is an Solution Engineer at Snyk APJ
+By Pas Apicella [pas at snyk.io] and Tess Davis [tess at snyk.io] - Solution Engineers at Snyk APJ
