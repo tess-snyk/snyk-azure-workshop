@@ -4,7 +4,9 @@ Available in the Azure Marketplace, Snyk helps developers build their Azure work
 
 In this **hands-on** workshop we will achieve the follow:
 
-* [Step 1 Import a GitHub repository to Azure repos](#step-1-import-a-github-repository-to-azure-repos)
+## Part 1: [From Code...] (##Part-1:-From-Code...)
+
+* [Lab 1 Import a GitHub repository to Azure repos](#step-1-import-a-github-repository-to-azure-repos)
 * [Step 2 Import a DockerHub repository container image to ACR](#step-2-import-a-dockerhub-repository-container-image-to-acr)
 * [Step 3 Setup Azure Repos Integration](#step-3-setup-azure-repos-integration)
 * [Step 4 Setup ACR Integration](#step-4-setup-acr-integration)
@@ -54,7 +56,9 @@ The default web browser has been opened at https://login.microsoftonline.com/org
 ]
 ```
 
-## Step 1 Import a GitHub repository to Azure repos
+## Part 1: From Code...
+
+## Lab 1 Import a GitHub repository to Azure repos
 
 In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as per above
 
