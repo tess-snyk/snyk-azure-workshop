@@ -1,0 +1,94 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '12.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+
+# install & prepare snyk
+- script: |
+    npm install -g snyk snyk-to-html
+    mkdir html
+    snyk auth $(SNYK_TOKEN)
+    # explicitly allow scripts to continue if errors occur
+    set +e
+  displayName: 'snyk install & auth'
+
+# snyk code
+- script: |
+    snyk code test --sarif-file-output=results.sarif
+    RESULT=$?
+    snyk-to-html -o $(Build.ArtifactStagingDirectory)/results-code.html < results.sarif
+    exit $RESULT
+  continueOnError: true
+  displayName: 'snyk code'
+
+# snyk open source
+- script: |
+    snyk test --json-file-output=results.json
+    RESULT=$?
+    snyk-to-html -o $(Build.ArtifactStagingDirectory)/results-open-source.html < results.json
+    exit $RESULT
+  continueOnError: true
+  displayName: 'snyk open source'
+
+# snyk container
+# NOTE: Change the image name
+- script: |
+    snyk container test sebsnyk/juice-shop --file=Dockerfile --json-file-output=results.json
+    RESULT=$?
+    snyk-to-html -o $(Build.ArtifactStagingDirectory)/results-container.html < results.json
+    exit $RESULT
+  continueOnError: true
+  displayName: 'snyk container'
+
+# snyk iac
+- script: |
+    snyk iac test --json-file-output=results.json
+    RESULT=$?
+    snyk-to-html -o $(Build.ArtifactStagingDirectory)/results-iac.html < results.json
+    exit $RESULT
+  continueOnError: true
+  displayName: 'snyk iac'
+
+- task: PublishHtmlReport@1
+  condition: succeededOrFailed()
+  inputs:
+    reportDir: $(Build.ArtifactStagingDirectory)/results-code.html
+    tabName: 'Snyk Code'
+
+- task: PublishHtmlReport@1
+  condition: succeededOrFailed()
+  inputs:
+    reportDir: $(Build.ArtifactStagingDirectory)/results-open-source.html
+    tabName: 'Snyk Open Source'
+
+- task: PublishHtmlReport@1
+  condition: succeededOrFailed()
+  inputs:
+    reportDir: $(Build.ArtifactStagingDirectory)/results-container.html
+    tabName: 'Snyk Container'
+
+- task: PublishHtmlReport@1
+  condition: succeededOrFailed()
+  inputs:
+    reportDir: $(Build.ArtifactStagingDirectory)/results-iac.html
+    tabName: 'Snyk IaC'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: Snyk Reports
