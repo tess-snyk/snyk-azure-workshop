@@ -70,7 +70,7 @@ The default web browser has been opened at https://login.microsoftonline.com/org
 
 ## Part 1: From Code...
 
-## Lab 1 Scanning from Source Control
+## Lab 1: Scanning from Source Control
 
 **Step 1 - Import a GitHub repository to Azure repos**
 
@@ -205,14 +205,33 @@ For each Vulnerability, Snyk displays the following ordered by our [Proprietary 
 5. Links to CWE, CVE and CVSS Score
 6. Plus more ...
 
+Navigate to Snyk Settings and enable Snyk Code if it is not enabled already.
+
+Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source and for Snyk Code. Enable Manual Fix PRs.
+
+**Step 3 'Stop the Bleeding'**
+
+The first thing many organisations do when they start to use Snyk is monitor to capture a baseline of existing issues. The next step is to stop new issues from being introduced.
+
+To complete this step, you will need to install git if you have not already done so. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+Once you have Git installed locally, clone the repository that you set up in Step 1. You can follow the steps under "Get the clone URL of an Azure Repos Git repo": https://docs.microsoft.com/en-us/azure/devops/repos/git/clone?view=azure-devops&tabs=visual-studio-2019
+
+Find the folder on your local filesystem and copy the xx file, name it xxv2.
+
+Upload the file into your repository and select 'Create a Pull Request' when prompted.
+
+On the Pull Request page note the PR Check in place. Snyk is detecting any new vulnerabilities introduced by the PR. The code PR check should fail as we copied over a proprietary code issue when adding xxv2. The Open Source Security and License checks should pass even though there are issues in the repository because no new issues of this kind were added in the PR.
+
+**Step 4 Sec and Dev Collaboration**
+
 Not only is Snyk able to clearly identify the vulnerable library but if it can be fixed we will provide the ability to create a Pull Request to actually fix the issue.
 
-* Go ahead and click onm "**Fix this vulnerable**" to see how Snyk creates a PR directly on the Azure Repo repository we imported
+* Go ahead and click on "**Fix this vulnerable**" to see how Snyk creates a PR directly on the Azure Repo repository we imported
 
 Here is what a PR on Azure Repos would look like if you upgraded "**Halibut from 4.4.4 to 4.4.7**"
 
 ![alt tag](https://i.ibb.co/yg06NBL/snyk-azure-workshop-9.png)
-
 
 ## Lab 2: Secure as you Code - IDE
 
@@ -233,27 +252,7 @@ https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extensio
 
 ## Lab 3: Secure as you Code - CLI
 
-**Step 1 Scanning for Open Source Dependencies in the CLI**
-
-xxxx
-
-## Part 2 ...to Cloud
-
-## Lab 4: Secure Containers
-
-xxx
-
-## Lab 5: Secure IAC
-
-**Step 1 CLI Set Up**
-
-xxxx
-
-**Step 3 Scan an ARM template**
-
-Snyk Infrastructure as Code for Azure Resource Manager (ARM) supports scanning json format.
-
-* Before we get started please make sure you have setup the Snyk CLI. There are various install options as per the links below. Using the prebuilt binaries means you don't have to install NPM to install the Snyk CLI.
+Before we get started please make sure you have setup the Snyk CLI. There are various install options as per the links below. Using the prebuilt binaries means you don't have to install NPM to install the Snyk CLI.
 
 1. Install Page - https://support.snyk.io/hc/en-us/articles/360003812538-Install-the-Snyk-CLI
 1. Prebuilt Binaries - https://github.com/snyk/snyk/releases
@@ -291,7 +290,89 @@ Your account has been authenticated. Snyk is now ready to be used.
 _Note: If you are having trouble authenticating via a browser with the Snyk App you can setup authentication using the API token as shown below
 [Authenticate using your API token](https://support.snyk.io/hc/en-us/articles/360004008258-Authenticate-the-CLI-with-your-account#UUID-4f46843c-174d-f448-cadf-893cfd7dd858_section-idm4557419555668831541902780562)_
 
-* Clone this repository as shown below. This repo has some arm templates we will scan shortly
+**Step 1 Scanning for Open Source Dependencies in the CLI**
+
+In your terminal, change directory local code repository that you cloned in Lab 1, Step 3.
+
+First, scan the proprietary code in your local repository.
+
+**Command**
+
+> snyk code test
+
+```bash
+Snyk Test results
+```
+
+Now, run a test of the Open Source libraries.
+
+**Command**
+
+> snyk test
+
+```bash
+Snyk Test results
+```
+
+The results of the CLI scan can be sent to the Snyk UI to monitor.
+
+**Command**
+
+> snyk monitor
+
+```bash
+Snyk Monitor notification
+```
+
+Return to the Snyk UI in Project view. Filter results to show monitored CLI / CI results.
+
+The Snyk CLI drives local scans and makes for powerful CI integrations with Snyk. You may choose to set thresholds to break a build or define local or shared ignores. See the CLI cheat sheet to get started: https://snyk.io/blog/snyk-cli-cheat-sheet/
+
+We will continue to use the Snyk CLI in lab 4, lab 5 and lab 6.
+
+## Part 2 ...to Cloud
+
+## Lab 4: Secure Containers
+
+_Note: You must have docker desktop running locally before you start these steps
+Docker Desktop running locally - https://docker.com/products/docker-desktop_
+
+BUILD LOCAL IMAGE INSTRUCTIONS
+
+**Command**
+
+> snyk container test IMAGE_NAME
+
+```bash
+Snyk Container Test results
+```
+
+The results of the CLI scan can be sent to the Snyk UI to monitor.
+
+**Command**
+
+> snyk container monitor IMAGE_NAME
+
+```bash
+Snyk Monitor notification
+```
+
+Return to the Snyk UI projets view. Filter results to show monitored CLI / CI results.
+
+Click on "IMAGE NAME" to view the image vulnerabilities.
+
+Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below.
+
+In the filters, select "User image layers". This will show the remaining vulnerabilities to be remediated that are being pulled in by addional user layers rather than the base image.
+
+
+## Lab 5: Secure IAC
+
+**Step 1 Scan an ARM template**
+
+Snyk Infrastructure as Code for Azure Resource Manager (ARM) supports scanning json format.
+
+Clone this repository as shown below. This repo has some arm templates we will scan shortly
 
 **Command**
 
@@ -448,7 +529,7 @@ https://snyk.io/security-rules/tags/ARM
 
 _Note: At the time of this workshop creation ARM template scanning in Snyk App was not available, but it will be at some point in the future_
 
-**Step 4 Convert a Bicep file and Scan the ARM template**
+<!---**Step 4 Convert a Bicep file and Scan the ARM template**
 
 xx
 
@@ -466,21 +547,46 @@ xx
 
 **Step 8 Review ARM and Terraform Rules for Azure**
 
-xx
+--->
 
-## Lab 6 Securing your Pipeline
+## Lab 6: Securing your Pipeline
 
-xx
+**Step 1: Behind the Scenes**
+
+The Snyk CLI drives CI integrations under the covers. The powerful CLI enables the flexibility to simply monitor or to break a build based on severity level or fixability. This flexibility enables a step by step on ramp to securing your SDLC while allowing developers to continue to work at pace.
+
+> snyk test --severity-threshold=critical --fail-on-patchable
+
+```bash
+Snyk Test results
+```
+
+**Step 2: Further Flexibility with Policy - DEMO**
+
+DEMO
+
+**Step 3: Set up an Azure Pipeline**
+
+Return to the Azure DevOps UI. From the project containing your NAME repo, navigate to Pipelines and create a New Pipeline.
+
+Asked "Where is your code?", choose Azure Repos Git. Select the NAME repository.
+
+-----
+
+Create Yaml Pipeline
+
+
+
 
 ## Part 3: ...and Back to Code.
 
-## Lab 7 Detecting Issues in Production
+## Lab 7: Detecting Issues in Production
 
 DEMO - Kubernetes Monitoring
 
 ## Bonus Labs
 
-## Lab 8 Scan Your ACR Registry
+## Lab 8: Scan Your ACR Registry
 
 **Step 1 Import a DockerHub repository container image to ACR**
 
