@@ -472,11 +472,15 @@ xx
 
 xx
 
+## Part 3: ...and Back to Code.
+
 ## Lab 7 Detecting Issues in Production
 
 DEMO - Kubernetes Monitoring
 
-## Lab 8 Bonus Lab - ACR and Kubernetes
+## Bonus Labs
+
+## Lab 8 Scan Your ACR Registry
 
 **Step 1 Import a DockerHub repository container image to ACR**
 
@@ -556,6 +560,8 @@ https://docs.snyk.io/products/snyk-container/image-scanning-library/acr-image-sc
 * Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below 
 
 ![alt tag](https://i.ibb.co/C89xqrk/snyk-azure-workshop-15.png)
+
+## Lab 9 Monitor Kubernetes with Snyk
 
 
 ## Conclusion
