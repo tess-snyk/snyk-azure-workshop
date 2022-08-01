@@ -1,15 +1,29 @@
-# Introduction to Snyk on Azure Workshop
+# Code to Cloud and Back to Code - Securing Azure
 
 Available in the Azure Marketplace, Snyk helps developers build their Azure workloads securely
 
-In this **hands-on** workshop we will achieve the follow:
+In this **hands-on** workshop we will achieve the following:
 
-* [Step 1 Import a GitHub repository to Azure repos](#step-1-import-a-github-repository-to-azure-repos)
-* [Step 2 Import a DockerHub repository container image to ACR](#step-2-import-a-dockerhub-repository-container-image-to-acr)
-* [Step 3 Setup Azure Repos Integration](#step-3-setup-azure-repos-integration)
-* [Step 4 Setup ACR Integration](#step-4-setup-acr-integration)
-* [Step 5 Using VS Code to Secure your code as you develop](#step-5-using-vs-code-to-secure-your-code-as-you-develop)
-* [Step 6 Using Snyk IaC to test ARM templates](#step-6-using-snyk-iac-to-test-arm-templates)
+**Part 1: From Code...**
+
+* [Lab 1: Scanning from Source Control](#Lab-1-Scanning-from-Source-Control)
+* [Lab 2: Secure as you Code - IDE](#Lab-2-Secure-as-you-Code---IDE)
+* [Lab 3: Secure as you Code - CLI](#Lab-3-Secure-as-you-Code---CLI)
+
+**Part 2: ...to Cloud...**
+
+* [Lab 4: Secure Containers](#Lab-4-Secure-Containers)
+* [Lab 5: Secure IAC](#Lab-5-Secure-IAC)
+* [Lab 6: Securing your Pipeline](#Lab-6-Securing-your-Pipeline)
+
+**Part 3: ...and Back to Code.**
+
+* [Lab 7: Detecting Issues in Production](Lab-7-Detecting-Issues-in-Production)
+
+**Bonus Labs**
+
+* [Lab 8: Scan Your ACR Registry](Lab-8-Scan-Your-ACR-Registry)
+* [Lab 9: Monitor Kubernetes with Snyk](Lab-9-Monitor-Kubernetes-With-Snyk)
 
 ## Prerequisites
 
@@ -54,22 +68,25 @@ The default web browser has been opened at https://login.microsoftonline.com/org
 ]
 ```
 
-## Step 1 Import a GitHub repository to Azure repos
+## Part 1: From Code...
 
-In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as per above
+## Lab 1: Scanning from Source Control
 
-1. git-source-url = https://github.com/papicella/dotNET-goof-v2
-2. project = name of an empty azure repos project you might have to create that before importing, I am using "**snyk-azure-project**"
-3. org = Azure DevOps organization URL
-4. repository = Use the same name as project above
+**Step 1 - Import a GitHub repository to Azure repos**
 
-Note: You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. For this workshop we are starting with a new empty project so it's best to create a new project then use an existing one 
+In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as above.
+
+You will need an empty Azure DevOps Project for this lab. You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. Name your project **snyk-azure-project**
 
 ```shell
-> az devops project create --name snyk-azure-project --org https://dev.azure.com/myOrganizationName --source-control git --visibility private
+> az devops project create --name snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --source-control git --visibility private
 ```
-
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
+
+1. git-source-url = https://github.com/papicella/dotNET-goof-v2 **!!!!! - TD - update repo to include Dockerfile and IAC code**
+2. project = name of the empty azure repos project that you created above **snyk-azure-project**
+3. org = Your Azure DevOps organization URL **TD - give example**
+4. repository = Use the same name as project above
 
 * Import as follows
 
@@ -78,13 +95,12 @@ Note: You may encounter this error so if you do please select "**Y**" and contin
 ```shell
 The command requires the extension azure-devops. Do you want to install it now? The command will continue to run after the extension is installed. (Y/n): y
 ```
-
 **Command**
 
-> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/pasapicella0207 --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --repository snyk-azure-project
 
 ```shell
-> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/pasapicella0207 --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --repository snyk-azure-project
 {
   "detailedStatus": {
     "allSteps": [
@@ -146,52 +162,7 @@ If you have any trouble this guide explains how this command works
 
 https://docs.microsoft.com/en-us/cli/azure/repos/import?view=azure-cli-latest
 
-## Step 2 Import a DockerHub repository container image to ACR
-
-In order to import a container image from DockerHub we will need a container registry on Azure. Using the following link create a container registry with a unique name I used "**snykazureregistry**" but you will need to use a different name here. If you already have a container registry you can simply use that and skip this but please make sure you use your registry name in the commands that follow.
-
-https://docs.microsoft.com/en-au/azure/container-registry/container-registry-get-started-portal
-
-![alt tag](https://i.ibb.co/FWhqznF/snyk-azure-workshop-2.png)
-
-_Note: You must have docker desktop running locally before you start these steps
-Docker Desktop running locally - https://docker.com/products/docker-desktop_
-
-* Login to the container registry as shown below
-
-**Command**
-
-> az acr login --name snykazureregistry
-
-```shell
-❯ az acr login --name snykazureregistry
-Login Succeeded
-```
-
-* Import the image as shown below. You will need to supply your docker username/password to access the public image ""
-
-* Import the following container into your ACR as follows, please be sure to use the correct name of your container registry if you did not use "**snykazureregistry**". You will also need to supply your Dockerhub username and password
-
-1. DOCKERHUB_USER
-2. DOCKERHUB_PASSWORD
-
-**Command**
-
-> az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
-
-```shell
-❯ az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
-```
-
-* If all went well the previous command should show the image in your container registry as shown below
-
-![alt tag](https://i.ibb.co/tYRvcSQ/snyk-azure-workshop-3.png)
-
-If you have any trouble this guide explains how this command works
-
-https://docs.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli
-
-## Step 3 Setup Azure Repos Integration
+**Step 2 Setup Azure Repos Integration**
 
 Snyk integrates with Microsoft Azure Repos to enable you to import your projects and monitor the source code for your repositories. Snyk tests the projects you’ve imported for any known security vulnerabilities found in the application’s dependencies, testing at a frequency you control.
 
@@ -209,20 +180,38 @@ Snyk integrates with Microsoft Azure Repos to enable you to import your projects
 
 ![alt tag](https://i.ibb.co/1Gn91RC/snyk-azure-workshop-6.png)
 
+Navigate to Snyk Settings and Snyk Code settings. Enable Snyk Code if it is not enabled already.
+
+Navigate back to Snyk Settings and Infrastructure as Code settings. Enable Infrastructure as Code scanning if it is not enabled already.
+
+**TD- Paste screenshot**
+
+Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source and for Snyk Code. Enable Manual Fix PRs.
+
+**TD- Paste screenshot**
+
 More information of how to setup and use this integration can be found here
 
 https://docs.snyk.io/features/integrations/git-repository-scm-integrations/azure-repos-integration
 
-* Go ahead and click on "**Add your Azure Repos repositories to Snyk**"
-* Search for "**snyk-azure-project**" and click on "Add selected repositories" top right hand corner of the page
+**Step 3 Explore Issues in Open Source Vulnerabilities**
 
-_Note: This may take a few minutes to scan but once done you should some something as follows, ignore the warnings_
+* Go ahead and click on "**Add your Azure Repos repositories to Snyk**"
+* Search for "**snyk-azure-project**" and click on "Add selected repositories" on the top right hand corner of the page
+
+_Note: This may take a few minutes to scan but once done you should see the following, ignore the warnings_
 
 ![alt tag](https://i.ibb.co/2jRz2FR/snyk-azure-workshop-7.png)
 
 * Click on the link for "**dotNETGoofV2.Website.csproj**" so we can view the open source dependencies vulnerabilities that exist here
 
 ![alt tag](https://i.ibb.co/6Drf31b/snyk-azure-workshop-8.png)
+
+Move from the 'Issues' view to the 'Dependencies' view and select the dependency tree view.
+
+How many dependencies does the application use in total? How many dependencies are listed? Where are the rest?
+
+Move back to the 'Issues' view.
 
 For each Vulnerability, Snyk displays the following ordered by our [Proprietary Priority Score](https://snyk.io/blog/snyk-priority-score/) :
 1. The module that introduced it and, in the case of transitive dependencies, its direct dependency,
@@ -232,51 +221,51 @@ For each Vulnerability, Snyk displays the following ordered by our [Proprietary 
 5. Links to CWE, CVE and CVSS Score
 6. Plus more ...
 
-Not only is Snyk able to clearly identify the vulnerable library but if it can be fixed we will provide the ability to create a Pull Request to actually fix the issue.
+**Step 4 Explore Proprietary Code Issues**
 
-* Go ahead and click onm "**Fix this vulnerable**" to see how Snyk creates a PR directly on the Azure Repo repository we imported
+Navigate back to the Projets view and expand the **project name** project. Click on the **TD--check** Snyk Code project.
+
+On the top issue **TD-Issue-Name** note that the issue type is **TD-Issue-Type** select "Full Details".
+
+Snyk Code performs Semantic Code Analysis on your proprietary code. This means that it reads the code with intelligence to make a high fidelity estimate of how the code will function. The Data Flow Analysis shows where potentially tainted data enters the application; 'Source'. The data flow is tracked at each step accross multiple files where the data is manipulated in the code. Each of these steps is a potential location to sanitise the data. The location where the data is executed is the 'Sink'. If the data has not been sanitised by the time it reaches a Sink, your code may be exploited. The type of exploit possible defines the issue type raised. In this case, a **TD- Issue type - Cross Site Scripting attack.**
+
+Clik **TD-Chec** "Learn More" to find out about **TD- Issue type - Cross Site Scripting attack.**. Snyk will provide three example fixes from Open Source to point you in the right direction.
+
+Imagine this issue was detected in an application back end and you want to come back to review it in 90 days after fixing some higher priority vulnerabilities. Click 'ignore' and ignore the issue for 90 days.
+
+Close the issue and view the ignored issues using the filter on the left hand side of the project view.
+
+**Step 5 'Stop the Bleeding'**
+
+The first thing many organisations do when they start to use Snyk is monitor to capture a baseline of existing issues. The next step is to stop new issues from being introduced.
+
+To complete this step, you will need to install git if you have not already done so. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+Once you have Git installed locally, clone the repository that you set up in Step 1. You can follow the steps under "Get the clone URL of an Azure Repos Git repo": https://docs.microsoft.com/en-us/azure/devops/repos/git/clone?view=azure-devops&tabs=visual-studio-2019
+
+Find the folder on your local filesystem and copy the xx file, name it xxv2.
+
+Upload the file into your repository and select 'Create a Pull Request' when prompted.
+
+On the Pull Request page note the PR Check in place. Snyk is detecting any new vulnerabilities introduced by the PR. The code PR check should fail as we copied over a proprietary code issue when adding xxv2. The Open Source Security and License checks should pass even though there are issues in the repository because no new issues of this kind were added in the PR.
+
+**Step 6 Sec and Dev Collaboration**
+
+Not only is Snyk able to clearly identify the vulnerable library but if it can be fixed we will provide the ability to create a Pull Request to actually fix the issue. This can allow security teams to collaborate with Developers to prioritise 'quick wins' within the tools Developers already use as part of their day to day work.
+
+* Go ahead and click on "**Fix this vulnerable**" to see how Snyk creates a PR directly on the Azure Repo repository we imported
 
 Here is what a PR on Azure Repos would look like if you upgraded "**Halibut from 4.4.4 to 4.4.7**"
 
 ![alt tag](https://i.ibb.co/yg06NBL/snyk-azure-workshop-9.png)
 
-## Step 4 Setup ACR Integration
+For some issues without an easy upgrade path e.g. where the dependency is not being maintained or it is a proprietary code issue, a ticket raised from the Snyk UI into a tool such as Jira is a better fit. **TD - DEMO**
 
-Snyk integrates with Microsoft Azure Container Registry (ACR) to enable you to import your projects and monitor your containers for vulnerabilities, as is fully described in our Container vulnerability management documentation. Snyk tests the projects you’ve imported for any known security vulnerabilities found, testing at a frequency you control.
+## Lab 2: Secure as you Code - IDE
 
-* Login to http://app.snyk.io Sign up if you haven't already.
-* Navigating to Integrations -> Container Registries -> ACR
-* Enter in your ACR connection details as shown below
+**Step 1 Using VS Code to Secure your code as you develop**
 
-![alt tag](https://i.ibb.co/TcCf2Y8/snyk-azure-workshop-12.png)
-
-By enabling an admin user you can easily connect to the registry using a username/password. For alternative ways of connecting see the following link
-https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-service-principal
-
-![alt tag](https://i.ibb.co/qDNPsMd/snyk-azure-workshop-11.png)
-
-More Information
-
-https://docs.snyk.io/products/snyk-container/image-scanning-library/acr-image-scanning/configure-integration-for-acr
-
-* If successful you should see the following
-
-![alt tag](https://i.ibb.co/4TPGkhh/snyk-azure-workshop-13.png)
-
-* Click on "**Add your ACR images to Snyk**"
-* Import "**springbootemployee**" image using the only tag available
-* Once complete you should see the following. This may take a few minutes and ignore any warnings you may see
-
-![alt tag](https://i.ibb.co/LzktTsM/snyk-azure-workshop-14.png)
-
-* Click on "**multi-stage-add-layers**" to view the base image vulnerabilities
-* Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below 
-
-![alt tag](https://i.ibb.co/C89xqrk/snyk-azure-workshop-15.png)
-
-## Step 5 Using VS Code to Secure your code as you develop
-
-IDE integrations use Snyk Code’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check the code in. So you can find possible security flaws in your code as you write it, on a line-by-line basis.
+IDE integrations use Snyk Code’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check the code in. So you can find possible security flaws in your code as you write it, on a line-by-line basis. This helps to prevent seucrity technical debt from entering the value stream in the first place 
 
 Snyk Code supports a VS Code plugin to support issue finding and fixing, directly from the IDE
 
@@ -289,11 +278,9 @@ https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extensio
 
 ![alt tag](https://i.ibb.co/S7KgFsy/snyk-azure-workshop-16.png)
 
-## Step 6 Using Snyk IaC to test ARM templates
+## Lab 3: Secure as you Code - CLI
 
-Snyk Infrastructure as Code for Azure Resource Manager (ARM) supports scanning json format.
-
-* Before we get started please make sure you have setup the Snyk CLI. There are various install options as per the links below. Using the prebuilt binaries means you don't have to install NPM to install the Snyk CLI.
+Before we get started please make sure you have setup the Snyk CLI. There are various install options as per the links below. Using the prebuilt binaries means you don't have to install NPM to install the Snyk CLI.
 
 1. Install Page - https://support.snyk.io/hc/en-us/articles/360003812538-Install-the-Snyk-CLI
 1. Prebuilt Binaries - https://github.com/snyk/snyk/releases
@@ -331,7 +318,89 @@ Your account has been authenticated. Snyk is now ready to be used.
 _Note: If you are having trouble authenticating via a browser with the Snyk App you can setup authentication using the API token as shown below
 [Authenticate using your API token](https://support.snyk.io/hc/en-us/articles/360004008258-Authenticate-the-CLI-with-your-account#UUID-4f46843c-174d-f448-cadf-893cfd7dd858_section-idm4557419555668831541902780562)_
 
-* Clone this repository as shown below. This repo has some arm templates we will scan shortly
+**Step 1 Scanning for Open Source Dependencies in the CLI**
+
+In your terminal, change directory local code repository that you cloned in Lab 1, Step 3.
+
+First, scan the proprietary code in your local repository.
+
+**Command**
+
+> snyk code test
+
+```bash
+Snyk Test results
+```
+
+Now, run a test of the Open Source libraries.
+
+**Command**
+
+> snyk test
+
+```bash
+Snyk Test results
+```
+
+The results of the CLI scan can be sent to the Snyk UI to monitor.
+
+**Command**
+
+> snyk monitor
+
+```bash
+Snyk Monitor notification
+```
+
+Return to the Snyk UI in Project view. Filter results to show monitored CLI / CI results.
+
+The Snyk CLI drives local scans and makes for powerful CI integrations with Snyk. You may choose to set thresholds to break a build or define local or shared ignores. See the CLI cheat sheet to get started: https://snyk.io/blog/snyk-cli-cheat-sheet/
+
+We will continue to use the Snyk CLI in lab 4, lab 5 and lab 6.
+
+## Part 2 ...to Cloud
+
+## Lab 4: Secure Containers
+
+_Note: You must have docker desktop running locally before you start these steps
+Docker Desktop running locally - https://docker.com/products/docker-desktop_
+
+BUILD LOCAL IMAGE INSTRUCTIONS
+
+**Command**
+
+> snyk container test IMAGE_NAME
+
+```bash
+Snyk Container Test results
+```
+
+The results of the CLI scan can be sent to the Snyk UI to monitor.
+
+**Command**
+
+> snyk container monitor IMAGE_NAME
+
+```bash
+Snyk Monitor notification
+```
+
+Return to the Snyk UI projets view. Filter results to show monitored CLI / CI results.
+
+Click on "IMAGE NAME" to view the image vulnerabilities.
+
+Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below.
+
+In the filters, select "User image layers". This will show the remaining vulnerabilities to be remediated that are being pulled in by addional user layers rather than the base image.
+
+
+## Lab 5: Secure IAC
+
+**Step 1 Scan an ARM template**
+
+Snyk Infrastructure as Code for Azure Resource Manager (ARM) supports scanning json format.
+
+Clone this repository as shown below. This repo has some arm templates we will scan shortly
 
 **Command**
 
@@ -488,6 +557,147 @@ https://snyk.io/security-rules/tags/ARM
 
 _Note: At the time of this workshop creation ARM template scanning in Snyk App was not available, but it will be at some point in the future_
 
+<!---**Step 4 Convert a Bicep file and Scan the ARM template**
+
+xx
+
+**Step 5 Scan a Terraform File**
+
+xxx
+
+**Step 6 Scan a Terraform Plan File**
+
+xx
+
+**Step 7 Detect Drift**
+
+xx
+
+**Step 8 Review ARM and Terraform Rules for Azure**
+
+--->
+
+## Lab 6: Securing your Pipeline
+
+**Step 1: Behind the Scenes**
+
+The Snyk CLI drives CI integrations under the covers. The powerful CLI enables the flexibility to simply monitor or to break a build based on severity level or fixability. This flexibility enables a step by step on ramp to securing your SDLC while allowing developers to continue to work at pace.
+
+> snyk test --severity-threshold=critical --fail-on-patchable
+
+```bash
+Snyk Test results
+```
+
+**Step 2: Further Flexibility with Policy - DEMO**
+
+DEMO
+
+**Step 3: Set up an Azure Pipeline**
+
+Return to the Azure DevOps UI. From the project containing your NAME repo, navigate to Pipelines and create a New Pipeline.
+
+Asked "Where is your code?", choose Azure Repos Git. Select the NAME repository.
+
+-----
+
+Create Yaml Pipeline
+
+
+
+
+## Part 3: ...and Back to Code.
+
+## Lab 7: Detecting Issues in Production
+
+DEMO - Kubernetes Monitoring
+
+## Bonus Labs
+
+## Lab 8: Scan Your ACR Registry
+
+**Step 1 Import a DockerHub repository container image to ACR**
+
+In order to import a container image from DockerHub we will need a container registry on Azure. Using the following link create a container registry with a unique name I used "**snykazureregistry**" but you will need to use a different name here. If you already have a container registry you can simply use that and skip this but please make sure you use your registry name in the commands that follow.
+
+https://docs.microsoft.com/en-au/azure/container-registry/container-registry-get-started-portal
+
+![alt tag](https://i.ibb.co/FWhqznF/snyk-azure-workshop-2.png)
+
+_Note: You must have docker desktop running locally before you start these steps
+Docker Desktop running locally - https://docker.com/products/docker-desktop_
+
+* Login to the container registry as shown below
+
+**Command**
+
+> az acr login --name snykazureregistry
+
+```shell
+❯ az acr login --name snykazureregistry
+Login Succeeded
+```
+
+* Import the image as shown below. You will need to supply your docker username/password to access the public image ""
+
+* Import the following container into your ACR as follows, please be sure to use the correct name of your container registry if you did not use "**snykazureregistry**". You will also need to supply your Dockerhub username and password
+
+1. DOCKERHUB_USER
+2. DOCKERHUB_PASSWORD
+
+**Command**
+
+> az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
+
+```shell
+❯ az acr import --name snykazureregistry --source docker.io/pasapples/springbootemployee:multi-stage-add-layers --image springbootemployee:multi-stage-add-layers  --username DOCKERHUB_USER --password DOCKERHUB_PASSWORD
+```
+
+* If all went well the previous command should show the image in your container registry as shown below
+
+![alt tag](https://i.ibb.co/tYRvcSQ/snyk-azure-workshop-3.png)
+
+If you have any trouble this guide explains how this command works
+
+https://docs.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli
+
+## Step 2 Setup ACR Integration
+
+Snyk integrates with Microsoft Azure Container Registry (ACR) to enable you to import your projects and monitor your containers for vulnerabilities, as is fully described in our Container vulnerability management documentation. Snyk tests the projects you’ve imported for any known security vulnerabilities found, testing at a frequency you control.
+
+* Login to http://app.snyk.io Sign up if you haven't already.
+* Navigating to Integrations -> Container Registries -> ACR
+* Enter in your ACR connection details as shown below
+
+![alt tag](https://i.ibb.co/TcCf2Y8/snyk-azure-workshop-12.png)
+
+By enabling an admin user you can easily connect to the registry using a username/password. For alternative ways of connecting see the following link
+https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-service-principal
+
+![alt tag](https://i.ibb.co/qDNPsMd/snyk-azure-workshop-11.png)
+
+More Information
+
+https://docs.snyk.io/products/snyk-container/image-scanning-library/acr-image-scanning/configure-integration-for-acr
+
+* If successful you should see the following
+
+![alt tag](https://i.ibb.co/4TPGkhh/snyk-azure-workshop-13.png)
+
+* Click on "**Add your ACR images to Snyk**"
+* Import "**springbootemployee**" image using the only tag available
+* Once complete you should see the following. This may take a few minutes and ignore any warnings you may see
+
+![alt tag](https://i.ibb.co/LzktTsM/snyk-azure-workshop-14.png)
+
+* Click on "**multi-stage-add-layers**" to view the base image vulnerabilities
+* Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below 
+
+![alt tag](https://i.ibb.co/C89xqrk/snyk-azure-workshop-15.png)
+
+## Lab 9 Monitor Kubernetes with Snyk
+
+
 ## Conclusion
 
 For this workshop we covered the following Azure integrations
@@ -510,4 +720,4 @@ Thanks for attending and completing this workshop
 ![alt tag](https://i.ibb.co/7tnp1B6/snyk-logo.png)
 
 <hr />
-Pas Apicella [pas at snyk.io] is an Solution Engineer at Snyk APJ
+By Pas Apicella [pas at snyk.io] and Tess Davis [tess at snyk.io] - Solution Engineers at Snyk APJ
