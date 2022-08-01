@@ -2,25 +2,25 @@
 
 Available in the Azure Marketplace, Snyk helps developers build their Azure workloads securely
 
-In this **hands-on** workshop we will achieve the follow:
+In this **hands-on** workshop we will achieve the following:
 
-## Part 1: From Code...
+**Part 1: From Code...**
 
 * [Lab 1: Scanning from Source Control](#Lab-1-Scanning-from-Source-Control)
 * [Lab 2: Secure as you Code - IDE](#Lab-2-Secure-as-you-Code---IDE)
 * [Lab 3: Secure as you Code - CLI](#Lab-3-Secure-as-you-Code---CLI)
 
-## Part 2: ...to Cloud...
+**Part 2: ...to Cloud...**
 
 * [Lab 4: Secure Containers](#Lab-4-Secure-Containers)
 * [Lab 5: Secure IAC](#Lab-5-Secure-IAC)
 * [Lab 6: Securing your Pipeline](#Lab-6-Securing-your-Pipeline)
 
-## Part 3: ...and Back to Code.
+**Part 3: ...and Back to Code.**
 
 * [Lab 7: Detecting Issues in Production](Lab-7-Detecting-Issues-in-Production)
 
-## Bonus Labs
+**Bonus Labs**
 
 * [Lab 8: Scan Your ACR Registry](Lab-8-Scan-Your-ACR-Registry)
 * [Lab 9: Monitor Kubernetes with Snyk](Lab-9-Monitor-Kubernetes-With-Snyk)
@@ -74,20 +74,19 @@ The default web browser has been opened at https://login.microsoftonline.com/org
 
 **Step 1 - Import a GitHub repository to Azure repos**
 
-In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as per above
+In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as above.
 
-1. git-source-url = https://github.com/papicella/dotNET-goof-v2
-2. project = name of an empty azure repos project you might have to create that before importing, I am using "**snyk-azure-project**"
-3. org = Azure DevOps organization URL
-4. repository = Use the same name as project above
-
-Note: You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. For this workshop we are starting with a new empty project so it's best to create a new project then use an existing one 
+You will need an empty Azure DevOps Project for this lab. You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. Name your project **snyk-azure-project**
 
 ```shell
-> az devops project create --name snyk-azure-project --org https://dev.azure.com/myOrganizationName --source-control git --visibility private
+> az devops project create --name snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --source-control git --visibility private
 ```
-
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
+
+1. git-source-url = https://github.com/papicella/dotNET-goof-v2 **!!!!! - TD - update repo to include Dockerfile and IAC code**
+2. project = name of the empty azure repos project that you created above **snyk-azure-project**
+3. org = Your Azure DevOps organization URL **TD - give example**
+4. repository = Use the same name as project above
 
 * Import as follows
 
@@ -96,13 +95,12 @@ Note: You may encounter this error so if you do please select "**Y**" and contin
 ```shell
 The command requires the extension azure-devops. Do you want to install it now? The command will continue to run after the extension is installed. (Y/n): y
 ```
-
 **Command**
 
-> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/pasapicella0207 --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --repository snyk-azure-project
 
 ```shell
-> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/pasapicella0207 --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --repository snyk-azure-project
 {
   "detailedStatus": {
     "allSteps": [
@@ -182,20 +180,38 @@ Snyk integrates with Microsoft Azure Repos to enable you to import your projects
 
 ![alt tag](https://i.ibb.co/1Gn91RC/snyk-azure-workshop-6.png)
 
+Navigate to Snyk Settings and Snyk Code settings. Enable Snyk Code if it is not enabled already.
+
+Navigate back to Snyk Settings and Infrastructure as Code settings. Enable Infrastructure as Code scanning if it is not enabled already.
+
+**TD- Paste screenshot**
+
+Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source and for Snyk Code. Enable Manual Fix PRs.
+
+**TD- Paste screenshot**
+
 More information of how to setup and use this integration can be found here
 
 https://docs.snyk.io/features/integrations/git-repository-scm-integrations/azure-repos-integration
 
-* Go ahead and click on "**Add your Azure Repos repositories to Snyk**"
-* Search for "**snyk-azure-project**" and click on "Add selected repositories" top right hand corner of the page
+**Step 3 Explore Issues in Open Source Vulnerabilities**
 
-_Note: This may take a few minutes to scan but once done you should some something as follows, ignore the warnings_
+* Go ahead and click on "**Add your Azure Repos repositories to Snyk**"
+* Search for "**snyk-azure-project**" and click on "Add selected repositories" on the top right hand corner of the page
+
+_Note: This may take a few minutes to scan but once done you should see the following, ignore the warnings_
 
 ![alt tag](https://i.ibb.co/2jRz2FR/snyk-azure-workshop-7.png)
 
 * Click on the link for "**dotNETGoofV2.Website.csproj**" so we can view the open source dependencies vulnerabilities that exist here
 
 ![alt tag](https://i.ibb.co/6Drf31b/snyk-azure-workshop-8.png)
+
+Move from the 'Issues' view to the 'Dependencies' view and select the dependency tree view.
+
+How many dependencies does the application use in total? How many dependencies are listed? Where are the rest?
+
+Move back to the 'Issues' view.
 
 For each Vulnerability, Snyk displays the following ordered by our [Proprietary Priority Score](https://snyk.io/blog/snyk-priority-score/) :
 1. The module that introduced it and, in the case of transitive dependencies, its direct dependency,
@@ -205,11 +221,21 @@ For each Vulnerability, Snyk displays the following ordered by our [Proprietary 
 5. Links to CWE, CVE and CVSS Score
 6. Plus more ...
 
-Navigate to Snyk Settings and enable Snyk Code if it is not enabled already.
+**Step 4 Explore Proprietary Code Issues**
 
-Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source and for Snyk Code. Enable Manual Fix PRs.
+Navigate back to the Projets view and expand the **project name** project. Click on the **TD--check** Snyk Code project.
 
-**Step 3 'Stop the Bleeding'**
+On the top issue **TD-Issue-Name** note that the issue type is **TD-Issue-Type** select "Full Details".
+
+Snyk Code performs Semantic Code Analysis on your proprietary code. This means that it reads the code with intelligence to make a high fidelity estimate of how the code will function. The Data Flow Analysis shows where potentially tainted data enters the application; 'Source'. The data flow is tracked at each step accross multiple files where the data is manipulated in the code. Each of these steps is a potential location to sanitise the data. The location where the data is executed is the 'Sink'. If the data has not been sanitised by the time it reaches a Sink, your code may be exploited. The type of exploit possible defines the issue type raised. In this case, a **TD- Issue type - Cross Site Scripting attack.**
+
+Clik **TD-Chec** "Learn More" to find out about **TD- Issue type - Cross Site Scripting attack.**. Snyk will provide three example fixes from Open Source to point you in the right direction.
+
+Imagine this issue was detected in an application back end and you want to come back to review it in 90 days after fixing some higher priority vulnerabilities. Click 'ignore' and ignore the issue for 90 days.
+
+Close the issue and view the ignored issues using the filter on the left hand side of the project view.
+
+**Step 5 'Stop the Bleeding'**
 
 The first thing many organisations do when they start to use Snyk is monitor to capture a baseline of existing issues. The next step is to stop new issues from being introduced.
 
@@ -223,9 +249,9 @@ Upload the file into your repository and select 'Create a Pull Request' when pro
 
 On the Pull Request page note the PR Check in place. Snyk is detecting any new vulnerabilities introduced by the PR. The code PR check should fail as we copied over a proprietary code issue when adding xxv2. The Open Source Security and License checks should pass even though there are issues in the repository because no new issues of this kind were added in the PR.
 
-**Step 4 Sec and Dev Collaboration**
+**Step 6 Sec and Dev Collaboration**
 
-Not only is Snyk able to clearly identify the vulnerable library but if it can be fixed we will provide the ability to create a Pull Request to actually fix the issue.
+Not only is Snyk able to clearly identify the vulnerable library but if it can be fixed we will provide the ability to create a Pull Request to actually fix the issue. This can allow security teams to collaborate with Developers to prioritise 'quick wins' within the tools Developers already use as part of their day to day work.
 
 * Go ahead and click on "**Fix this vulnerable**" to see how Snyk creates a PR directly on the Azure Repo repository we imported
 
@@ -233,11 +259,13 @@ Here is what a PR on Azure Repos would look like if you upgraded "**Halibut from
 
 ![alt tag](https://i.ibb.co/yg06NBL/snyk-azure-workshop-9.png)
 
+For some issues without an easy upgrade path e.g. where the dependency is not being maintained or it is a proprietary code issue, a ticket raised from the Snyk UI into a tool such as Jira is a better fit. **TD - DEMO**
+
 ## Lab 2: Secure as you Code - IDE
 
 **Step 1 Using VS Code to Secure your code as you develop**
 
-IDE integrations use Snyk Code’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check the code in. So you can find possible security flaws in your code as you write it, on a line-by-line basis.
+IDE integrations use Snyk Code’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check the code in. So you can find possible security flaws in your code as you write it, on a line-by-line basis. This helps to prevent seucrity technical debt from entering the value stream in the first place 
 
 Snyk Code supports a VS Code plugin to support issue finding and fixing, directly from the IDE
 
