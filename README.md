@@ -36,12 +36,11 @@ In this **hands-on** workshop we will achieve the following:
 * Docker Desktop running locally - https://docker.com/products/docker-desktop
 
 # Workshop Steps
-
-_Note: It is assumed you have already logged into Azure using the Azure CLI as shown below_
-
 If you don't have the Azure CLI installed, install it now as follows
 
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+
+Login to the Azure CLI:
 
 **Command** 
 
@@ -67,6 +66,8 @@ The default web browser has been opened at https://login.microsoftonline.com/org
   }
 ]
 ```
+
+For alternative authentication methods see: https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli#sign-in-with-credentials-on-the-command-line
 
 ## Part 1: From Code...
 
