@@ -220,14 +220,14 @@ Snyk gives you a picture of the security of your whole cloud native application 
 
 * Click on the link for "**package.json**" at the bottom so we can view the open source dependencies vulnerabilities that exist here.
 
-![alt tag](https://i.ibb.co/5RJfMZx/Move-to-deps.png)
-
 Move from the 'Issues' view to the 'Dependencies' view and select the dependency tree view.
 ![alt tag](https://i.ibb.co/bvtDf6c/Tree-View.png)
 
 How many dependencies does the application use in total? How many dependencies are listed? Where are the rest?
 
 Move back to the 'Issues' view.
+
+![alt tag](https://i.ibb.co/5RJfMZx/Move-to-deps.png)
 
 For each Vulnerability, Snyk displays the following ordered by our [Proprietary Priority Score](https://snyk.io/blog/snyk-priority-score/) :
 1. The module that introduced it and, in the case of transitive dependencies, its direct dependency,
