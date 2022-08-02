@@ -25,7 +25,7 @@ In this **hands-on** workshop we will achieve the following:
 * [Lab 8: Scan Your ACR Registry](Lab-8-Scan-Your-ACR-Registry)
 * [Lab 9: Monitor Kubernetes with Snyk](Lab-9-Monitor-Kubernetes-With-Snyk)
 
-## Prerequisites
+## Prerequisites (15 mins)
 
 * Microsoft Azure Subscription - https://azure.microsoft.com/en-au/free/
 * Azure CLI - https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
