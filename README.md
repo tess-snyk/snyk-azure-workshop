@@ -216,9 +216,11 @@ _Note: This may take a few minutes to scan but once done you should see the foll
 
 ![alt tag](https://i.ibb.co/6JgQRC9/Juic-Shop.png)
 
-* Click on the link for "**dotNETGoofV2.Website.csproj**" so we can view the open source dependencies vulnerabilities that exist here
+Snyk gives you a picture of the security of your whole cloud native application from your repo. You will see a proprietary code analysis, a dockerfile analysis, IAC analysis (Kubernetes Yaml file) and open source manifest files.
 
-![alt tag](https://i.ibb.co/6Drf31b/snyk-azure-workshop-8.png)
+* Click on the link for "**package.json**" at the bottom so we can view the open source dependencies vulnerabilities that exist here.
+
+![alt tag](https://i.ibb.co/5RJfMZx/Move-to-deps.png)
 
 Move from the 'Issues' view to the 'Dependencies' view and select the dependency tree view.
 
