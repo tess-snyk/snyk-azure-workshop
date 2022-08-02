@@ -34,7 +34,7 @@ In this **hands-on** workshop we will achieve the following:
 * Registered account on Snyk App - http://app.snyk.io
 * Docker Hub Account - http://hub.docker.com
 * Docker Desktop running locally - https://docker.com/products/docker-desktop
-* **Install NPM: !!ADD URL!!**
+* Install NPM:https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 # Workshop Steps
 If you don't have the Azure CLI installed, install it now as follows
@@ -270,9 +270,9 @@ Close the issue and view the ignored issues using the filter on the left hand si
 
 The first thing many organisations do when they start to use Snyk is monitor to capture a baseline of existing issues. The next step is to stop new issues from being introduced.
 
-To complete this step, you will need to install git if you have not already done so. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+You will need to have npm available to complete this step: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
-You will need to have npm available to complete this step. ***!!! Add NPM URL !!!**
+To complete this step, you will need to install git if you have not already done so. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
 Once you have Git installed locally, clone the repository that you set up in Step 1. You can follow the steps under "Get the clone URL of an Azure Repos Git repo": https://docs.microsoft.com/en-us/azure/devops/repos/git/clone?view=azure-devops&tabs=visual-studio-2019
 
