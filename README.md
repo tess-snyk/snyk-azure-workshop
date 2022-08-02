@@ -90,12 +90,12 @@ You will need an empty Azure DevOps Project for this lab. You can create a new p
 
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
 
-1. git-source-url = https://github.com/papicella/dotNET-goof-v2 **!!!!! - TD - update repo to include Dockerfile and IAC code**
+1. git-source-url = https://github.com/tess-snyk/juice-shop
 2. project = name of the empty azure repos project that you created above **snyk-azure-project**
-3. org = Your Azure DevOps organization URL **TD - give example**
+3. org = Your Azure DevOps organization URL https://dev.azure.com/*<azure-username>*
 4. repository = Use the same name as project above
 
-* Import as follows
+**Import as follows**
 
 Note: You may encounter this error so if you do please select "**Y**" and continue for the command to complete
 
@@ -104,10 +104,10 @@ The command requires the extension azure-devops. Do you want to install it now? 
 ```
 **Command**
 
-> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/*<azure-username>* --repository snyk-azure-project
 
 ```shell
-> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/*<azure-username>* --repository snyk-azure-project
 {
   "detailedStatus": {
     "allSteps": [
@@ -126,7 +126,7 @@ The command requires the extension azure-devops. Do you want to install it now? 
     "deleteServiceEndpointAfterImportIsDone": null,
     "gitSource": {
       "overwrite": false,
-      "url": "https://github.com/papicella/dotNET-goof-v2"
+      "url": "https://github.com/tess-snyk/juice-shop"
     },
     "serviceEndpointId": null,
     "tfvcSource": null
