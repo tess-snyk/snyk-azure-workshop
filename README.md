@@ -212,7 +212,7 @@ https://docs.snyk.io/features/integrations/git-repository-scm-integrations/azure
 
 _Note: This may take a few minutes to scan but once done you should see the following, ignore the warnings_
 
-![alt tag](https://i.ibb.co/2jRz2FR/snyk-azure-workshop-7.png)
+![alt tag](https://i.ibb.co/6JgQRC9/Juic-Shop.png)
 
 * Click on the link for "**dotNETGoofV2.Website.csproj**" so we can view the open source dependencies vulnerabilities that exist here
 
