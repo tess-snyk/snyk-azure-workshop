@@ -165,7 +165,7 @@ The command requires the extension azure-devops. Do you want to install it now? 
 ```
 Once complete the following should exist in your Azure DevOps ORG 
 
-![alt tag](https://www.dropbox.com/s/01nnn6j1gzbc1ke/AR-Success.png?dl=0)
+![alt tag](https://ibb.co/FHNwQXw)
 
 If you have any trouble this guide explains how this command works
 
