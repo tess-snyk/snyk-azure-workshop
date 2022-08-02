@@ -77,14 +77,16 @@ For alternative authentication methods see: https://docs.microsoft.com/en-us/cli
 
 In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as above.
 
-Logged in to your Azure account, navigate to Azure DevOps: https://dev.azure.com/<azure-username>/
+Logged in to your Azure account, navigate to Azure DevOps: https://dev.azure.com/**<YOUR_ORG_NAME_HERE>**/
+
+*-> Note that your Azure Org name is the user name that you created your account under e.g.  **<YOUR_ORG_NAME_HERE>** = your Azure user name
 
 You will need an empty Azure DevOps Project for this lab. You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. Name your project **snyk-azure-project**
 
 **CLI Method:**
 
 ```shell
-> az devops project create --name snyk-azure-project --org https://dev.azure.com/*<azure-username>* --source-control git --visibility private
+> az devops project create --name snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --source-control git --visibility private
 ```
 **UI Method:**
 
@@ -94,7 +96,7 @@ You will need an empty Azure DevOps Project for this lab. You can create a new p
 
 1. git-source-url = https://github.com/tess-snyk/juice-shop
 2. project = name of the empty azure repos project that you created above **snyk-azure-project**
-3. org = Your Azure DevOps organization URL https://dev.azure.com/*<azure-username>*
+3. org = Your Azure DevOps organization URL https://dev.azure.com/**<YOUR_ORG_NAME_HERE>**
 4. repository = Use the same name as project above
 
 **Import as follows**
@@ -106,10 +108,10 @@ The command requires the extension azure-devops. Do you want to install it now? 
 ```
 **Command**
 
-> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/*<azure-username>* --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --repository snyk-azure-project
 
 ```shell
-> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/*<azure-username>* --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --repository snyk-azure-project
 {
   "detailedStatus": {
     "allSteps": [
