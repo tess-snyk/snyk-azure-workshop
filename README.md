@@ -223,6 +223,7 @@ Snyk gives you a picture of the security of your whole cloud native application 
 ![alt tag](https://i.ibb.co/5RJfMZx/Move-to-deps.png)
 
 Move from the 'Issues' view to the 'Dependencies' view and select the dependency tree view.
+![alt tag](https://i.ibb.co/bvtDf6c/Tree-View.png)
 
 How many dependencies does the application use in total? How many dependencies are listed? Where are the rest?
 
