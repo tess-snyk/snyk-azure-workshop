@@ -191,13 +191,15 @@ Snyk integrates with Microsoft Azure Repos to enable you to import your projects
 
 Navigate to Snyk Settings and Snyk Code settings. Enable Snyk Code if it is not enabled already.
 
+![alt tag](https://i.ibb.co/3TJXy1Q/Code-Settings.png)
+
 Navigate back to Snyk Settings and Infrastructure as Code settings. Enable Infrastructure as Code scanning if it is not enabled already.
 
-**TD- Paste screenshot**
+![alt tag](https://i.ibb.co/9Vb4t3W/Ia-C-Settings.png)
 
 Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source and for Snyk Code. Enable Manual Fix PRs.
 
-**TD- Paste screenshot**
+![alt tag](https://i.ibb.co/M1xJdfj/Turn-on-PR-Checks.png)
 
 More information of how to setup and use this integration can be found here
 
