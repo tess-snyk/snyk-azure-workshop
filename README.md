@@ -34,6 +34,7 @@ In this **hands-on** workshop we will achieve the following:
 * Registered account on Snyk App - http://app.snyk.io
 * Docker Hub Account - http://hub.docker.com
 * Docker Desktop running locally - https://docker.com/products/docker-desktop
+* **Install NPM: !!ADD URL!!**
 
 # Workshop Steps
 If you don't have the Azure CLI installed, install it now as follows
@@ -271,13 +272,50 @@ The first thing many organisations do when they start to use Snyk is monitor to 
 
 To complete this step, you will need to install git if you have not already done so. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
+You will need to have npm available to complete this step. ***!!! Add NPM URL !!!**
+
 Once you have Git installed locally, clone the repository that you set up in Step 1. You can follow the steps under "Get the clone URL of an Azure Repos Git repo": https://docs.microsoft.com/en-us/azure/devops/repos/git/clone?view=azure-devops&tabs=visual-studio-2019
 
-Find the folder on your local filesystem and copy the xx file, name it xxv2.
+Lets add an open source library that we know is vulnerable in order to see how we can be alerted about the new issue being introduced right out of Azure Repos.
 
-Upload the file into your repository and select 'Create a Pull Request' when prompted.
+* Create a new branch in your local git folder
 
-On the Pull Request page note the PR Check in place. Snyk is detecting any new vulnerabilities introduced by the PR. The code PR check should fail as we copied over a proprietary code issue when adding xxv2. The Open Source Security and License checks should pass even though there are issues in the repository because no new issues of this kind were added in the PR.
+> git branch add_reports
+
+* Ensure you are actively working on that branch code base
+
+> git checkout add_reports
+
+* Verify the branch was properly switched to add_reports
+
+> git status
+
+Edit package.json with your favorite editor (vi).
+
+*Note: this is only a snippet from the bottom of the file. Look for this snippet under the "Dependencies" section of the code*
+
+Before:
+
+```"swagger-ui-express": "^4.1.4",
+    "unzipper": "0.9.15",
+    "winston": "^3.3.3",
+    "yaml-schema-validator": "^1.2.2",
+    "z85": "^0.0.2"
+  },
+```
+Add the tinymce package:
+
+After:
+
+```"swagger-ui-express": "^4.1.4",
+    "unzipper": "0.9.15",
+    "winston": "^3.3.3",
+    "yaml-schema-validator": "^1.2.2",
+    "z85": "^0.0.2",
+    "tinymce": "4.1.0" 
+  },
+```
+Run npm install to install tinymce dependency and rebuild the package-lock.json
 
 **Step 6 Sec and Dev Collaboration**
 
