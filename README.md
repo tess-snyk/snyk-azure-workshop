@@ -199,9 +199,9 @@ Navigate back to Snyk Settings and Infrastructure as Code settings. Enable Infra
 
 ![alt tag](https://i.ibb.co/rcbggQc/Ia-C-Settings.png)
 
-Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source and for Snyk Code. Enable Manual Fix PRs.
+Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source. Enable Manual Fix PRs.
 
-![alt tag](https://i.ibb.co/9ZWZmkH/Turn-on-PR-Checks.png)
+![alt tag](https://i.ibb.co/w02TDTj/STOPTHEBLEED.png)
 
 More information of how to setup and use this integration can be found here
 
