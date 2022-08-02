@@ -258,9 +258,9 @@ If the data has not been sanitised by the time it reaches a Sink, your code may 
 
 Click "Fix Analysis" to find out about how to avoid and fix Cross Site Scripting (XSS) vulnerabilities. Snyk will provide three example fixes from Open Source to point you in the right direction.
 
-![alt tag](https://i.ibb.co/102spPv/Ignore-issue.png)
-
 Imagine this issue was detected in an application back end and you want to come back to review it in 90 days after fixing some higher priority vulnerabilities. Click 'ignore' and ignore the issue for 90 days.
+
+![alt tag](https://i.ibb.co/6tPM7tk/fix-analysis-2.png)
 
 Close the issue and view the ignored issues using the filter on the left hand side of the project view.
 
