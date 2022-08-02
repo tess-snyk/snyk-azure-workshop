@@ -239,17 +239,31 @@ For each Vulnerability, Snyk displays the following ordered by our [Proprietary 
 
 **Step 4 Explore Proprietary Code Issues**
 
-Navigate back to the Projets view and expand the **project name** project. Click on the **TD--check** Snyk Code project.
+Navigate back to the Projets view and expand  **snyk-azure-project** project. Click on the **"Code analysis"** Snyk Code project.
 
-On the top issue **TD-Issue-Name** note that the issue type is **TD-Issue-Type** select "Full Details".
+On the top issue **Cross-site Scripting (XSS)** note that the issue type is select "Full Details".
 
-Snyk Code performs Semantic Code Analysis on your proprietary code. This means that it reads the code with intelligence to make a high fidelity estimate of how the code will function. The Data Flow Analysis shows where potentially tainted data enters the application; 'Source'. The data flow is tracked at each step accross multiple files where the data is manipulated in the code. Each of these steps is a potential location to sanitise the data. The location where the data is executed is the 'Sink'. If the data has not been sanitised by the time it reaches a Sink, your code may be exploited. The type of exploit possible defines the issue type raised. In this case, a **TD- Issue type - Cross Site Scripting attack.**
+![alt tag](https://i.ibb.co/9NhHkfT/Code-Issue.png)
 
-Clik **TD-Chec** "Learn More" to find out about **TD- Issue type - Cross Site Scripting attack.**. Snyk will provide three example fixes from Open Source to point you in the right direction.
+Snyk Code performs Semantic Code Analysis on your proprietary code. This means that it reads the code with intelligence to make a high fidelity estimate of how the code will function. 
+
+![alt tag](https://i.ibb.co/wwV1VGC/Data-Flow.png)
+
+The Data Flow Analysis shows where potentially tainted data enters the application; 'Source'. The data flow is tracked at each step accross multiple files where the data is manipulated in the code. Each of these steps is a potential location to sanitise the data. The location where the data is executed is the 'Sink'. Scroll down on the left as shown in the image above to see the Sink.
+
+If the data has not been sanitised by the time it reaches a Sink, your code may be exploited. The type of exploit possible defines the issue type raised. In this case, a **Cross Site Scripting (XSS) attack.**
+
+![alt tag](https://i.ibb.co/THb8Mqb/Fix-analysis.png)
+
+Click "Fix Analysis" to find out about how to avoid and fix Cross Site Scripting (XSS) vulnerabilities. Snyk will provide three example fixes from Open Source to point you in the right direction.
+
+![alt tag](https://i.ibb.co/102spPv/Ignore-issue.png)
 
 Imagine this issue was detected in an application back end and you want to come back to review it in 90 days after fixing some higher priority vulnerabilities. Click 'ignore' and ignore the issue for 90 days.
 
 Close the issue and view the ignored issues using the filter on the left hand side of the project view.
+
+![alt tag](https://i.ibb.co/KbHfQMV/Filter-ignore.png)
 
 **Step 5 'Stop the Bleeding'**
 
