@@ -90,6 +90,8 @@ You will need an empty Azure DevOps Project for this lab. You can create a new p
 
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
 
+**Import Parameters**
+
 1. git-source-url = https://github.com/tess-snyk/juice-shop
 2. project = name of the empty azure repos project that you created above **snyk-azure-project**
 3. org = Your Azure DevOps organization URL https://dev.azure.com/*<azure-username>*
@@ -161,7 +163,7 @@ The command requires the extension azure-devops. Do you want to install it now? 
   _"url": "https://dev.azure.com/pasapicella0207/snyk-azure-project/_apis/git/repositories/c46382e4-6686-439c-877d-766dd0203d21/importRequests/9"_
 }
 ```
-* Once complete the following should exist in your Azure DevOps ORG 
+Once complete the following should exist in your Azure DevOps ORG 
 
 ![alt tag](https://i.ibb.co/sy4KyYr/snyk-azure-workshop-1.png)
 
