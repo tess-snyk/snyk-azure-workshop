@@ -165,7 +165,7 @@ The command requires the extension azure-devops. Do you want to install it now? 
 ```
 Once complete the following should exist in your Azure DevOps ORG 
 
-![alt tag](https://i.ibb.co/sy4KyYr/snyk-azure-workshop-1.png)
+![alt tag](https://ibb.co/FHNwQXw)
 
 If you have any trouble this guide explains how this command works
 
