@@ -317,13 +317,43 @@ After:
 ```
 Run npm install to install tinymce dependency and rebuild the package-lock.json
 
+> npm install
+
+Check that both the manifest (package.json) an lock file (package-lock.json) are updated:
+
+> git status
+
+Add them to git with wildcard matching to track the changes you would like to save to your branch.
+
+> git add package*
+
+Save your changes to your branch locally.
+
+> git commit -m "adding tinymce v4.1.0"
+
+Push your local changes to your branch on Azure Repos
+
+> git push origin add_reports
+
+Go to Azure Repos and your **snyk-azure-project** repo. **!!!Next to "<>Code" you'll see "Pull requests", Click to see the PRs. Select the big green button "New pull request" and on the next screen use the drop downs to ensure proper settings:**
+
+*	For the right drop down select your branch. (Note your compare will be “compare: add_reports”)
+
+If that looks okay you can open a PR with some basic details and once it opens you should see the Snyk PR checks similar to what is seen below. Note you will NOT merge these, the goal of this PR is to show the fancy license/code/security checks!
+
 **Step 6 Sec and Dev Collaboration**
 
 Not only is Snyk able to clearly identify the vulnerable library but if it can be fixed we will provide the ability to create a Pull Request to actually fix the issue. This can allow security teams to collaborate with Developers to prioritise 'quick wins' within the tools Developers already use as part of their day to day work.
 
-* Go ahead and click on "**Fix this vulnerable**" to see how Snyk creates a PR directly on the Azure Repo repository we imported
+Navigate back to Projects view and back into the final package.json project.
 
-Here is what a PR on Azure Repos would look like if you upgraded "**Halibut from 4.4.4 to 4.4.7**"
+On the first issue **sequelize - SQL Injection** go ahead and click on "**Fix this vulnerability**" to see how Snyk creates a PR directly on the Azure Repo repository we imported.
+
+![alt tag](https://i.ibb.co/TrV12L5/PR-Fix-Vuln.png)
+
+Here is what a PR on Azure Repos would look like if you upgraded "**sequelize from 5.22.5 to 6.19.1**"
+
+**!!!! UPDATE Screenshot from Azure Repos!!!!**
 
 ![alt tag](https://i.ibb.co/yg06NBL/snyk-azure-workshop-9.png)
 
