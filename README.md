@@ -77,11 +77,17 @@ For alternative authentication methods see: https://docs.microsoft.com/en-us/cli
 
 In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as above.
 
+Logged in to your Azure account, navigate to Azure DevOps: https://dev.azure.com/<azure-username>/
+
 You will need an empty Azure DevOps Project for this lab. You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. Name your project **snyk-azure-project**
 
+**CLI Method:**
+
 ```shell
-> az devops project create --name snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --source-control git --visibility private
+> az devops project create --name snyk-azure-project --org https://dev.azure.com/*<azure-username>* --source-control git --visibility private
 ```
+**UI Method:**
+
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
 
 1. git-source-url = https://github.com/papicella/dotNET-goof-v2 **!!!!! - TD - update repo to include Dockerfile and IAC code**
