@@ -79,14 +79,15 @@ Else, we will use the UI as follows:
 
 **Import as follows**
 
-Import project
-![alt tag]()
+Within your project, under Repos, choose to Import code:
+![alt tag](https://i.ibb.co/jfyBLbc/Import.png)
 
-Name import
-![alt tag]()
+Import the https://github.com/tess-snyk/juice-shop repository from github:
+![alt tag](https://i.ibb.co/PMZ8Wwr/Name-Import.png)
 
-Confirm import success
-![alt tag]()
+Confirm import success; once complete the following should exist in your Azure DevOps ORG 
+
+![alt tag](https://i.ibb.co/j5RhxFG/AR-Success.png)
 
 ---
 
