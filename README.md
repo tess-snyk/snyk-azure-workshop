@@ -713,26 +713,45 @@ The Snyk CLI drives CI integrations under the covers. The powerful CLI enables t
 
 > snyk test --severity-threshold=critical --fail-on-patchable
 
-```bash
-Snyk Test results
-```
+Additional examples of CLI commands for your CI Pipeline: https://docs.snyk.io/integrations/ci-cd-integrations#cli-examples-in-a-build-pipeline
 
 **Step 2: Further Flexibility with Policy - DEMO**
 
-DEMO
+Use Snyk Policies in combination with CI workflows to monitor or even block builds based on thresholds and other criteria that make sense for your team: https://snyk.io/blog/snyk-security-policies/#:~:text=A%20Snyk%20security%20policy%20contains,tweaking%20the%20severity%20for%20vulnerabilities.
 
-**Step 3: Set up an Azure Pipeline**
+Snyk Policies require a paid Snyk license so we will cover this capability in the workshop with a demo.
 
-Return to the Azure DevOps UI. From the project containing your NAME repo, navigate to Pipelines and create a New Pipeline.
+**DEMO**
 
-Asked "Where is your code?", choose Azure Repos Git. Select the NAME repository.
+**Step 3: Set up a Security Audit Pipeline in Azure**
+
+Return to the Azure DevOps UI. From the project containing your snyk-azure-project repo, navigate to Pipelines and create a New Pipeline. 
+
+![alt tag](https://i.ibb.co/tKKfZhQ/Azure-Pipeline.png)
+
+* Asked "Where is your code?", choose Azure Repos Git. 
+
+![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
+
+* Select the **snyk-azure-project** repository.
+
+![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
+
+
+
+
+Follow the link to the Azure_Sec_Audit repository, select and copy all of the code from the audit_pipeline.yaml file: https://github.com/tess-snyk/Azure_Sec_Audit/blob/main/audit_pipeline.yaml
+
+
+
 
 -----
 
-Create Yaml Pipeline
+**Optional Step 4 Configure a Security Audit Pipeline**
 
+The use case audit a build across all four scan types (Code, Open Source, Container, IAC) and produce a human-readable report in a single pipeline can be met following the "HTML Reports" CI/CD ingetration example: https://github.com/snyk-labs/snyk-cicd-integration-examples/blob/master/AzurePipelines/AzurePipelines-npm-generic-html.yml
 
-
+If you still have available time, follow the steps to configure the above pipeline.
 
 ## Part 3: ...and Back to Code.
 
