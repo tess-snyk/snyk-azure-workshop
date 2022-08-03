@@ -755,7 +755,8 @@ Note line 25 of the yaml script:
 
 ```bash
       snyk auth $(SNYK_TOKEN)
-      ```
+    
+```
 
 * Next set up a security token for the pipeline. We will use this to connect to Snyk.
 
