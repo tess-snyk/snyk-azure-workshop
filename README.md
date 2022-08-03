@@ -488,41 +488,7 @@ We will continue to use the Snyk CLI in lab 4, lab 5 and lab 6.
 
 ## Part 2 ...to Cloud
 
-## Lab 4: Secure Containers
-
-_Note: You must have docker desktop running locally before you start these steps
-Docker Desktop running locally - https://docker.com/products/docker-desktop_
-
-BUILD LOCAL IMAGE INSTRUCTIONS
-
-**Command**
-
-> snyk container test IMAGE_NAME
-
-```bash
-Snyk Container Test results
-```
-
-The results of the CLI scan can be sent to the Snyk UI to monitor.
-
-**Command**
-
-> snyk container monitor IMAGE_NAME
-
-```bash
-Snyk Monitor notification
-```
-
-Return to the Snyk UI projets view. Filter results to show monitored CLI / CI results.
-
-Click on "IMAGE NAME" to view the image vulnerabilities.
-
-Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below.
-
-In the filters, select "User image layers". This will show the remaining vulnerabilities to be remediated that are being pulled in by addional user layers rather than the base image.
-
-
-## Lab 5: Secure IAC
+## Lab 4: Secure IAC
 
 **Step 1 Scan an ARM template**
 
@@ -705,7 +671,7 @@ xx
 
 --->
 
-## Lab 6: Securing your Pipeline
+## Lab 5: Securing your Pipeline
 
 **Step 1: Behind the Scenes**
 
@@ -878,15 +844,9 @@ After the pipeline runs, the results of each of the four scan types can be viewe
 
 ![alt tag](https://i.ibb.co/McmLCBQ/Screen-Shot-2022-08-03-at-9-22-51-PM.png)
 
-## Part 3: ...and Back to Code.
+## Part 3: ...and Back to Code
 
-## Lab 7: Detecting Issues in Production
-
-DEMO - Kubernetes Monitoring
-
-## Bonus Labs
-
-## Lab 8: Scan Your ACR Registry
+## Lab 6 Secure Containers from Azure Container Registry (ACR)
 
 **Step 1 Import a DockerHub repository container image to ACR**
 
@@ -967,23 +927,21 @@ https://docs.snyk.io/products/snyk-container/image-scanning-library/acr-image-sc
 
 ![alt tag](https://i.ibb.co/C89xqrk/snyk-azure-workshop-15.png)
 
-## Lab 9 Monitor Kubernetes with Snyk
-
-
 ## Conclusion
 
 For this workshop we covered the following Azure integrations
 
 1. Azure Repos
-2. Azure Container Registry (ACR)
-3. Snyk IDE plugin for VS Code
-4. Snyk CLI scan for ARM misconfiguration
+2. Snyk IDE plugin for VS Code
+3. Snyk CLI scan for code and open source
+4. Snyk CLI scan for ICA - ARM misconfigurations
+5. Pipeline scanning in Azure Pipelines
+6. Container scanning in ACR
 
-Having said that Snyk can do even more on Azure including the following which we did not cover, feel free to check out how we can use those integrations using the links below
+Snyk can do even more on Azure including the following which we did not cover, feel free to check out how we can use those integrations using the links below
 
-1. Azure Pipelines Integration - https://docs.snyk.io/features/integrations/ci-cd-integrations/azure-pipelines-integration
-2. Azure Kubernetes Integration - https://docs.snyk.io/products/snyk-container/image-scanning-library/kubernetes-workload-and-image-scanning/kubernetes-integration-overview 
-3. Azure Functions - https://docs.snyk.io/features/integrations/serverless-integrations/azure-functions-overview
+1. Azure Kubernetes Integration - https://docs.snyk.io/products/snyk-container/image-scanning-library/kubernetes-workload-and-image-scanning/kubernetes-integration-overview 
+2. Azure Functions - https://docs.snyk.io/features/integrations/serverless-integrations/azure-functions-overview
 
 ![alt tag](https://i.ibb.co/pwyfvVJ/snyk-azure-workshop-18.png)
 
