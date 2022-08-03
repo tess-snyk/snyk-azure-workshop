@@ -364,6 +364,8 @@ You will land on the Javascript tutorial about SQL injections because the issue 
 
 ## Lab 3: Secure as you Code - CLI
 
+**Step 1 Snyk CLI Set Up**
+
 Before we get started please make sure you have setup the Snyk CLI. There are various install options as per the links below. Using the prebuilt binaries means you don't have to install NPM to install the Snyk CLI.
 
 1. Install Page - https://support.snyk.io/hc/en-us/articles/360003812538-Install-the-Snyk-CLI
@@ -402,7 +404,7 @@ Your account has been authenticated. Snyk is now ready to be used.
 _Note: If you are having trouble authenticating via a browser with the Snyk App you can setup authentication using the API token as shown below
 [Authenticate using your API token](https://support.snyk.io/hc/en-us/articles/360004008258-Authenticate-the-CLI-with-your-account#UUID-4f46843c-174d-f448-cadf-893cfd7dd858_section-idm4557419555668831541902780562)_
 
-**Step 1 Scanning for Open Source Dependencies in the CLI**
+**Step 2 Scanning for Open Source Dependencies in the CLI**
 
 In your terminal, change directory to the local code repository that you cloned in Lab 1, Step 3, **snyk-azure-project**.
 
@@ -477,6 +479,8 @@ Notifications about newly disclosed issues related to these dependencies will be
 ```
 
 * Return to the Snyk UI in Project view. Use the filters on the left to show monitored CLI / CI results. The step you just performed in the CLI to monitor created this project.
+
+![alt tag](https://i.ibb.co/QvLrv8h/CLI-Monitor-UI.png)
 
 The Snyk CLI drives local scans and makes for powerful CI integrations with Snyk. You may choose to use it just to monitor as we did in the last step or to set thresholds to break a build or define local or shared ignores. See the CLI cheat sheet to get started: https://snyk.io/blog/snyk-cli-cheat-sheet/
 
