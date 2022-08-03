@@ -60,7 +60,7 @@ For alternative authentication methods see: https://docs.microsoft.com/en-us/cli
 
 ## Lab 1: Scanning from Source Control
 
-**Step 1 - Import a GitHub repository to Azure repos (20 mins)**
+**Step 1 - Import a GitHub repository to Azure repos (5 mins)**
 
 If you already have the Azure CLI installed and are logged in, you may use the CLI to create your new repository in Azure Repos. Instructions [here](https://github.com/tess-snyk/snyk-azure-workshop/blob/wellington_cns/additional_instructions/Azure_CLI.md).
 
@@ -91,7 +91,7 @@ Confirm import success; once complete the following should exist in your Azure D
 
 ---
 
-**Step 2 Setup Azure Repos Integration (20 mins)**
+**Step 2 Setup Azure Repos Integration (15 mins)**
 
 Snyk integrates with Microsoft Azure Repos to enable you to import your projects and monitor the source code for your repositories. Snyk tests the projects you’ve imported for any known security vulnerabilities found in the application’s dependencies, testing at a frequency you control.
 
