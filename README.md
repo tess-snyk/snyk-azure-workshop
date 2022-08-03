@@ -70,7 +70,11 @@ The default web browser has been opened at https://login.microsoftonline.com/org
 
 For alternative authentication methods see: https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli#sign-in-with-credentials-on-the-command-line
 
+---
+
 ## Part 1: From Code...
+
+---
 
 ## Lab 1: Scanning from Source Control
 
@@ -135,6 +139,8 @@ If you have any trouble this guide explains how this command works
 
 https://docs.microsoft.com/en-us/cli/azure/repos/import?view=azure-cli-latest
 
+---
+
 **Step 2 Setup Azure Repos Integration (20 mins)**
 
 Snyk integrates with Microsoft Azure Repos to enable you to import your projects and monitor the source code for your repositories. Snyk tests the projects you’ve imported for any known security vulnerabilities found in the application’s dependencies, testing at a frequency you control.
@@ -168,6 +174,8 @@ Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for
 More information of how to setup and use this integration can be found here
 
 https://docs.snyk.io/features/integrations/git-repository-scm-integrations/azure-repos-integration
+
+---
 
 **Step 3 Explore Issues in Open Source Vulnerabilities (10 mins)**
 
@@ -318,6 +326,8 @@ Here is what a PR on Azure Repos would look like if you upgraded "**sequelize fr
 
 For some issues without an easy upgrade path e.g. where the dependency is not being maintained or it is a proprietary code issue, a ticket raised from the Snyk UI into a tool such as Jira is a better fit.
 
+---
+
 ## Lab 2: Secure as you Code - IDE
 
 **Step 1 Using VS Code to Secure your code as you develop**
@@ -361,6 +371,8 @@ You will land on the Javascript tutorial about SQL injections because the issue 
 **OPTIONAL - Step 2 Learning about Application Security Vulnerabilities and How to Mitigate them**
 
 * If you have time, please follow the tutorial for SQL Injection in your language of choice, or you can complete this later at home
+
+---
 
 ## Lab 3: Secure as you Code - CLI
 
@@ -486,7 +498,11 @@ The Snyk CLI drives local scans and makes for powerful CI integrations with Snyk
 
 We will continue to use the Snyk CLI in lab 4, lab 5 and lab 6.
 
+---
+
 ## Part 2 ...to Cloud
+
+---
 
 ## Lab 4: Secure IAC
 
@@ -671,6 +687,8 @@ xx
 
 --->
 
+---
+
 ## Lab 5: Securing your Pipeline
 
 **Step 1: Behind the Scenes**
@@ -844,7 +862,7 @@ After the pipeline runs, the results of each of the four scan types can be viewe
 
 ![alt tag](https://i.ibb.co/McmLCBQ/Screen-Shot-2022-08-03-at-9-22-51-PM.png)
 
-## Part 3: ...and Back to Code
+---
 
 ## Lab 6 Secure Containers from Azure Container Registry (ACR)
 
@@ -926,6 +944,8 @@ https://docs.snyk.io/products/snyk-container/image-scanning-library/acr-image-sc
 * Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below 
 
 ![alt tag](https://i.ibb.co/C89xqrk/snyk-azure-workshop-15.png)
+
+---
 
 ## Conclusion
 
