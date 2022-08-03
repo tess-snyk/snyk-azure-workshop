@@ -723,9 +723,15 @@ Snyk Policies require a paid Snyk license so we will cover this capability in th
 
 **DEMO**
 
+**Step 3: Set up an Azure DevOps Pipeline for an Open Source Vulnerability Scan**
+
+Please follow the steps [here](https://docs.snyk.io/integrations/ci-cd-integrations/azure-pipelines-integration#install-the-snyk-extension-for-your-azure-pipelines) to set up the Snyk Extension for Azure Pipelines.
+
+
+
 **Step 3: Set up a Security Audit Pipeline in Azure**
 
-Return to the Azure DevOps UI. From the project containing your snyk-azure-project repo, navigate to Pipelines and create a New Pipeline. 
+First we will build a pipeline for the use case of auditing a build across all four scan types (Code, Open Source, Container, IAC). This will produce a human-readable report covering the end to end cloud native application in a single pipeline.
 
 ![alt tag](https://i.ibb.co/tKKfZhQ/Azure-Pipeline.png)
 
@@ -737,10 +743,46 @@ Return to the Azure DevOps UI. From the project containing your snyk-azure-proje
 
 ![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
 
+* At the "Configure your pipeline" step, choose Node.js as the build template
+
+![alt tag](https://i.ibb.co/YXfMG4t/Nodejs.png)
+
+An empty node.js pipeline script is created. 
+
+* Follow the below link to the Azure_Sec_Audit repository, select and copy all of the code from the audit_pipeline.yaml file: https://github.com/tess-snyk/Azure_Sec_Audit/blob/main/audit_pipeline.yamlSave the pipeline but don't run it yet.
+
+Note line 25 of the yaml script:
+
+```bash
+      snyk auth $(SNYK_TOKEN)
+      ```
+
+* Next set up a security token for the pipeline. We will use this to connect to Snyk.
+
+  1. In your Snyk UI, General settings copy out your Auth Token to the clipboard.
+
+  ![alt tag](https://i.ibb.co/S7M93Pm/CLI-Token-2.png)
+
+  1. Your Snyk security token must be [set as a secret variable in the pipeline](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash#secret-variable-in-the-ui)
+
+  * On your pipeline page, select Edit
+  * Locate the Variables for this pipeline.
+
+    ![alt tag](https://i.ibb.co/ZVzvGpM/Find-Variables.png)
+
+  * Add a variable called SNYK_TOKEN with the value of the Snyk auth token you copied
+
+  ![alt tag](https://i.ibb.co/XC1FmTh/Set-variable.png)
+
+  Select the Secret lock icon to store the variable in an encrypted manner.
+  Click OK and then Save.
+
+  Save the pipeline.
 
 
+  2. You will need the Azure Pipelines html extention to generate a human readable report of each of the scan types; code, open source, containers and IAC. Install the extension now: https://marketplace.visualstudio.com/items?itemName=JakubRumpca.azure-pipelines-html-report
 
-Follow the link to the Azure_Sec_Audit repository, select and copy all of the code from the audit_pipeline.yaml file: https://github.com/tess-snyk/Azure_Sec_Audit/blob/main/audit_pipeline.yaml
+* Save the pipeline
 
 
 
