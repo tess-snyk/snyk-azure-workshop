@@ -125,46 +125,7 @@ The command requires the extension azure-devops. Do you want to install it now? 
     ],
     "currentStep": 6,
     "errorMessage": null
-  },
-  "importRequestId": 9,
-  "parameters": {
-    "deleteServiceEndpointAfterImportIsDone": null,
-    "gitSource": {
-      "overwrite": false,
-      "url": "https://github.com/tess-snyk/juice-shop"
-    },
-    "serviceEndpointId": null,
-    "tfvcSource": null
-  },
-  "repository": {
-    "defaultBranch": null,
-    "id": "c46382e4-6686-439c-877d-766dd0203d21",
-    "isDisabled": false,
-    "isFork": null,
-    "name": "snyk-azure-project",
-    "parentRepository": null,
-    "project": {
-      "abbreviation": null,
-      "defaultTeamImageUrl": null,
-      "description": null,
-      "id": "1b8473fa-1854-49fb-aad5-65b213c4f302",
-      "lastUpdateTime": "2022-01-06T00:25:29.357Z",
-      "name": "snyk-azure-project",
-      "revision": 76,
-      "state": "wellFormed",
-      "url": "https://dev.azure.com/pasapicella0207/_apis/projects/1b8473fa-1854-49fb-aad5-65b213c4f302",
-      "visibility": "private"
-    },
-    "remoteUrl": "https://pasapicella0207@dev.azure.com/pasapicella0207/snyk-azure-project/_git/snyk-azure-project",
-    "size": 0,
-    "sshUrl": "git@ssh.dev.azure.com:v3/pasapicella0207/snyk-azure-project/snyk-azure-project",
-    "url": "https://dev.azure.com/pasapicella0207/1b8473fa-1854-49fb-aad5-65b213c4f302/_apis/git/repositories/c46382e4-6686-439c-877d-766dd0203d21",
-    "validRemoteUrls": null,
-    "webUrl": "https://dev.azure.com/pasapicella0207/snyk-azure-project/_git/snyk-azure-project"
-  },
-  "status": "completed",
-  _"url": "https://dev.azure.com/pasapicella0207/snyk-azure-project/_apis/git/repositories/c46382e4-6686-439c-877d-766dd0203d21/importRequests/9"_
-}
+  .....
 ```
 Once complete the following should exist in your Azure DevOps ORG 
 
