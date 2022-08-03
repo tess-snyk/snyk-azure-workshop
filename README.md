@@ -4,26 +4,12 @@ Available in the Azure Marketplace, Snyk helps developers build their Azure work
 
 In this **hands-on** workshop we will achieve the following:
 
-**Part 1: From Code...**
-
 * [Lab 1: Scanning from Source Control](#Lab-1-Scanning-from-Source-Control)
 * [Lab 2: Secure as you Code - IDE](#Lab-2-Secure-as-you-Code---IDE)
 * [Lab 3: Secure as you Code - CLI](#Lab-3-Secure-as-you-Code---CLI)
-
-**Part 2: ...to Cloud...**
-
-* [Lab 4: Secure Containers](#Lab-4-Secure-Containers)
-* [Lab 5: Secure IAC](#Lab-5-Secure-IAC)
-* [Lab 6: Securing your Pipeline](#Lab-6-Securing-your-Pipeline)
-
-**Part 3: ...and Back to Code.**
-
-* [Lab 7: Detecting Issues in Production](Lab-7-Detecting-Issues-in-Production)
-
-**Bonus Labs**
-
-* [Lab 8: Scan Your ACR Registry](Lab-8-Scan-Your-ACR-Registry)
-* [Lab 9: Monitor Kubernetes with Snyk](Lab-9-Monitor-Kubernetes-With-Snyk)
+* [Lab 4: Secure IAC](#Lab-4-Secure-IAC)
+* [Lab 5: Secure IAC](#Lab-5-Securing-your-Pipeline)
+* [Lab 6: Secure Containers from Azure Container Registry (ACR)](#Lab-6-Secure-Containers-from-Azure-Container-Registry-(ACR))
 
 ## Prerequisites (15 mins)
 
@@ -69,10 +55,6 @@ The default web browser has been opened at https://login.microsoftonline.com/org
 ```
 
 For alternative authentication methods see: https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli#sign-in-with-credentials-on-the-command-line
-
----
-
-## Part 1: From Code...
 
 ---
 
@@ -497,10 +479,6 @@ Notifications about newly disclosed issues related to these dependencies will be
 The Snyk CLI drives local scans and makes for powerful CI integrations with Snyk. You may choose to use it just to monitor as we did in the last step or to set thresholds to break a build or define local or shared ignores. See the CLI cheat sheet to get started: https://snyk.io/blog/snyk-cli-cheat-sheet/
 
 We will continue to use the Snyk CLI in lab 4, lab 5 and lab 6.
-
----
-
-## Part 2 ...to Cloud
 
 ---
 
