@@ -23,7 +23,7 @@ In this **hands-on** workshop we will achieve the following:
 * Install NPM:https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 # Workshop Steps
-If you don't have the Azure CLI installed, install it now as follows
+If you don't have the Azure CLI installed, install it now as follows. This may take 15-20 minutes in the background so continue with Lab 1 using the UI method if the CLI is not yet installed. You will use the CLI in later steps.
 
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 
@@ -62,19 +62,10 @@ For alternative authentication methods see: https://docs.microsoft.com/en-us/cli
 
 **Step 1 - Import a GitHub repository to Azure repos (20 mins)**
 
-In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as above.
+If you already have the Azure CLI installed and are logged in, you may use the CLI to create your new repository in Azure Repos. Instructions [here](https://github.com/tess-snyk/snyk-azure-workshop/blob/wellington_cns/additional_instructions/Azure_CLI.md).
 
-Logged in to your Azure account, navigate to Azure DevOps: https://dev.azure.com/**<YOUR_ORG_NAME_HERE>**/
+Else, we will use the UI as follows:
 
-*-> Note that your Azure Org name is the user name that you created your account under e.g.  **<YOUR_ORG_NAME_HERE>** = your Azure user name
-
-You will need an empty Azure DevOps Project for this lab. You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. Name your project **snyk-azure-project**
-
-**CLI Method:**
-
-```shell
-> az devops project create --name snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --source-control git --visibility private
-```
 **UI Method:**
 
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
@@ -88,74 +79,14 @@ You will need an empty Azure DevOps Project for this lab. You can create a new p
 
 **Import as follows**
 
-Note: You may encounter this error so if you do please select "**Y**" and continue for the command to complete
+Import project
+![alt tag]()
 
-```shell
-The command requires the extension azure-devops. Do you want to install it now? The command will continue to run after the extension is installed. (Y/n): y
-```
-**Command**
+Name import
+![alt tag]()
 
-> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --repository snyk-azure-project
-
-```shell
-> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --repository snyk-azure-project
-{
-  "detailedStatus": {
-    "allSteps": [
-      "Processing request",
-      "Analyzing repository objects",
-      "Storing objects",
-      "Storing index file",
-      "Updating references",
-      "Import completed successfully"
-    ],
-    "currentStep": 6,
-    "errorMessage": null
-  .....
-```
-Once complete the following should exist in your Azure DevOps ORG 
-
-![alt tag](https://i.ibb.co/j5RhxFG/AR-Success.png)
-
-If you have any trouble this guide explains how this command works
-
-https://docs.microsoft.com/en-us/cli/azure/repos/import?view=azure-cli-latest
-
----
-
-**Step 2 Setup Azure Repos Integration (20 mins)**
-
-Snyk integrates with Microsoft Azure Repos to enable you to import your projects and monitor the source code for your repositories. Snyk tests the projects you’ve imported for any known security vulnerabilities found in the application’s dependencies, testing at a frequency you control.
-
-* Login to http://app.snyk.io Sign up if you haven't already.
-* Navigating to Integrations -> Source Control -> Azure Repos
-* Enter in your Azure DevOps organization name as shown below and click Next
-
-![alt tag](https://i.ibb.co/PFD4NWT/snyk-azure-workshop-4.png)
-
-* Create a PAT in Azure DevOps the instructions shown to the right are all that is required here, once done click Save
-
-![alt tag](https://i.ibb.co/zZ7t4mh/snyk-azure-workshop-5.png)
-
-* If all went well then it should show a green button to import our first repo
-
-![alt tag](https://i.ibb.co/1Gn91RC/snyk-azure-workshop-6.png)
-
-Navigate to Snyk Settings and Snyk Code settings. Enable Snyk Code if it is not enabled already.
-
-![alt tag](https://i.ibb.co/qpfZWmS/Code-Settings.png)
-
-Navigate back to Snyk Settings and Infrastructure as Code settings. Enable Infrastructure as Code scanning if it is not enabled already.
-
-![alt tag](https://i.ibb.co/rcbggQc/Ia-C-Settings.png)
-
-Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source. Enable Manual Fix PRs.
-
-![alt tag](https://i.ibb.co/w02TDTj/STOPTHEBLEED.png)
-
-More information of how to setup and use this integration can be found here
-
-https://docs.snyk.io/features/integrations/git-repository-scm-integrations/azure-repos-integration
+Confirm import success
+![alt tag]()
 
 ---
 
