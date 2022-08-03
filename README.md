@@ -369,11 +369,11 @@ IDE integrations use Snyk’s fast analysis and response, allowing you to spot a
 
 ![alt tag](https://i.ibb.co/BTQzfCs/ADO-Download-Repo.png)
 
-* Install the VS Code Snyk plugin using the link below
+* Install the VS Code Snyk plugin using the link below or search the Visual Studio Code marketplace within the IDE.
 
 https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extension-for-snyk-code
 
-* Open the Snyk Icon on the left hand sidebar, it should auto run the test for you if not use the play buttons
+* Open your **snyk-azure-project** folder in Visual Studio Code and then open the Snyk Icon on the left hand sidebar, it should auto run the test for you if not use the play buttons
 
 ![alt tag](https://i.ibb.co/S7KgFsy/snyk-azure-workshop-16.png)
 
