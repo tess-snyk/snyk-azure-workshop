@@ -824,11 +824,7 @@ First we will build a pipeline for the use case of auditing a build across all f
 
 ![alt tag](https://i.ibb.co/tKKfZhQ/Azure-Pipeline.png)
 
-* Asked "Where is your code?", choose Azure Repos Git. 
-
-![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
-
-* Select the **snyk-azure-project** repository.
+* Asked "Where is your code?", choose Azure Repos Git and select the **snyk-azure-project** repository.
 
 ![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
 
@@ -866,13 +862,21 @@ Note line 25 of the yaml script:
   Select the Secret lock icon to store the variable in an encrypted manner.
   Click OK and then Save.
 
-  Save the pipeline.
+  Save and the pipeline.
 
   2. You will need the Azure Pipelines html extention to generate a human readable report of each of the scan types; code, open source, containers and IAC. Install the extension now: https://marketplace.visualstudio.com/items?itemName=JakubRumpca.azure-pipelines-html-report
 
-* Save the pipeline
+* Save and run the pipeline
+
+If you recieve the below error you will not be able to continue with running the pipeline until you follow the steps given in the error message and await a response from Microsoft.
+
+![alt tag](https://i.ibb.co/jHtb2Z3/Screen-Shot-2022-08-03-at-9-06-42-PM.png)
 
 **DEMO Pipeline Results**
+
+After the pipeline runs, the results of each of the four scan types can be viewed in the "HTML Viewer" tab as shown below:
+
+![alt tag](https://i.ibb.co/McmLCBQ/Screen-Shot-2022-08-03-at-9-22-51-PM.png)
 
 ## Part 3: ...and Back to Code.
 
