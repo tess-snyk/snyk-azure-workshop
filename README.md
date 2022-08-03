@@ -373,9 +373,33 @@ IDE integrations use Snyk’s fast analysis and response, allowing you to spot a
 
 https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extension-for-snyk-code
 
-* Open your **snyk-azure-project** folder in Visual Studio Code and then open the Snyk Icon on the left hand sidebar, it should auto run the test for you if not use the play buttons
+* Open your **snyk-azure-project** folder in Visual Studio Code and Open your package.json file to view the dependencies
 
-![alt tag](https://i.ibb.co/S7KgFsy/snyk-azure-workshop-16.png)
+* Open the Snyk Icon on the left hand sidebar, it should auto run the test for you if not use the play buttons
+
+* Expand **"OPEN SOURCE SECURITY"** and click on "sqlite3@5.0.2 - Denial of Service (DoS). Can you find the dependency in the package.json file and follow the upgrade advice?
+
+![alt tag](https://i.ibb.co/SRNb7P6/Open-Source-IDE.png)
+
+* Expand the **"CODE SECURITY"** tab and then expand "likeProductReviews.js". Click on the second vulnerability "Unsanitized input from the HTTP request body...."
+
+![alt tag](https://i.ibb.co/tL2ChqZ/Code-IDE.png)
+
+* On the *"Snyk Code Vulnerability"* tab, click **[:13]**. This will take you to the file and the line of code where the potentially tainted data enters the application
+
+* Click through the subsequent numbers to be taken to each line of code where the data is manipulated. These are missed opportunitites to sanitise the data before it flows into the "Sink" at line **[:25]** where it is executed as a NoSQL query.
+
+* To learn more about SQL Injection vulnerabilities and ways to mitigate them, follow the link **Learn about this vulnerability** to be taken to Snyk Learn
+
+![alt tag](https://i.ibb.co/LQ4PDCT/Snyk-Learn.png)
+
+You will land on the Javascript tutorial about SQL injections because the issue was found in a javascript file. If you are programming in a different language you will be taken to a page relevant to that language.
+
+* Explore the lessons available in Snyk Learn
+
+**OPTIONAL - Step 2 Learning about Application Security Vulnerabilities and How to Mitigate them**
+
+* If you have time, please follow the tutorial for SQL Injection in your language of choice, or you can complete this later at home
 
 ## Lab 3: Secure as you Code - CLI
 
