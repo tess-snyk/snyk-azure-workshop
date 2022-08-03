@@ -8,7 +8,7 @@ In this **hands-on** workshop we will achieve the following:
 * [Lab 2: Secure as you Code - IDE](#Lab-2-Secure-as-you-Code---IDE)
 * [Lab 3: Secure as you Code - CLI](#Lab-3-Secure-as-you-Code---CLI)
 * [Lab 4: Secure IAC](#Lab-4-Secure-IAC)
-* [Lab 5: Secure IAC](#Lab-5-Securing-your-Pipeline)
+* [Lab 5: Securing your Pipeline](#Lab-5-Securing-your-Pipeline)
 * [Lab 6: Secure Containers from Azure Container Registry (ACR)](#Lab-6-Secure-Containers-from-Azure-Container-Registry-(ACR))
 
 ## Prerequisites (15 mins)
