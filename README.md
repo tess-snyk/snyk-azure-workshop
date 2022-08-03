@@ -361,19 +361,19 @@ For some issues without an easy upgrade path e.g. where the dependency is not be
 
 **Step 1 Using VS Code to Secure your code as you develop**
 
-For this lab you will need your IDE of choice installed. The lab guide will use Visual Studio Code but you may use Visual Studio, a Jetbrains IDE or Eclipse as you prefer.
+For this lab you will need your IDE of choice installed. The lab guide will use Visual Studio Code but you may use Visual Studio, a Jetbrains IDE or Eclipse as you prefer. Supported IDEs here: https://snyk.io/ide-plugins/
 
-IDE integrations use Snyk Code’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check the code in. So you can find possible security flaws in your code as you write it, on a line-by-line basis. This helps to prevent seucrity technical debt from entering the value stream and saves developer time re-working code once it is in a later stage.
+IDE integrations use Snyk’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check it in. So you can find possible security flaws in your code as you write it, on a line-by-line basis. This helps to prevent seucrity technical debt from entering the value stream and saves developer time re-working code once it is in a later stage.
 
-Snyk Code supports a VS Code plugin to support issue finding and fixing, directly from the IDE
+* You will need a local copy of the code from your **snyk-azure-project** repo. If you completed the optional Lab 1 Step 5 you already have a copy locally. Otherwise, you can download a copy in a zip file as below:
 
-* In Lab 1 Step 5 you downloaded the 
+![alt tag](https://i.ibb.co/BTQzfCs/ADO-Download-Repo.png)
 
 * Install the VS Code Snyk plugin using the link below
 
 https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extension-for-snyk-code
 
-* Using the Snyk Icon on the left hand sidebar, it should auto run the test for you if not use the play buttons
+* Open the Snyk Icon on the left hand sidebar, it should auto run the test for you if not use the play buttons
 
 ![alt tag](https://i.ibb.co/S7KgFsy/snyk-azure-workshop-16.png)
 
