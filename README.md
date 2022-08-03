@@ -725,6 +725,8 @@ Snyk Policies require a paid Snyk license so we will cover this capability in th
 
 **Step 3: Set up an Azure DevOps Pipeline for an Open Source Vulnerability Scan**
 
+WARNING - may require a higher tier of Azure DevOps membership to run parallel jobs. If so, you will be able to complete 90% of the lab steps and will need to raise a ticket with Microsoft to allow free parallel jobs [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR63mUWPlq7NEsFZhkyH8jChUMlM3QzdDMFZOMkVBWU5BWFM3SDI2QlRBSC4u).
+
 Snyk provides a plugin for Azure DevOps Pipelines to simplyfy adding security to your CI. In this step we will set up a simple open source scan using the native Snyk task.
 
 Please follow the steps [here](https://docs.snyk.io/integrations/ci-cd-integrations/azure-pipelines-integration#install-the-snyk-extension-for-your-azure-pipelines) to set up the [Snyk Extension for Azure Pipelines](https://marketplace.visualstudio.com/items?itemName=Snyk.snyk-security-scan).
@@ -777,8 +779,46 @@ would change the scan type to IaC
 
 ![alt tag](https://i.ibb.co/fYgPNjd/New-task.png)
 
+* To save time the build step from the pipeline as the scan only requires dependencies installed and not a full app build
+
+**Remove**
+
+```
+  20  npm run build
+  21  displayName: 'npm install and build'
+
+```
+
+Replace
+
+```
+  21  displayName: 'npm install'
+
+```
+* Change the name of the pipeline to something unique to your organisation and click "save and run"
+
+![alt tag](https://i.ibb.co/g9n2xFq/name-and-save-and-run.png)
+
+If you recieve the below error you will not be able to continue with running the pipeline until you follow the steps given in the error message and await a response from Microsoft.
+
+![alt tag](https://i.ibb.co/jHtb2Z3/Screen-Shot-2022-08-03-at-9-06-42-PM.png)
+
+During the live workshop we will demonstrate the output of the pipeline for those who recieve this error.
+
+**DEMO Pipeline Results**
+
+If the pipeline runs, it should be blocked by Snyk due to the issues detected as shown below:
+
+![alt tag](https://i.ibb.co/4FMvLzC/Failed-with-Issues.png)
+
+You will be able to view an html report in context of your Pipeline on the "Reports" tab and since "Monitor" was ticked during pipeline set up you can also review the results in the Snyk UI.
+
+![alt tag](https://i.ibb.co/KW26t7B/Embedded-html.png)
+
 
 **Optional Step 4 Configure a Security Audit Pipeline**
+
+WARNING - may require a higher tier of Azure DevOps membership to run parallel jobs. If so, you will be able to complete 90% of the lab steps and will need to raise a ticket with Microsoft to allow free parallel jobs [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR63mUWPlq7NEsFZhkyH8jChUMlM3QzdDMFZOMkVBWU5BWFM3SDI2QlRBSC4u).
 
 First we will build a pipeline for the use case of auditing a build across all four scan types (Code, Open Source, Container, IAC). This will produce a human-readable report covering the end to end cloud native application in a single pipeline.
 
@@ -806,7 +846,6 @@ Note line 25 of the yaml script:
       snyk auth $(SNYK_TOKEN)
     
 ```
-
 * Next set up a security token for the pipeline. We will use this to connect to Snyk.
 
   1. In your Snyk UI, General settings copy out your Auth Token to the clipboard.
@@ -829,17 +868,11 @@ Note line 25 of the yaml script:
 
   Save the pipeline.
 
-
   2. You will need the Azure Pipelines html extention to generate a human readable report of each of the scan types; code, open source, containers and IAC. Install the extension now: https://marketplace.visualstudio.com/items?itemName=JakubRumpca.azure-pipelines-html-report
 
 * Save the pipeline
 
-
-
-
-The use case audit a build across all four scan types (Code, Open Source, Container, IAC) and produce a human-readable report in a single pipeline can be met following the "HTML Reports" CI/CD ingetration example: https://github.com/snyk-labs/snyk-cicd-integration-examples/blob/master/AzurePipelines/AzurePipelines-npm-generic-html.yml
-
-If you still have available time, follow the steps to configure the above pipeline.
+**DEMO Pipeline Results**
 
 ## Part 3: ...and Back to Code.
 
