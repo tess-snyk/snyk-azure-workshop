@@ -792,7 +792,7 @@ would change the scan type to IaC
 Replace
 
 ```
-  21  displayName: 'npm install'
+  20  displayName: 'npm install'
 
 ```
 * Change the name of the pipeline to something unique to your organisation and click "save and run"
