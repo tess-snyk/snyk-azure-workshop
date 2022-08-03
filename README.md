@@ -326,7 +326,7 @@ For this lab you will need your IDE of choice installed. The lab guide will use 
 
 IDE integrations use Snyk’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check it in. So you can find possible security flaws in your code as you write it, on a line-by-line basis. This helps to prevent seucrity technical debt from entering the value stream and saves developer time re-working code once it is in a later stage.
 
-* You will need a local copy of the code from your **snyk-azure-project** repo. If you completed the optional Lab 1 Step 5 you already have a copy locally. Otherwise, you can download a copy in a zip file as below:
+* You will need a local copy of the code from your **snyk-azure-project** repo. You should have this available from Lab 1 Step 3. Otherwise, you can download a copy in a zip file as below:
 
 ![alt tag](https://i.ibb.co/BTQzfCs/ADO-Download-Repo.png)
 
@@ -369,7 +369,7 @@ Before we get started please make sure you have setup the Snyk CLI. There are va
 1. Install Page - https://support.snyk.io/hc/en-us/articles/360003812538-Install-the-Snyk-CLI
 1. Prebuilt Binaries - https://github.com/snyk/snyk/releases
 
-_Note: Make sure you have the following version installed or later_
+_Note: Make sure you have the following version installed or later_ 1.881.0
 
 **Command**
 
@@ -377,7 +377,7 @@ _Note: Make sure you have the following version installed or later_
 
 ```bash
 ❯ snyk --version
-1.801.0
+1.881.0
 ```
 
 * Authorize the snyk CLI with your account as follows
@@ -394,7 +394,7 @@ and once the auth is complete, return to this prompt and you'll
 be ready to start using snyk.
 
 If you can't wait use this url:
-https://snyk.io/login?token=ff75a099-4a9f-4b3d-b75c-bf9847672e9c&utm_medium=cli&utm_source=cli&utm_campaign=cli&os=darwin&docker=false
+https://snyk.io/login?token=**<YOUR_TOKEN>**
 
 Your account has been authenticated. Snyk is now ready to be used.
 ```
@@ -404,7 +404,7 @@ _Note: If you are having trouble authenticating via a browser with the Snyk App 
 
 **Step 1 Scanning for Open Source Dependencies in the CLI**
 
-In your terminal, change directory local code repository that you cloned in Lab 1, Step 3.
+In your terminal, change directory to the local code repository that you cloned in Lab 1, Step 3, **snyk-azure-project**.
 
 First, scan the proprietary code in your local repository.
 
@@ -413,7 +413,22 @@ First, scan the proprietary code in your local repository.
 > snyk code test
 
 ```bash
-Snyk Test results
+
+Testing /demo_code/snyk-azure-project...
+
+ ✗ [Low] Cleartext Transmission of Sensitive Information 
+     Path: test/api/productReviewApiSpec.js, line 9 
+     Info: http (used in require) is an insecure protocol and should not be used in new code.
+
+ ✗ [Low] Cleartext Transmission of Sensitive Information 
+     Path: test/e2eSubfolder.js, line 7 
+     Info: http (used in require) is an insecure protocol and should not be used in new code.
+
+ ✗ [Low] Use of Hardcoded Credentials 
+     Path: test/api/chatBotSpec.js, line 71 
+     Info: Do not hardcode credentials in code. Found hardcoded credential used in login.
+....
+
 ```
 
 Now, run a test of the Open Source libraries.
@@ -423,7 +438,25 @@ Now, run a test of the Open Source libraries.
 > snyk test
 
 ```bash
-Snyk Test results
+Testing /demo_code/snyk-azure-project...
+
+Tested 913 dependencies for known issues, found 54 issues, 122 vulnerable paths.
+
+
+Issues to fix by upgrading:
+
+  Upgrade express-jwt@0.1.3 to express-jwt@6.0.0 to fix
+  ✗ Regular Expression Denial of Service (ReDoS) [Low Severity][https://snyk.io/vuln/npm:moment:20170905] in moment@2.0.0
+    introduced by express-jwt@0.1.3 > jsonwebtoken@0.1.0 > moment@2.0.0
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://snyk.io/vuln/npm:moment:20160126] in moment@2.0.0
+    introduced by express-jwt@0.1.3 > jsonwebtoken@0.1.0 > moment@2.0.0
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://snyk.io/vuln/npm:moment:20161019] in moment@2.0.0
+    introduced by express-jwt@0.1.3 > jsonwebtoken@0.1.0 > moment@2.0.0
+  ✗ Authorization Bypass [High Severity][https://snyk.io/vuln/SNYK-JS-EXPRESSJWT-575022] in express-jwt@0.1.3
+    introduced by express-jwt@0.1.3
+  ✗ Uninitialized Memory Exposure [High Severity][https://snyk.io/vuln/npm:base64url:20180511] in base64url@0.0.6
+    introduced by jsonwebtoken@0.4.0 > jws@0.2.6 > base64url@0.0.6 and 3 other path(s)
+    .......
 ```
 
 The results of the CLI scan can be sent to the Snyk UI to monitor.
@@ -433,12 +466,19 @@ The results of the CLI scan can be sent to the Snyk UI to monitor.
 > snyk monitor
 
 ```bash
-Snyk Monitor notification
+Monitoring /demo_code/snyk-azure-project (snyk-azure-project)...
+
+Explore this snapshot at https://app.snyk.io/org/tess.davis/project/**YOUR_PROJECT_URL**
+
+Tip: Detected multiple supported manifests (8), use --all-projects to scan all of them at once.
+
+Notifications about newly disclosed issues related to these dependencies will be emailed to you.
+
 ```
 
-Return to the Snyk UI in Project view. Filter results to show monitored CLI / CI results.
+* Return to the Snyk UI in Project view. Use the filters on the left to show monitored CLI / CI results. The step you just performed in the CLI to monitor created this project.
 
-The Snyk CLI drives local scans and makes for powerful CI integrations with Snyk. You may choose to set thresholds to break a build or define local or shared ignores. See the CLI cheat sheet to get started: https://snyk.io/blog/snyk-cli-cheat-sheet/
+The Snyk CLI drives local scans and makes for powerful CI integrations with Snyk. You may choose to use it just to monitor as we did in the last step or to set thresholds to break a build or define local or shared ignores. See the CLI cheat sheet to get started: https://snyk.io/blog/snyk-cli-cheat-sheet/
 
 We will continue to use the Snyk CLI in lab 4, lab 5 and lab 6.
 
