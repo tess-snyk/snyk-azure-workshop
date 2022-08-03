@@ -727,7 +727,7 @@ Snyk Policies require a paid Snyk license so we will cover this capability in th
 
 Snyk provides a plugin for Azure DevOps Pipelines to simplyfy adding security to your CI. In this step we will set up a simple open source scan using the native Snyk task.
 
-Please follow the steps [here](https://docs.snyk.io/integrations/ci-cd-integrations/azure-pipelines-integration#install-the-snyk-extension-for-your-azure-pipelines) to set up the ![Snyk Extension for Azure Pipelines](https://marketplace.visualstudio.com/items?itemName=Snyk.snyk-security-scan).
+Please follow the steps [here](https://docs.snyk.io/integrations/ci-cd-integrations/azure-pipelines-integration#install-the-snyk-extension-for-your-azure-pipelines) to set up the [Snyk Extension for Azure Pipelines](https://marketplace.visualstudio.com/items?itemName=Snyk.snyk-security-scan).
 
 Once saving your Snyk Service connection you should see the below:
 
@@ -736,12 +736,7 @@ Once saving your Snyk Service connection you should see the below:
 Now navigate back to Pipelines and create a pipeline:
 
 ![alt tag](https://i.ibb.co/tKKfZhQ/Azure-Pipeline.png)
-
-* Asked "Where is your code?", choose Azure Repos Git. 
-
-![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
-
-* Select the **snyk-azure-project** repository.
+* Asked "Where is your code?", choose Azure Repos Git and select the **snyk-azure-project** repository.
 
 ![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
 
@@ -750,6 +745,37 @@ Now navigate back to Pipelines and create a pipeline:
 ![alt tag](https://i.ibb.co/YXfMG4t/Nodejs.png)
 
 An empty node.js pipeline script is created. 
+
+* Use the task side bar on the right to find the Snyk extension
+
+![alt tag](https://i.ibb.co/vv0XHNV/Snyk-Extension.png)
+
+* Ensure to select the token that you created
+
+![alt tag](https://i.ibb.co/jrjM28D/extension-settings.png)
+
+Explore and choose settings including:
+  * Drop down to monitor Application (Open Source) or Container
+  * Set threshold to break the build
+  * Choose to send results to the Snyk UI with Monitor and set a specific project name for the SNyk UI
+
+* Note Advanced Settings which allows additional CLI arguments. We won't add any additional arguments now, however you could add arguments to change the scan type e.g.
+
+> --code
+
+would change the scan type and report to proprietary code
+
+> --iac
+
+would change the scan type to IaC
+
+* Ensure the Yaml script is on a new line and then click "Add"
+
+![alt tag](https://i.ibb.co/xjTJ9Bp/Add-task.png)
+
+* Note the new task you have added to the yaml script using the extension
+
+![alt tag](https://i.ibb.co/fYgPNjd/New-task.png)
 
 
 **Optional Step 4 Configure a Security Audit Pipeline**
