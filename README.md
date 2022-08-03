@@ -725,11 +725,34 @@ Snyk Policies require a paid Snyk license so we will cover this capability in th
 
 **Step 3: Set up an Azure DevOps Pipeline for an Open Source Vulnerability Scan**
 
-Please follow the steps [here](https://docs.snyk.io/integrations/ci-cd-integrations/azure-pipelines-integration#install-the-snyk-extension-for-your-azure-pipelines) to set up the Snyk Extension for Azure Pipelines.
+Snyk provides a plugin for Azure DevOps Pipelines to simplyfy adding security to your CI. In this step we will set up a simple open source scan using the native Snyk task.
+
+Please follow the steps [here](https://docs.snyk.io/integrations/ci-cd-integrations/azure-pipelines-integration#install-the-snyk-extension-for-your-azure-pipelines) to set up the ![Snyk Extension for Azure Pipelines](https://marketplace.visualstudio.com/items?itemName=Snyk.snyk-security-scan).
+
+Once saving your Snyk Service connection you should see the below:
+
+![alt tag](https://i.ibb.co/7gMHLnR/Service-connection-success.png)
+
+Now navigate back to Pipelines and create a pipeline:
+
+![alt tag](https://i.ibb.co/tKKfZhQ/Azure-Pipeline.png)
+
+* Asked "Where is your code?", choose Azure Repos Git. 
+
+![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
+
+* Select the **snyk-azure-project** repository.
+
+![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
+
+* At the "Configure your pipeline" step, choose Node.js as the build template
+
+![alt tag](https://i.ibb.co/YXfMG4t/Nodejs.png)
+
+An empty node.js pipeline script is created. 
 
 
-
-**Step 3: Set up a Security Audit Pipeline in Azure**
+**Optional Step 4 Configure a Security Audit Pipeline**
 
 First we will build a pipeline for the use case of auditing a build across all four scan types (Code, Open Source, Container, IAC). This will produce a human-readable report covering the end to end cloud native application in a single pipeline.
 
@@ -787,10 +810,6 @@ Note line 25 of the yaml script:
 
 
 
-
------
-
-**Optional Step 4 Configure a Security Audit Pipeline**
 
 The use case audit a build across all four scan types (Code, Open Source, Container, IAC) and produce a human-readable report in a single pipeline can be met following the "HTML Reports" CI/CD ingetration example: https://github.com/snyk-labs/snyk-cicd-integration-examples/blob/master/AzurePipelines/AzurePipelines-npm-generic-html.yml
 
