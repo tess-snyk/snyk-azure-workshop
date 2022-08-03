@@ -25,7 +25,7 @@ In this **hands-on** workshop we will achieve the following:
 * [Lab 8: Scan Your ACR Registry](Lab-8-Scan-Your-ACR-Registry)
 * [Lab 9: Monitor Kubernetes with Snyk](Lab-9-Monitor-Kubernetes-With-Snyk)
 
-## Prerequisites
+## Prerequisites (15 mins)
 
 * Microsoft Azure Subscription - https://azure.microsoft.com/en-au/free/
 * Azure CLI - https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
@@ -34,14 +34,14 @@ In this **hands-on** workshop we will achieve the following:
 * Registered account on Snyk App - http://app.snyk.io
 * Docker Hub Account - http://hub.docker.com
 * Docker Desktop running locally - https://docker.com/products/docker-desktop
+* Install NPM:https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 # Workshop Steps
-
-_Note: It is assumed you have already logged into Azure using the Azure CLI as shown below_
-
 If you don't have the Azure CLI installed, install it now as follows
 
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
+
+Login to the Azure CLI:
 
 **Command** 
 
@@ -68,27 +68,39 @@ The default web browser has been opened at https://login.microsoftonline.com/org
 ]
 ```
 
+For alternative authentication methods see: https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli#sign-in-with-credentials-on-the-command-line
+
 ## Part 1: From Code...
 
 ## Lab 1: Scanning from Source Control
 
-**Step 1 - Import a GitHub repository to Azure repos**
+**Step 1 - Import a GitHub repository to Azure repos (20 mins)**
 
 In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as above.
 
+Logged in to your Azure account, navigate to Azure DevOps: https://dev.azure.com/**<YOUR_ORG_NAME_HERE>**/
+
+*-> Note that your Azure Org name is the user name that you created your account under e.g.  **<YOUR_ORG_NAME_HERE>** = your Azure user name
+
 You will need an empty Azure DevOps Project for this lab. You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. Name your project **snyk-azure-project**
 
+**CLI Method:**
+
 ```shell
-> az devops project create --name snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --source-control git --visibility private
+> az devops project create --name snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --source-control git --visibility private
 ```
+**UI Method:**
+
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
 
-1. git-source-url = https://github.com/papicella/dotNET-goof-v2 **!!!!! - TD - update repo to include Dockerfile and IAC code**
+**Import Parameters**
+
+1. git-source-url = https://github.com/tess-snyk/juice-shop
 2. project = name of the empty azure repos project that you created above **snyk-azure-project**
-3. org = Your Azure DevOps organization URL **TD - give example**
+3. org = Your Azure DevOps organization URL https://dev.azure.com/**<YOUR_ORG_NAME_HERE>**
 4. repository = Use the same name as project above
 
-* Import as follows
+**Import as follows**
 
 Note: You may encounter this error so if you do please select "**Y**" and continue for the command to complete
 
@@ -97,10 +109,10 @@ The command requires the extension azure-devops. Do you want to install it now? 
 ```
 **Command**
 
-> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --repository snyk-azure-project
 
 ```shell
-> az repos import create --git-source-url https://github.com/papicella/dotNET-goof-v2 --project snyk-azure-project --org https://dev.azure.com/*<myOrganizationName>* --repository snyk-azure-project
+> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --repository snyk-azure-project
 {
   "detailedStatus": {
     "allSteps": [
@@ -119,7 +131,7 @@ The command requires the extension azure-devops. Do you want to install it now? 
     "deleteServiceEndpointAfterImportIsDone": null,
     "gitSource": {
       "overwrite": false,
-      "url": "https://github.com/papicella/dotNET-goof-v2"
+      "url": "https://github.com/tess-snyk/juice-shop"
     },
     "serviceEndpointId": null,
     "tfvcSource": null
@@ -154,15 +166,15 @@ The command requires the extension azure-devops. Do you want to install it now? 
   _"url": "https://dev.azure.com/pasapicella0207/snyk-azure-project/_apis/git/repositories/c46382e4-6686-439c-877d-766dd0203d21/importRequests/9"_
 }
 ```
-* Once complete the following should exist in your Azure DevOps ORG 
+Once complete the following should exist in your Azure DevOps ORG 
 
-![alt tag](https://i.ibb.co/sy4KyYr/snyk-azure-workshop-1.png)
+![alt tag](https://i.ibb.co/j5RhxFG/AR-Success.png)
 
 If you have any trouble this guide explains how this command works
 
 https://docs.microsoft.com/en-us/cli/azure/repos/import?view=azure-cli-latest
 
-**Step 2 Setup Azure Repos Integration**
+**Step 2 Setup Azure Repos Integration (20 mins)**
 
 Snyk integrates with Microsoft Azure Repos to enable you to import your projects and monitor the source code for your repositories. Snyk tests the projects you’ve imported for any known security vulnerabilities found in the application’s dependencies, testing at a frequency you control.
 
@@ -182,36 +194,41 @@ Snyk integrates with Microsoft Azure Repos to enable you to import your projects
 
 Navigate to Snyk Settings and Snyk Code settings. Enable Snyk Code if it is not enabled already.
 
+![alt tag](https://i.ibb.co/qpfZWmS/Code-Settings.png)
+
 Navigate back to Snyk Settings and Infrastructure as Code settings. Enable Infrastructure as Code scanning if it is not enabled already.
 
-**TD- Paste screenshot**
+![alt tag](https://i.ibb.co/rcbggQc/Ia-C-Settings.png)
 
-Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source and for Snyk Code. Enable Manual Fix PRs.
+Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source. Enable Manual Fix PRs.
 
-**TD- Paste screenshot**
+![alt tag](https://i.ibb.co/w02TDTj/STOPTHEBLEED.png)
 
 More information of how to setup and use this integration can be found here
 
 https://docs.snyk.io/features/integrations/git-repository-scm-integrations/azure-repos-integration
 
-**Step 3 Explore Issues in Open Source Vulnerabilities**
+**Step 3 Explore Issues in Open Source Vulnerabilities (10 mins)**
 
 * Go ahead and click on "**Add your Azure Repos repositories to Snyk**"
 * Search for "**snyk-azure-project**" and click on "Add selected repositories" on the top right hand corner of the page
 
 _Note: This may take a few minutes to scan but once done you should see the following, ignore the warnings_
 
-![alt tag](https://i.ibb.co/2jRz2FR/snyk-azure-workshop-7.png)
+![alt tag](https://i.ibb.co/6JgQRC9/Juic-Shop.png)
 
-* Click on the link for "**dotNETGoofV2.Website.csproj**" so we can view the open source dependencies vulnerabilities that exist here
+Snyk gives you a picture of the security of your whole cloud native application from your repo. You will see a proprietary code analysis, a dockerfile analysis, IAC analysis (Kubernetes Yaml file) and open source manifest files.
 
-![alt tag](https://i.ibb.co/6Drf31b/snyk-azure-workshop-8.png)
+* Click on the link for "**package.json**" at the bottom so we can view the open source dependencies vulnerabilities that exist here.
 
 Move from the 'Issues' view to the 'Dependencies' view and select the dependency tree view.
+![alt tag](https://i.ibb.co/bvtDf6c/Tree-View.png)
 
 How many dependencies does the application use in total? How many dependencies are listed? Where are the rest?
 
 Move back to the 'Issues' view.
+
+![alt tag](https://i.ibb.co/5RJfMZx/Move-to-deps.png)
 
 For each Vulnerability, Snyk displays the following ordered by our [Proprietary Priority Score](https://snyk.io/blog/snyk-priority-score/) :
 1. The module that introduced it and, in the case of transitive dependencies, its direct dependency,
@@ -221,55 +238,137 @@ For each Vulnerability, Snyk displays the following ordered by our [Proprietary 
 5. Links to CWE, CVE and CVSS Score
 6. Plus more ...
 
-**Step 4 Explore Proprietary Code Issues**
+**Step 4 Explore Proprietary Code Issues (10 mins)**
 
-Navigate back to the Projets view and expand the **project name** project. Click on the **TD--check** Snyk Code project.
+Navigate back to the Projets view and expand  **snyk-azure-project** project. Click on the **"Code analysis"** Snyk Code project.
 
-On the top issue **TD-Issue-Name** note that the issue type is **TD-Issue-Type** select "Full Details".
+On the top issue **Cross-site Scripting (XSS)** note that the issue type is select "Full Details".
 
-Snyk Code performs Semantic Code Analysis on your proprietary code. This means that it reads the code with intelligence to make a high fidelity estimate of how the code will function. The Data Flow Analysis shows where potentially tainted data enters the application; 'Source'. The data flow is tracked at each step accross multiple files where the data is manipulated in the code. Each of these steps is a potential location to sanitise the data. The location where the data is executed is the 'Sink'. If the data has not been sanitised by the time it reaches a Sink, your code may be exploited. The type of exploit possible defines the issue type raised. In this case, a **TD- Issue type - Cross Site Scripting attack.**
+![alt tag](https://i.ibb.co/9NhHkfT/Code-Issue.png)
 
-Clik **TD-Chec** "Learn More" to find out about **TD- Issue type - Cross Site Scripting attack.**. Snyk will provide three example fixes from Open Source to point you in the right direction.
+Snyk Code performs Semantic Code Analysis on your proprietary code. This means that it reads the code with intelligence to make a high fidelity estimate of how the code will function. 
+
+![alt tag](https://i.ibb.co/wwV1VGC/Data-Flow.png)
+
+The Data Flow Analysis shows where potentially tainted data enters the application; 'Source'. The data flow is tracked at each step accross multiple files where the data is manipulated in the code. Each of these steps is a potential location to sanitise the data. The location where the data is executed is the 'Sink'. Scroll down on the left as shown in the image above to see the Sink.
+
+If the data has not been sanitised by the time it reaches a Sink, your code may be exploited. The type of exploit possible defines the issue type raised. In this case, a **Cross Site Scripting (XSS) attack.**
+
+![alt tag](https://i.ibb.co/THb8Mqb/Fix-analysis.png)
+
+Click "Fix Analysis" to find out about how to avoid and fix Cross Site Scripting (XSS) vulnerabilities. Snyk will provide three example fixes from Open Source to point you in the right direction.
 
 Imagine this issue was detected in an application back end and you want to come back to review it in 90 days after fixing some higher priority vulnerabilities. Click 'ignore' and ignore the issue for 90 days.
 
+![alt tag](https://i.ibb.co/6tPM7tk/fix-analysis-2.png)
+
 Close the issue and view the ignored issues using the filter on the left hand side of the project view.
 
-**Step 5 'Stop the Bleeding'**
+![alt tag](https://i.ibb.co/KbHfQMV/Filter-ignore.png)
+
+**OPTIONAL - Step 5 'Stop the Bleeding' (20 mins)**
 
 The first thing many organisations do when they start to use Snyk is monitor to capture a baseline of existing issues. The next step is to stop new issues from being introduced.
+
+You will need to have npm available to complete this step: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 To complete this step, you will need to install git if you have not already done so. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
 Once you have Git installed locally, clone the repository that you set up in Step 1. You can follow the steps under "Get the clone URL of an Azure Repos Git repo": https://docs.microsoft.com/en-us/azure/devops/repos/git/clone?view=azure-devops&tabs=visual-studio-2019
 
-Find the folder on your local filesystem and copy the xx file, name it xxv2.
+Lets add an open source library that we know is vulnerable in order to see how we can be alerted about the new issue being introduced right out of Azure Repos.
 
-Upload the file into your repository and select 'Create a Pull Request' when prompted.
+* Create a new branch in your local git folder
 
-On the Pull Request page note the PR Check in place. Snyk is detecting any new vulnerabilities introduced by the PR. The code PR check should fail as we copied over a proprietary code issue when adding xxv2. The Open Source Security and License checks should pass even though there are issues in the repository because no new issues of this kind were added in the PR.
+> git branch add_reports
 
-**Step 6 Sec and Dev Collaboration**
+* Ensure you are actively working on that branch code base
+
+> git checkout add_reports
+
+* Verify the branch was properly switched to add_reports
+
+> git status
+
+Edit package.json with your favorite editor (vi).
+
+*Note: this is only a snippet from the bottom of the file. Look for this snippet under the "Dependencies" section of the code*
+
+Before:
+
+```"swagger-ui-express": "^4.1.4",
+    "unzipper": "0.9.15",
+    "winston": "^3.3.3",
+    "yaml-schema-validator": "^1.2.2",
+    "z85": "^0.0.2"
+  },
+```
+Add the tinymce package:
+
+After:
+
+```"swagger-ui-express": "^4.1.4",
+    "unzipper": "0.9.15",
+    "winston": "^3.3.3",
+    "yaml-schema-validator": "^1.2.2",
+    "z85": "^0.0.2",
+    "tinymce": "4.1.0" 
+  },
+```
+Run npm install to install tinymce dependency and rebuild the package-lock.json
+
+> npm install
+
+Check that both the manifest (package.json) an lock file (package-lock.json) are updated:
+
+> git status
+
+Add them to git with wildcard matching to track the changes you would like to save to your branch.
+
+> git add package*
+
+Save your changes to your branch locally.
+
+> git commit -m "adding tinymce v4.1.0"
+
+Push your local changes to your branch on Azure Repos
+
+> git push origin add_reports
+
+Go to Azure Repos and your **snyk-azure-project** repo. **!!!Next to "<>Code" you'll see "Pull requests", Click to see the PRs. Select the big green button "New pull request" and on the next screen use the drop downs to ensure proper settings:**
+
+*	For the right drop down select your branch. (Note your compare will be “compare: add_reports”)
+
+If that looks okay you can open a PR with some basic details and once it opens you should see the Snyk PR checks similar to what is seen below. Note you will NOT merge these, the goal of this PR is to show the fancy license/code/security checks!
+
+**OPTIONAL - Step 6 Sec and Dev Collaboration**
 
 Not only is Snyk able to clearly identify the vulnerable library but if it can be fixed we will provide the ability to create a Pull Request to actually fix the issue. This can allow security teams to collaborate with Developers to prioritise 'quick wins' within the tools Developers already use as part of their day to day work.
 
-* Go ahead and click on "**Fix this vulnerable**" to see how Snyk creates a PR directly on the Azure Repo repository we imported
+Navigate back to Projects view and back into the final package.json project.
 
-Here is what a PR on Azure Repos would look like if you upgraded "**Halibut from 4.4.4 to 4.4.7**"
+On the first issue **sequelize - SQL Injection** go ahead and click on "**Fix this vulnerability**" to see how Snyk creates a PR directly on the Azure Repo repository we imported.
 
-![alt tag](https://i.ibb.co/yg06NBL/snyk-azure-workshop-9.png)
+![alt tag](https://i.ibb.co/TrV12L5/PR-Fix-Vuln.png)
 
-For some issues without an easy upgrade path e.g. where the dependency is not being maintained or it is a proprietary code issue, a ticket raised from the Snyk UI into a tool such as Jira is a better fit. **TD - DEMO**
+Here is what a PR on Azure Repos would look like if you upgraded "**sequelize from 5.22.5 to 6.19.1**"
+
+![alt tag](https://i.ibb.co/c8kM2xB/PR-in-Azure-Dev-Ops.png)
+
+For some issues without an easy upgrade path e.g. where the dependency is not being maintained or it is a proprietary code issue, a ticket raised from the Snyk UI into a tool such as Jira is a better fit.
 
 ## Lab 2: Secure as you Code - IDE
 
 **Step 1 Using VS Code to Secure your code as you develop**
 
-IDE integrations use Snyk Code’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check the code in. So you can find possible security flaws in your code as you write it, on a line-by-line basis. This helps to prevent seucrity technical debt from entering the value stream in the first place 
+For this lab you will need your IDE of choice installed. The lab guide will use Visual Studio Code but you may use Visual Studio, a Jetbrains IDE or Eclipse as you prefer.
+
+IDE integrations use Snyk Code’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check the code in. So you can find possible security flaws in your code as you write it, on a line-by-line basis. This helps to prevent seucrity technical debt from entering the value stream and saves developer time re-working code once it is in a later stage.
 
 Snyk Code supports a VS Code plugin to support issue finding and fixing, directly from the IDE
 
-* Clone or download a ZIP of your Azure Repo repository and open vscode from the directory "**dotNETGoofV2.Website**"
+* In Lab 1 Step 5 you downloaded the 
+
 * Install the VS Code Snyk plugin using the link below
 
 https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extension-for-snyk-code
