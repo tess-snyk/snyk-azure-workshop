@@ -90,6 +90,42 @@ Confirm import success
 
 ---
 
+**Step 2 Setup Azure Repos Integration (20 mins)**
+
+Snyk integrates with Microsoft Azure Repos to enable you to import your projects and monitor the source code for your repositories. Snyk tests the projects you’ve imported for any known security vulnerabilities found in the application’s dependencies, testing at a frequency you control.
+
+* Login to http://app.snyk.io Sign up if you haven't already.
+* Navigating to Integrations -> Source Control -> Azure Repos
+* Enter in your Azure DevOps organization name as shown below and click Next
+
+![alt tag](https://i.ibb.co/PFD4NWT/snyk-azure-workshop-4.png)
+
+* Create a PAT in Azure DevOps the instructions shown to the right are all that is required here, once done click Save
+
+![alt tag](https://i.ibb.co/zZ7t4mh/snyk-azure-workshop-5.png)
+
+* If all went well then it should show a green button to import our first repo
+
+![alt tag](https://i.ibb.co/1Gn91RC/snyk-azure-workshop-6.png)
+
+Navigate to Snyk Settings and Snyk Code settings. Enable Snyk Code if it is not enabled already.
+
+![alt tag](https://i.ibb.co/qpfZWmS/Code-Settings.png)
+
+Navigate back to Snyk Settings and Infrastructure as Code settings. Enable Infrastructure as Code scanning if it is not enabled already.
+
+![alt tag](https://i.ibb.co/rcbggQc/Ia-C-Settings.png)
+
+Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for Snyk Open Source. Enable Manual Fix PRs.
+
+![alt tag](https://i.ibb.co/w02TDTj/STOPTHEBLEED.png)
+
+More information of how to setup and use this integration can be found here
+
+https://docs.snyk.io/features/integrations/git-repository-scm-integrations/azure-repos-integration
+
+---
+
 **Step 3 Explore Issues in Open Source Vulnerabilities (10 mins)**
 
 * Go ahead and click on "**Add your Azure Repos repositories to Snyk**"
