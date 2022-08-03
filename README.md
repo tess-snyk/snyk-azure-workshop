@@ -4,26 +4,12 @@ Available in the Azure Marketplace, Snyk helps developers build their Azure work
 
 In this **hands-on** workshop we will achieve the following:
 
-**Part 1: From Code...**
-
 * [Lab 1: Scanning from Source Control](#Lab-1-Scanning-from-Source-Control)
 * [Lab 2: Secure as you Code - IDE](#Lab-2-Secure-as-you-Code---IDE)
 * [Lab 3: Secure as you Code - CLI](#Lab-3-Secure-as-you-Code---CLI)
-
-**Part 2: ...to Cloud...**
-
-* [Lab 4: Secure Containers](#Lab-4-Secure-Containers)
-* [Lab 5: Secure IAC](#Lab-5-Secure-IAC)
-* [Lab 6: Securing your Pipeline](#Lab-6-Securing-your-Pipeline)
-
-**Part 3: ...and Back to Code.**
-
-* [Lab 7: Detecting Issues in Production](Lab-7-Detecting-Issues-in-Production)
-
-**Bonus Labs**
-
-* [Lab 8: Scan Your ACR Registry](Lab-8-Scan-Your-ACR-Registry)
-* [Lab 9: Monitor Kubernetes with Snyk](Lab-9-Monitor-Kubernetes-With-Snyk)
+* [Lab 4: Secure IAC](#Lab-4-Secure-IAC)
+* [Lab 5: Secure IAC](#Lab-5-Securing-your-Pipeline)
+* [Lab 6: Secure Containers from Azure Container Registry (ACR)](#Lab-6-Secure-Containers-from-Azure-Container-Registry-(ACR))
 
 ## Prerequisites (15 mins)
 
@@ -70,7 +56,7 @@ The default web browser has been opened at https://login.microsoftonline.com/org
 
 For alternative authentication methods see: https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli#sign-in-with-credentials-on-the-command-line
 
-## Part 1: From Code...
+---
 
 ## Lab 1: Scanning from Source Control
 
@@ -125,46 +111,7 @@ The command requires the extension azure-devops. Do you want to install it now? 
     ],
     "currentStep": 6,
     "errorMessage": null
-  },
-  "importRequestId": 9,
-  "parameters": {
-    "deleteServiceEndpointAfterImportIsDone": null,
-    "gitSource": {
-      "overwrite": false,
-      "url": "https://github.com/tess-snyk/juice-shop"
-    },
-    "serviceEndpointId": null,
-    "tfvcSource": null
-  },
-  "repository": {
-    "defaultBranch": null,
-    "id": "c46382e4-6686-439c-877d-766dd0203d21",
-    "isDisabled": false,
-    "isFork": null,
-    "name": "snyk-azure-project",
-    "parentRepository": null,
-    "project": {
-      "abbreviation": null,
-      "defaultTeamImageUrl": null,
-      "description": null,
-      "id": "1b8473fa-1854-49fb-aad5-65b213c4f302",
-      "lastUpdateTime": "2022-01-06T00:25:29.357Z",
-      "name": "snyk-azure-project",
-      "revision": 76,
-      "state": "wellFormed",
-      "url": "https://dev.azure.com/pasapicella0207/_apis/projects/1b8473fa-1854-49fb-aad5-65b213c4f302",
-      "visibility": "private"
-    },
-    "remoteUrl": "https://pasapicella0207@dev.azure.com/pasapicella0207/snyk-azure-project/_git/snyk-azure-project",
-    "size": 0,
-    "sshUrl": "git@ssh.dev.azure.com:v3/pasapicella0207/snyk-azure-project/snyk-azure-project",
-    "url": "https://dev.azure.com/pasapicella0207/1b8473fa-1854-49fb-aad5-65b213c4f302/_apis/git/repositories/c46382e4-6686-439c-877d-766dd0203d21",
-    "validRemoteUrls": null,
-    "webUrl": "https://dev.azure.com/pasapicella0207/snyk-azure-project/_git/snyk-azure-project"
-  },
-  "status": "completed",
-  _"url": "https://dev.azure.com/pasapicella0207/snyk-azure-project/_apis/git/repositories/c46382e4-6686-439c-877d-766dd0203d21/importRequests/9"_
-}
+  .....
 ```
 Once complete the following should exist in your Azure DevOps ORG 
 
@@ -173,6 +120,8 @@ Once complete the following should exist in your Azure DevOps ORG
 If you have any trouble this guide explains how this command works
 
 https://docs.microsoft.com/en-us/cli/azure/repos/import?view=azure-cli-latest
+
+---
 
 **Step 2 Setup Azure Repos Integration (20 mins)**
 
@@ -207,6 +156,8 @@ Navigate back to the Azure Repos Integration Settings page. Enable PR Checks for
 More information of how to setup and use this integration can be found here
 
 https://docs.snyk.io/features/integrations/git-repository-scm-integrations/azure-repos-integration
+
+---
 
 **Step 3 Explore Issues in Open Source Vulnerabilities (10 mins)**
 
@@ -357,34 +308,64 @@ Here is what a PR on Azure Repos would look like if you upgraded "**sequelize fr
 
 For some issues without an easy upgrade path e.g. where the dependency is not being maintained or it is a proprietary code issue, a ticket raised from the Snyk UI into a tool such as Jira is a better fit.
 
+---
+
 ## Lab 2: Secure as you Code - IDE
 
 **Step 1 Using VS Code to Secure your code as you develop**
 
-For this lab you will need your IDE of choice installed. The lab guide will use Visual Studio Code but you may use Visual Studio, a Jetbrains IDE or Eclipse as you prefer.
+For this lab you will need your IDE of choice installed. The lab guide will use Visual Studio Code but you may use Visual Studio, a Jetbrains IDE or Eclipse as you prefer. Supported IDEs here: https://snyk.io/ide-plugins/
 
-IDE integrations use Snyk Code’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check the code in. So you can find possible security flaws in your code as you write it, on a line-by-line basis. This helps to prevent seucrity technical debt from entering the value stream and saves developer time re-working code once it is in a later stage.
+IDE integrations use Snyk’s fast analysis and response, allowing you to spot an issue, understand and learn more about it, and fix it, as you write the code before you check it in. So you can find possible security flaws in your code as you write it, on a line-by-line basis. This helps to prevent seucrity technical debt from entering the value stream and saves developer time re-working code once it is in a later stage.
 
-Snyk Code supports a VS Code plugin to support issue finding and fixing, directly from the IDE
+* You will need a local copy of the code from your **snyk-azure-project** repo. You should have this available from Lab 1 Step 3. Otherwise, you can download a copy in a zip file as below:
 
-* In Lab 1 Step 5 you downloaded the 
+![alt tag](https://i.ibb.co/BTQzfCs/ADO-Download-Repo.png)
 
-* Install the VS Code Snyk plugin using the link below
+* Install the VS Code Snyk plugin using the link below or search the Visual Studio Code marketplace within the IDE.
 
 https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extension-for-snyk-code
 
-* Using the Snyk Icon on the left hand sidebar, it should auto run the test for you if not use the play buttons
+* Open your **snyk-azure-project** folder in Visual Studio Code and Open your package.json file to view the dependencies
 
-![alt tag](https://i.ibb.co/S7KgFsy/snyk-azure-workshop-16.png)
+* Open the Snyk Icon on the left hand sidebar, it should auto run the test for you if not use the play buttons
+
+* Expand **"OPEN SOURCE SECURITY"** and click on "sqlite3@5.0.2 - Denial of Service (DoS). Can you find the dependency in the package.json file and follow the upgrade advice?
+
+![alt tag](https://i.ibb.co/SRNb7P6/Open-Source-IDE.png)
+
+* Expand the **"CODE SECURITY"** tab and then expand "likeProductReviews.js". Click on the second vulnerability "Unsanitized input from the HTTP request body...."
+
+![alt tag](https://i.ibb.co/tL2ChqZ/Code-IDE.png)
+
+* On the *"Snyk Code Vulnerability"* tab, click **[:13]**. This will take you to the file and the line of code where the potentially tainted data enters the application
+
+* Click through the subsequent numbers to be taken to each line of code where the data is manipulated. These are missed opportunitites to sanitise the data before it flows into the "Sink" at line **[:25]** where it is executed as a NoSQL query.
+
+* To learn more about SQL Injection vulnerabilities and ways to mitigate them, follow the link **Learn about this vulnerability** to be taken to Snyk Learn
+
+![alt tag](https://i.ibb.co/LQ4PDCT/Snyk-Learn.png)
+
+You will land on the Javascript tutorial about SQL injections because the issue was found in a javascript file. If you are programming in a different language you will be taken to a page relevant to that language.
+
+* Explore the lessons available in Snyk Learn
+
+**OPTIONAL - Step 2 Learning about Application Security Vulnerabilities and How to Mitigate them**
+
+* If you have time, please follow the tutorial for SQL Injection in your language of choice, or you can complete this later at home
+
+---
 
 ## Lab 3: Secure as you Code - CLI
+
+**Step 1 Snyk CLI Set Up**
 
 Before we get started please make sure you have setup the Snyk CLI. There are various install options as per the links below. Using the prebuilt binaries means you don't have to install NPM to install the Snyk CLI.
 
 1. Install Page - https://support.snyk.io/hc/en-us/articles/360003812538-Install-the-Snyk-CLI
 1. Prebuilt Binaries - https://github.com/snyk/snyk/releases
 
-_Note: Make sure you have the following version installed or later_
+_Note: Make sure you have the following version installed or later_ 1.881.0
 
 **Command**
 
@@ -392,7 +373,7 @@ _Note: Make sure you have the following version installed or later_
 
 ```bash
 ❯ snyk --version
-1.801.0
+1.881.0
 ```
 
 * Authorize the snyk CLI with your account as follows
@@ -409,7 +390,7 @@ and once the auth is complete, return to this prompt and you'll
 be ready to start using snyk.
 
 If you can't wait use this url:
-https://snyk.io/login?token=ff75a099-4a9f-4b3d-b75c-bf9847672e9c&utm_medium=cli&utm_source=cli&utm_campaign=cli&os=darwin&docker=false
+https://snyk.io/login?token=**<YOUR_TOKEN>**
 
 Your account has been authenticated. Snyk is now ready to be used.
 ```
@@ -417,9 +398,9 @@ Your account has been authenticated. Snyk is now ready to be used.
 _Note: If you are having trouble authenticating via a browser with the Snyk App you can setup authentication using the API token as shown below
 [Authenticate using your API token](https://support.snyk.io/hc/en-us/articles/360004008258-Authenticate-the-CLI-with-your-account#UUID-4f46843c-174d-f448-cadf-893cfd7dd858_section-idm4557419555668831541902780562)_
 
-**Step 1 Scanning for Open Source Dependencies in the CLI**
+**Step 2 Scanning for Open Source Dependencies in the CLI**
 
-In your terminal, change directory local code repository that you cloned in Lab 1, Step 3.
+In your terminal, change directory to the local code repository that you cloned in Lab 1, Step 3, **snyk-azure-project**.
 
 First, scan the proprietary code in your local repository.
 
@@ -428,7 +409,22 @@ First, scan the proprietary code in your local repository.
 > snyk code test
 
 ```bash
-Snyk Test results
+
+Testing /demo_code/snyk-azure-project...
+
+ ✗ [Low] Cleartext Transmission of Sensitive Information 
+     Path: test/api/productReviewApiSpec.js, line 9 
+     Info: http (used in require) is an insecure protocol and should not be used in new code.
+
+ ✗ [Low] Cleartext Transmission of Sensitive Information 
+     Path: test/e2eSubfolder.js, line 7 
+     Info: http (used in require) is an insecure protocol and should not be used in new code.
+
+ ✗ [Low] Use of Hardcoded Credentials 
+     Path: test/api/chatBotSpec.js, line 71 
+     Info: Do not hardcode credentials in code. Found hardcoded credential used in login.
+....
+
 ```
 
 Now, run a test of the Open Source libraries.
@@ -438,7 +434,25 @@ Now, run a test of the Open Source libraries.
 > snyk test
 
 ```bash
-Snyk Test results
+Testing /demo_code/snyk-azure-project...
+
+Tested 913 dependencies for known issues, found 54 issues, 122 vulnerable paths.
+
+
+Issues to fix by upgrading:
+
+  Upgrade express-jwt@0.1.3 to express-jwt@6.0.0 to fix
+  ✗ Regular Expression Denial of Service (ReDoS) [Low Severity][https://snyk.io/vuln/npm:moment:20170905] in moment@2.0.0
+    introduced by express-jwt@0.1.3 > jsonwebtoken@0.1.0 > moment@2.0.0
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://snyk.io/vuln/npm:moment:20160126] in moment@2.0.0
+    introduced by express-jwt@0.1.3 > jsonwebtoken@0.1.0 > moment@2.0.0
+  ✗ Regular Expression Denial of Service (ReDoS) [Medium Severity][https://snyk.io/vuln/npm:moment:20161019] in moment@2.0.0
+    introduced by express-jwt@0.1.3 > jsonwebtoken@0.1.0 > moment@2.0.0
+  ✗ Authorization Bypass [High Severity][https://snyk.io/vuln/SNYK-JS-EXPRESSJWT-575022] in express-jwt@0.1.3
+    introduced by express-jwt@0.1.3
+  ✗ Uninitialized Memory Exposure [High Severity][https://snyk.io/vuln/npm:base64url:20180511] in base64url@0.0.6
+    introduced by jsonwebtoken@0.4.0 > jws@0.2.6 > base64url@0.0.6 and 3 other path(s)
+    .......
 ```
 
 The results of the CLI scan can be sent to the Snyk UI to monitor.
@@ -448,52 +462,27 @@ The results of the CLI scan can be sent to the Snyk UI to monitor.
 > snyk monitor
 
 ```bash
-Snyk Monitor notification
+Monitoring /demo_code/snyk-azure-project (snyk-azure-project)...
+
+Explore this snapshot at https://app.snyk.io/org/tess.davis/project/**YOUR_PROJECT_URL**
+
+Tip: Detected multiple supported manifests (8), use --all-projects to scan all of them at once.
+
+Notifications about newly disclosed issues related to these dependencies will be emailed to you.
+
 ```
 
-Return to the Snyk UI in Project view. Filter results to show monitored CLI / CI results.
+* Return to the Snyk UI in Project view. Use the filters on the left to show monitored CLI / CI results. The step you just performed in the CLI to monitor created this project.
 
-The Snyk CLI drives local scans and makes for powerful CI integrations with Snyk. You may choose to set thresholds to break a build or define local or shared ignores. See the CLI cheat sheet to get started: https://snyk.io/blog/snyk-cli-cheat-sheet/
+![alt tag](https://i.ibb.co/QvLrv8h/CLI-Monitor-UI.png)
+
+The Snyk CLI drives local scans and makes for powerful CI integrations with Snyk. You may choose to use it just to monitor as we did in the last step or to set thresholds to break a build or define local or shared ignores. See the CLI cheat sheet to get started: https://snyk.io/blog/snyk-cli-cheat-sheet/
 
 We will continue to use the Snyk CLI in lab 4, lab 5 and lab 6.
 
-## Part 2 ...to Cloud
+---
 
-## Lab 4: Secure Containers
-
-_Note: You must have docker desktop running locally before you start these steps
-Docker Desktop running locally - https://docker.com/products/docker-desktop_
-
-BUILD LOCAL IMAGE INSTRUCTIONS
-
-**Command**
-
-> snyk container test IMAGE_NAME
-
-```bash
-Snyk Container Test results
-```
-
-The results of the CLI scan can be sent to the Snyk UI to monitor.
-
-**Command**
-
-> snyk container monitor IMAGE_NAME
-
-```bash
-Snyk Monitor notification
-```
-
-Return to the Snyk UI projets view. Filter results to show monitored CLI / CI results.
-
-Click on "IMAGE NAME" to view the image vulnerabilities.
-
-Notice how we are given multiple different base images we can upgrade to, so we can completely remove all vulnerabilities as shown below.
-
-In the filters, select "User image layers". This will show the remaining vulnerabilities to be remediated that are being pulled in by addional user layers rather than the base image.
-
-
-## Lab 5: Secure IAC
+## Lab 4: Secure IAC
 
 **Step 1 Scan an ARM template**
 
@@ -676,7 +665,9 @@ xx
 
 --->
 
-## Lab 6: Securing your Pipeline
+---
+
+## Lab 5: Securing your Pipeline
 
 **Step 1: Behind the Scenes**
 
@@ -684,36 +675,174 @@ The Snyk CLI drives CI integrations under the covers. The powerful CLI enables t
 
 > snyk test --severity-threshold=critical --fail-on-patchable
 
-```bash
-Snyk Test results
-```
+Additional examples of CLI commands for your CI Pipeline: https://docs.snyk.io/integrations/ci-cd-integrations#cli-examples-in-a-build-pipeline
 
 **Step 2: Further Flexibility with Policy - DEMO**
 
-DEMO
+Use Snyk Policies in combination with CI workflows to monitor or even block builds based on thresholds and other criteria that make sense for your team: https://snyk.io/blog/snyk-security-policies/#:~:text=A%20Snyk%20security%20policy%20contains,tweaking%20the%20severity%20for%20vulnerabilities.
 
-**Step 3: Set up an Azure Pipeline**
+Snyk Policies require a paid Snyk license so we will cover this capability in the workshop with a demo.
 
-Return to the Azure DevOps UI. From the project containing your NAME repo, navigate to Pipelines and create a New Pipeline.
+**DEMO**
 
-Asked "Where is your code?", choose Azure Repos Git. Select the NAME repository.
+**Step 3: Set up an Azure DevOps Pipeline for an Open Source Vulnerability Scan**
 
------
+WARNING - may require a higher tier of Azure DevOps membership to run parallel jobs. If so, you will be able to complete 90% of the lab steps and will need to raise a ticket with Microsoft to allow free parallel jobs [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR63mUWPlq7NEsFZhkyH8jChUMlM3QzdDMFZOMkVBWU5BWFM3SDI2QlRBSC4u).
 
-Create Yaml Pipeline
+Snyk provides a plugin for Azure DevOps Pipelines to simplyfy adding security to your CI. In this step we will set up a simple open source scan using the native Snyk task.
+
+Please follow the steps [here](https://docs.snyk.io/integrations/ci-cd-integrations/azure-pipelines-integration#install-the-snyk-extension-for-your-azure-pipelines) to set up the [Snyk Extension for Azure Pipelines](https://marketplace.visualstudio.com/items?itemName=Snyk.snyk-security-scan).
+
+Once saving your Snyk Service connection you should see the below:
+
+![alt tag](https://i.ibb.co/7gMHLnR/Service-connection-success.png)
+
+Now navigate back to Pipelines and create a pipeline:
+
+![alt tag](https://i.ibb.co/tKKfZhQ/Azure-Pipeline.png)
+* Asked "Where is your code?", choose Azure Repos Git and select the **snyk-azure-project** repository.
+
+![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
+
+* At the "Configure your pipeline" step, choose Node.js as the build template
+
+![alt tag](https://i.ibb.co/YXfMG4t/Nodejs.png)
+
+An empty node.js pipeline script is created. 
+
+* Use the task side bar on the right to find the Snyk extension
+
+![alt tag](https://i.ibb.co/vv0XHNV/Snyk-Extension.png)
+
+* Ensure to select the token that you created
+
+![alt tag](https://i.ibb.co/jrjM28D/extension-settings.png)
+
+Explore and choose settings including:
+  * Drop down to monitor Application (Open Source) or Container
+  * Set threshold to break the build
+  * Choose to send results to the Snyk UI with Monitor and set a specific project name for the SNyk UI
+
+* Note Advanced Settings which allows additional CLI arguments. We won't add any additional arguments now, however you could add arguments to change the scan type e.g.
+
+> --code
+
+would change the scan type and report to proprietary code
+
+> --iac
+
+would change the scan type to IaC
+
+* Ensure the Yaml script is on a new line and then click "Add"
+
+![alt tag](https://i.ibb.co/xjTJ9Bp/Add-task.png)
+
+* Note the new task you have added to the yaml script using the extension
+
+![alt tag](https://i.ibb.co/fYgPNjd/New-task.png)
+
+* To save time the build step from the pipeline as the scan only requires dependencies installed and not a full app build
+
+**Remove**
+
+```
+  20  npm run build
+  21  displayName: 'npm install and build'
+
+```
+
+Replace
+
+```
+  20  displayName: 'npm install'
+
+```
+* Change the name of the pipeline to something unique to your organisation and click "save and run"
+
+![alt tag](https://i.ibb.co/g9n2xFq/name-and-save-and-run.png)
+
+If you recieve the below error you will not be able to continue with running the pipeline until you follow the steps given in the error message and await a response from Microsoft.
+
+![alt tag](https://i.ibb.co/jHtb2Z3/Screen-Shot-2022-08-03-at-9-06-42-PM.png)
+
+During the live workshop we will demonstrate the output of the pipeline for those who recieve this error.
+
+**DEMO Pipeline Results**
+
+If the pipeline runs, it should be blocked by Snyk due to the issues detected as shown below:
+
+![alt tag](https://i.ibb.co/4FMvLzC/Failed-with-Issues.png)
+
+You will be able to view an html report in context of your Pipeline on the "Reports" tab and since "Monitor" was ticked during pipeline set up you can also review the results in the Snyk UI.
+
+![alt tag](https://i.ibb.co/KW26t7B/Embedded-html.png)
 
 
+**Optional Step 4 Configure a Security Audit Pipeline**
 
+WARNING - may require a higher tier of Azure DevOps membership to run parallel jobs. If so, you will be able to complete 90% of the lab steps and will need to raise a ticket with Microsoft to allow free parallel jobs [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR63mUWPlq7NEsFZhkyH8jChUMlM3QzdDMFZOMkVBWU5BWFM3SDI2QlRBSC4u).
 
-## Part 3: ...and Back to Code.
+First we will build a pipeline for the use case of auditing a build across all four scan types (Code, Open Source, Container, IAC). This will produce a human-readable report covering the end to end cloud native application in a single pipeline.
 
-## Lab 7: Detecting Issues in Production
+![alt tag](https://i.ibb.co/tKKfZhQ/Azure-Pipeline.png)
 
-DEMO - Kubernetes Monitoring
+* Asked "Where is your code?", choose Azure Repos Git and select the **snyk-azure-project** repository.
 
-## Bonus Labs
+![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
 
-## Lab 8: Scan Your ACR Registry
+* At the "Configure your pipeline" step, choose Node.js as the build template
+
+![alt tag](https://i.ibb.co/YXfMG4t/Nodejs.png)
+
+An empty node.js pipeline script is created. 
+
+* Follow the below link to the Azure_Sec_Audit repository, select and copy all of the code from the audit_pipeline.yaml file: https://github.com/tess-snyk/Azure_Sec_Audit/blob/main/audit_pipeline.yamlSave the pipeline but don't run it yet.
+
+Note line 25 of the yaml script:
+
+```bash
+      snyk auth $(SNYK_TOKEN)
+    
+```
+* Next set up a security token for the pipeline. We will use this to connect to Snyk.
+
+  1. In your Snyk UI, General settings copy out your Auth Token to the clipboard.
+
+  ![alt tag](https://i.ibb.co/S7M93Pm/CLI-Token-2.png)
+
+  1. Your Snyk security token must be [set as a secret variable in the pipeline](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/set-secret-variables?view=azure-devops&tabs=yaml%2Cbash#secret-variable-in-the-ui)
+
+  * On your pipeline page, select Edit
+  * Locate the Variables for this pipeline.
+
+    ![alt tag](https://i.ibb.co/ZVzvGpM/Find-Variables.png)
+
+  * Add a variable called SNYK_TOKEN with the value of the Snyk auth token you copied
+
+  ![alt tag](https://i.ibb.co/XC1FmTh/Set-variable.png)
+
+  Select the Secret lock icon to store the variable in an encrypted manner.
+  Click OK and then Save.
+
+  Save and the pipeline.
+
+  2. You will need the Azure Pipelines html extention to generate a human readable report of each of the scan types; code, open source, containers and IAC. Install the extension now: https://marketplace.visualstudio.com/items?itemName=JakubRumpca.azure-pipelines-html-report
+
+* Save and run the pipeline
+
+If you recieve the below error you will not be able to continue with running the pipeline until you follow the steps given in the error message and await a response from Microsoft.
+
+![alt tag](https://i.ibb.co/jHtb2Z3/Screen-Shot-2022-08-03-at-9-06-42-PM.png)
+
+**DEMO Pipeline Results**
+
+After the pipeline runs, the results of each of the four scan types can be viewed in the "HTML Viewer" tab as shown below:
+
+![alt tag](https://i.ibb.co/McmLCBQ/Screen-Shot-2022-08-03-at-9-22-51-PM.png)
+
+---
+
+## Lab 6 Secure Containers from Azure Container Registry (ACR)
 
 **Step 1 Import a DockerHub repository container image to ACR**
 
@@ -760,7 +889,7 @@ If you have any trouble this guide explains how this command works
 
 https://docs.microsoft.com/en-us/azure/container-registry/container-registry-import-images?tabs=azure-cli
 
-## Step 2 Setup ACR Integration
+**Step 2 Setup ACR Integration**
 
 Snyk integrates with Microsoft Azure Container Registry (ACR) to enable you to import your projects and monitor your containers for vulnerabilities, as is fully described in our Container vulnerability management documentation. Snyk tests the projects you’ve imported for any known security vulnerabilities found, testing at a frequency you control.
 
@@ -794,23 +923,23 @@ https://docs.snyk.io/products/snyk-container/image-scanning-library/acr-image-sc
 
 ![alt tag](https://i.ibb.co/C89xqrk/snyk-azure-workshop-15.png)
 
-## Lab 9 Monitor Kubernetes with Snyk
-
+---
 
 ## Conclusion
 
 For this workshop we covered the following Azure integrations
 
 1. Azure Repos
-2. Azure Container Registry (ACR)
-3. Snyk IDE plugin for VS Code
-4. Snyk CLI scan for ARM misconfiguration
+2. Snyk IDE plugin for VS Code
+3. Snyk CLI scan for code and open source
+4. Snyk CLI scan for ICA - ARM misconfigurations
+5. Pipeline scanning in Azure Pipelines
+6. Container scanning in ACR
 
-Having said that Snyk can do even more on Azure including the following which we did not cover, feel free to check out how we can use those integrations using the links below
+Snyk can do even more on Azure including the following which we did not cover, feel free to check out how we can use those integrations using the links below
 
-1. Azure Pipelines Integration - https://docs.snyk.io/features/integrations/ci-cd-integrations/azure-pipelines-integration
-2. Azure Kubernetes Integration - https://docs.snyk.io/products/snyk-container/image-scanning-library/kubernetes-workload-and-image-scanning/kubernetes-integration-overview 
-3. Azure Functions - https://docs.snyk.io/features/integrations/serverless-integrations/azure-functions-overview
+1. Azure Kubernetes Integration - https://docs.snyk.io/products/snyk-container/image-scanning-library/kubernetes-workload-and-image-scanning/kubernetes-integration-overview 
+2. Azure Functions - https://docs.snyk.io/features/integrations/serverless-integrations/azure-functions-overview
 
 ![alt tag](https://i.ibb.co/pwyfvVJ/snyk-azure-workshop-18.png)
 
