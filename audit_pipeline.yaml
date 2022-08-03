@@ -1,3 +1,14 @@
+
+
+# Runs 4 Snyk Products (Code, Open Source, Container, IaC)
+# Outputs the results to the pipeline
+
+# Prerequisites:
+# - Set a SNYK_TOKEN in the pipelines secrets
+# - Install the HTML viewer extension
+#   https://marketplace.visualstudio.com/items?itemName=JakubRumpca.azure-pipelines-html-report
+
+
 # Node.js
 # Build a general Node.js project with npm.
 # Add steps that analyze code, save build artifacts, deploy, and more:
