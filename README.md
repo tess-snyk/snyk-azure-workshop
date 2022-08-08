@@ -23,7 +23,7 @@ In this **hands-on** workshop we will achieve the following:
 * Install NPM:https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 # Workshop Steps
-If you don't have the Azure CLI installed, install it now as follows
+If you don't have the Azure CLI installed, install it now as follows. This may take 15-20 minutes in the background so continue with Lab 1 using the UI method if the CLI is not yet installed. You will use the CLI in later steps.
 
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli
 
@@ -60,21 +60,12 @@ For alternative authentication methods see: https://docs.microsoft.com/en-us/cli
 
 ## Lab 1: Scanning from Source Control
 
-**Step 1 - Import a GitHub repository to Azure repos (20 mins)**
+**Step 1 - Import a GitHub repository to Azure repos (5 mins)**
 
-In order for us to import a public GitHub repository into Azure repos we will need to gather the following information and pass those as parameters. Make sure you are alreday logged into the Azure portal from the CLI as above.
+If you already have the Azure CLI installed and are logged in, you may use the CLI to create your new repository in Azure Repos. Instructions [here](https://github.com/tess-snyk/snyk-azure-workshop/blob/wellington_cns/additional_instructions/Azure_CLI.md).
 
-Logged in to your Azure account, navigate to Azure DevOps: https://dev.azure.com/**<YOUR_ORG_NAME_HERE>**/
+Else, we will use the UI as follows:
 
-*-> Note that your Azure Org name is the user name that you created your account under e.g.  **<YOUR_ORG_NAME_HERE>** = your Azure user name
-
-You will need an empty Azure DevOps Project for this lab. You can create a new project in Azure DevOps or even use the Azure CLI if you prefer. Name your project **snyk-azure-project**
-
-**CLI Method:**
-
-```shell
-> az devops project create --name snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --source-control git --visibility private
-```
 **UI Method:**
 
 ![alt tag](https://i.ibb.co/jgy4ytt/snyk-azure-workshop-10.png)
@@ -88,42 +79,19 @@ You will need an empty Azure DevOps Project for this lab. You can create a new p
 
 **Import as follows**
 
-Note: You may encounter this error so if you do please select "**Y**" and continue for the command to complete
+Within your project, under Repos, choose to Import code:
+![alt tag](https://i.ibb.co/jfyBLbc/Import.png)
 
-```shell
-The command requires the extension azure-devops. Do you want to install it now? The command will continue to run after the extension is installed. (Y/n): y
-```
-**Command**
+Import the https://github.com/tess-snyk/juice-shop repository from github:
+![alt tag](https://i.ibb.co/PMZ8Wwr/Name-Import.png)
 
-> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --repository snyk-azure-project
-
-```shell
-> az repos import create --git-source-url https://github.com/tess-snyk/juice-shop --project snyk-azure-project --org https://dev.azure.com/**<YOUR_ORG_NAME_HERE>** --repository snyk-azure-project
-{
-  "detailedStatus": {
-    "allSteps": [
-      "Processing request",
-      "Analyzing repository objects",
-      "Storing objects",
-      "Storing index file",
-      "Updating references",
-      "Import completed successfully"
-    ],
-    "currentStep": 6,
-    "errorMessage": null
-  .....
-```
-Once complete the following should exist in your Azure DevOps ORG 
+Confirm import success; once complete the following should exist in your Azure DevOps ORG 
 
 ![alt tag](https://i.ibb.co/j5RhxFG/AR-Success.png)
 
-If you have any trouble this guide explains how this command works
-
-https://docs.microsoft.com/en-us/cli/azure/repos/import?view=azure-cli-latest
-
 ---
 
-**Step 2 Setup Azure Repos Integration (20 mins)**
+**Step 2 Setup Azure Repos Integration (15 mins)**
 
 Snyk integrates with Microsoft Azure Repos to enable you to import your projects and monitor the source code for your repositories. Snyk tests the projects you’ve imported for any known security vulnerabilities found in the application’s dependencies, testing at a frequency you control.
 
@@ -133,7 +101,7 @@ Snyk integrates with Microsoft Azure Repos to enable you to import your projects
 
 ![alt tag](https://i.ibb.co/PFD4NWT/snyk-azure-workshop-4.png)
 
-* Create a PAT in Azure DevOps the instructions shown to the right are all that is required here, once done click Save
+* Create a PAT in Azure DevOps the instructions shown to the right are all that is required here, do take note of the requirements for permissions of the PAT given on the right hand pane. Once done click Save
 
 ![alt tag](https://i.ibb.co/zZ7t4mh/snyk-azure-workshop-5.png)
 
@@ -537,113 +505,19 @@ Infrastructure as code issues:
   ✗ Linux VM scale set encryption at host disabled [Medium Severity] [SNYK-CC-AZURE-475] in Compute
     introduced by resources[5] > properties > securityProfile > encryptionAtHost
 
-  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
-    introduced by resources[2] > properties > securityRules[1] > properties > sourceAddressPrefix
+ ...
 
-  ✗ Azure Network Security Rule allows public access [Medium Severity] [SNYK-CC-TF-35] in Network
-    introduced by resources[2] > properties > securityRules[0] > properties > sourceAddressPrefix
-
-  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
-    introduced by resources[2] > properties > securityRules[0] > properties > sourceAddressPrefix
-
-  ✗ SAS token can be used over insecure HTTP [Medium Severity] [SNYK-CC-TF-244] in Storage
-    introduced by resources[0] > properties > supportsHttpsTrafficOnly
-
-  ✗ Virtual Network DDoS protection plan disabled [Low Severity] [SNYK-CC-AZURE-516] in Network
-    introduced by resources[3] > properties > enableDdosProtection
-
-
-Organization:      pas.apicella-41p
-Type:              ARM
-Target file:       lamp-app.json
-Project name:      arm-templates
-Open source:       no
-Project path:      lamp-app.json
-
-Tested lamp-app.json for known issues, found 8 issues
-
--------------------------------------------------------
-
-Testing multi-tier-service-networking.json...
-
-
-Infrastructure as code issues:
-  ✗ Hardcoded admin password in VM configuration [High Severity] [SNYK-CC-TF-263] in Compute
-    introduced by resources[12] > properties > osProfile > adminPassword
-
-  ✗ Hardcoded admin password in VM configuration [High Severity] [SNYK-CC-TF-263] in Compute
-    introduced by resources[14] > properties > osProfile > adminPassword
-
-  ✗ WAF prevention mode not enabled [Medium Severity] [SNYK-CC-AZURE-611] in Network
-    introduced by resources[7] > properties > webApplicationFirewallConfiguration > firewallMode
-
-  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
-    introduced by resources[5] > properties > securityRules[1] > properties > sourceAddressPrefix
-
-  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
-    introduced by resources[4] > properties > securityRules[1] > properties > sourceAddressPrefix
-
-  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
-    introduced by resources[4] > properties > securityRules[0] > properties > sourceAddressPrefix
-
-  ✗ WAF not enabled on application gateway [Medium Severity] [SNYK-CC-AZURE-474] in Network
-    introduced by resources[7] > properties > webApplicationFirewallConfiguration > enabled
-
-  ✗ SAS token can be used over insecure HTTP [Medium Severity] [SNYK-CC-TF-244] in Storage
-    introduced by resources[0] > properties > supportsHttpsTrafficOnly
-
-  ✗ Virtual Network DDoS protection plan disabled [Low Severity] [SNYK-CC-AZURE-516] in Network
-    introduced by resources[3] > properties > enableDdosProtection
-
-
-Organization:      pas.apicella-41p
-Type:              ARM
-Target file:       multi-tier-service-networking.json
-Project name:      arm-templates
-Open source:       no
-Project path:      multi-tier-service-networking.json
-
-Tested multi-tier-service-networking.json for known issues, found 9 issues
-
--------------------------------------------------------
-
-Testing vm-32-data-disks-high-iops.json...
-
-
-Infrastructure as code issues:
-  ✗ Hardcoded admin password in VM configuration [High Severity] [SNYK-CC-TF-263] in Compute
-    introduced by resources[4] > properties > osProfile > adminPassword
-
-  ✗ Azure Network Security Rule allows public access [Medium Severity] [SNYK-CC-TF-35] in Network
-    introduced by resources[1] > properties > securityRules[0] > properties > sourceAddressPrefix
-
-  ✗ Azure Network Security Group allows public access [Medium Severity] [SNYK-CC-TF-33] in Network
-    introduced by resources[1] > properties > securityRules[0] > properties > sourceAddressPrefix
-
-  ✗ Virtual Network DDoS protection plan disabled [Low Severity] [SNYK-CC-AZURE-516] in Network
-    introduced by resources[2] > properties > enableDdosProtection
-
-
-Organization:      pas.apicella-41p
-Type:              ARM
-Target file:       vm-32-data-disks-high-iops.json
-Project name:      arm-templates
-Open source:       no
-Project path:      vm-32-data-disks-high-iops.json
-
-Tested vm-32-data-disks-high-iops.json for known issues, found 4 issues
-
-
-Tested 3 projects, 3 contained issues.
 ```
 
-To view all the ARM security rules use the following link
+To view all the of the ARM security rules for Azure use the following link
 
 https://snyk.io/security-rules/tags/ARM
 
 ![alt tag](https://i.ibb.co/FBJCSbc/snyk-azure-workshop-17.png)
 
 _Note: At the time of this workshop creation ARM template scanning in Snyk App was not available, but it will be at some point in the future_
+
+BONUS LAB for Terraform - follow the steps in the lab guide linked below to run a CLI scan on Terraform instead of ARM. Note the Terraform files in the below lab are for AWS rather than Azure configuration. If you have time you can also follow the steps in the guide to scan a plan file in the CLI, in pipline build and this is now also available in Terraform Cloud: https://github.com/tess-snyk/terraform-goof/tree/master
 
 <!---**Step 4 Convert a Bicep file and Scan the ARM template**
 
@@ -690,6 +564,10 @@ Snyk Policies require a paid Snyk license so we will cover this capability in th
 WARNING - may require a higher tier of Azure DevOps membership to run parallel jobs. If so, you will be able to complete 90% of the lab steps and will need to raise a ticket with Microsoft to allow free parallel jobs [here](https://forms.office.com/pages/responsepage.aspx?id=v4j5cvGGr0GRqy180BHbR63mUWPlq7NEsFZhkyH8jChUMlM3QzdDMFZOMkVBWU5BWFM3SDI2QlRBSC4u).
 
 Snyk provides a plugin for Azure DevOps Pipelines to simplyfy adding security to your CI. In this step we will set up a simple open source scan using the native Snyk task.
+
+Before getting started, please remove any existing pipelines that were cloned over from the github repo in step 1. You will need to go to your **snyk-azure-workshop** repository and find and delete any pipeline files e.g.
+
+![alt tag](https://i.ibb.co/dKn0d88/Screen-Shot-2022-08-04-at-11-06-37-AM.png)
 
 Please follow the steps [here](https://docs.snyk.io/integrations/ci-cd-integrations/azure-pipelines-integration#install-the-snyk-extension-for-your-azure-pipelines) to set up the [Snyk Extension for Azure Pipelines](https://marketplace.visualstudio.com/items?itemName=Snyk.snyk-security-scan).
 
