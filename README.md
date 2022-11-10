@@ -649,7 +649,7 @@ During the live workshop we will demonstrate the output of the pipeline for thos
 
 If the pipeline runs, it should be blocked by Snyk due to the issues detected as shown below:
 
-![alt tag](https://i.ibb.co/4FMvLzC/Failed-with-Issues.png)
+![alt tag](https://i.ibb.co/CH9Mgch/Failed-with-Issues.png)
 
 You will be able to view an html report in context of your Pipeline on the "Reports" tab and since "Monitor" was ticked during pipeline set up you can also review the results in the Snyk UI.
 
