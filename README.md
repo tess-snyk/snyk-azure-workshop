@@ -594,7 +594,7 @@ An empty node.js pipeline script is created.
 
 * Ensure to select the token that you created
 
-![alt tag](https://i.ibb.co/jrjM28D/extension-settings.png)
+![alt tag](https://i.ibb.co/bH9Z3nk/extension-settings.png)
 
 Explore and choose settings including:
   * Drop down to monitor Application (Open Source) or Container
