@@ -80,7 +80,7 @@ Else, we will use the UI as follows:
 **Import as follows**
 
 Within your project, under Repos, choose to Import code:
-![alt tag](https://i.ibb.co/jfyBLbc/Import.png)
+![alt tag](https://i.ibb.co/3WqTBQz/Import.png)
 
 Import the https://github.com/tess-snyk/juice-shop repository from github:
 ![alt tag](https://i.ibb.co/PMZ8Wwr/Name-Import.png)
