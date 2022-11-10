@@ -641,7 +641,7 @@ Replace
 
 If you recieve the below error you will not be able to continue with running the pipeline until you follow the steps given in the error message and await a response from Microsoft.
 
-![alt tag](https://i.ibb.co/jHtb2Z3/Screen-Shot-2022-08-03-at-9-06-42-PM.png)
+![alt tag](https://i.ibb.co/RzKXqqY/Parallelism.png)
 
 During the live workshop we will demonstrate the output of the pipeline for those who recieve this error.
 
