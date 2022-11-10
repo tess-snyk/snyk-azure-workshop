@@ -167,7 +167,7 @@ On the top issue **Cross-site Scripting (XSS)** note that the issue type is sele
 
 Snyk Code performs Semantic Code Analysis on your proprietary code. This means that it reads the code with intelligence to make a high fidelity estimate of how the code will function. 
 
-![alt tag](https://i.ibb.co/wwV1VGC/Data-Flow.png)
+![alt tag](https://i.ibb.co/GcMm9CG/Data-Flow.png)
 
 The Data Flow Analysis shows where potentially tainted data enters the application; 'Source'. The data flow is tracked at each step accross multiple files where the data is manipulated in the code. Each of these steps is a potential location to sanitise the data. The location where the data is executed is the 'Sink'. Scroll down on the left as shown in the image above to see the Sink.
 
