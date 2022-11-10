@@ -442,7 +442,7 @@ Notifications about newly disclosed issues related to these dependencies will be
 
 * Return to the Snyk UI in Project view. Use the filters on the left to show monitored CLI / CI results. The step you just performed in the CLI to monitor created this project.
 
-![alt tag](https://i.ibb.co/QvLrv8h/CLI-Monitor-UI.png)
+![alt tag](https://i.ibb.co/W6pfFWf/CLI-Monitor-UI.png)
 
 The Snyk CLI drives local scans and makes for powerful CI integrations with Snyk. You may choose to use it just to monitor as we did in the last step or to set thresholds to break a build or define local or shared ignores. See the CLI cheat sheet to get started: https://snyk.io/blog/snyk-cli-cheat-sheet/
 
