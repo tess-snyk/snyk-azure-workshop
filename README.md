@@ -573,7 +573,7 @@ Please follow the steps [here](https://docs.snyk.io/integrations/ci-cd-integrati
 
 Once saving your Snyk Service connection you should see the below:
 
-![alt tag](https://i.ibb.co/7gMHLnR/Service-connection-success.png)
+![alt tag](https://i.ibb.co/JkppsBj/Service-connection-success.png)
 
 Now navigate back to Pipelines and create a pipeline:
 
