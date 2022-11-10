@@ -312,7 +312,7 @@ https://docs.snyk.io/features/integrations/ide-tools/visual-studio-code-extensio
 
 * To learn more about SQL Injection vulnerabilities and ways to mitigate them, follow the link **Learn about this vulnerability** to be taken to Snyk Learn
 
-![alt tag](https://i.ibb.co/LQ4PDCT/Snyk-Learn.png)
+![alt tag](https://i.ibb.co/RH2Q89Y/Snyk-Learn.png)
 
 You will land on the Javascript tutorial about SQL injections because the issue was found in a javascript file. If you are programming in a different language you will be taken to a page relevant to that language.
 
