@@ -517,7 +517,7 @@ https://snyk.io/security-rules/tags/ARM
 
 _Note: At the time of this workshop creation ARM template scanning in Snyk App was not available, but it will be at some point in the future_
 
-BONUS LAB for Terraform - follow the steps in the lab guide linked below to run a CLI scan on Terraform instead of ARM. Note the Terraform files in the below lab are for AWS rather than Azure configuration. If you have time you can also follow the steps in the guide to scan a plan file in the CLI, in pipline build and this is now also available in Terraform Cloud: https://github.com/tess-snyk/terraform-goof/tree/master
+*BONUS LAB* for Terraform - follow the steps in the lab guide linked below to run a CLI scan on Terraform instead of ARM. Note the Terraform files in the below lab are for AWS rather than Azure configuration. If you have time you can also follow the steps in the guide to scan a plan file in the CLI, in pipline build and this is now also available in Terraform Cloud: https://github.com/tess-snyk/terraform-goof/tree/master
 
 <!---**Step 4 Convert a Bicep file and Scan the ARM template**
 
