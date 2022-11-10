@@ -580,11 +580,11 @@ Now navigate back to Pipelines and create a pipeline:
 ![alt tag](https://i.ibb.co/tKKfZhQ/Azure-Pipeline.png)
 * Asked "Where is your code?", choose Azure Repos Git and select the **snyk-azure-project** repository.
 
-![alt tag](https://i.ibb.co/Pw22M1G/Pipeline2.png)
+![alt tag](https://i.ibb.co/ZMD3bSF/code-where.png)
 
 * At the "Configure your pipeline" step, choose Node.js as the build template
 
-![alt tag](https://i.ibb.co/YXfMG4t/Nodejs.png)
+![alt tag](https://i.ibb.co/rvn4Zmg/choose-node.png)
 
 An empty node.js pipeline script is created. 
 
